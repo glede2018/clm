@@ -27,8 +27,12 @@
 .portion-list { margin-top: 24rpx; padding: 0 24rpx; border-radius: 26rpx; background: var(--surface); }
 .portion-row { min-height: 82rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid var(--line); }
 .portion-row:last-child { border-bottom: 0; }
-.portion-row > view text:first-child { font-size: 36rpx; font-weight: 700; }
-.portion-row > view text:last-child { margin-left: 5rpx; color: var(--muted); }
+.portion-name { min-width: 0; padding: 13rpx 18rpx 13rpx 0; display: flex; flex-direction: column; gap: 4rpx; }
+.portion-name > text:first-child { font-size: 27rpx; font-weight: 600; }
+.portion-name > text:last-child { color: var(--muted); font-size: 20rpx; line-height: 1.4; }
+.portion-weight { flex: 0 0 auto; }
+.portion-weight > text:first-child { font-size: 36rpx; font-weight: 700; }
+.portion-weight > text:last-child { margin-left: 5rpx; color: var(--muted); }
 .macro-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 20rpx; padding: 18rpx 8rpx; border-radius: 20rpx; background: var(--surface-soft); }
 .macro-summary view { display: flex; flex-direction: column; align-items: center; gap: 6rpx; border-right: 1rpx solid var(--line); }
 .macro-summary view:last-child { border-right: 0; }

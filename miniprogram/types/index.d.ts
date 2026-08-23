@@ -1,6 +1,6 @@
 type Gender = 'male' | 'female'
 type MealType = 'breakfast' | 'lunch' | 'dinner'
-type FoodCategory = 'staple' | 'protein' | 'vegetable' | 'rawVegetable' | 'fat' | 'fruit'
+type FoodCategory = 'staple' | 'protein' | 'vegetable' | 'fat' | 'fruit'
 
 interface MacroTarget {
   carbs: number
@@ -45,6 +45,13 @@ interface FoodItem {
 }
 
 interface FoodPortion extends FoodItem {
+  grams: number
+}
+
+interface DisplayPortion {
+  id: string
+  name: string
+  detail: string
   grams: number
 }
 

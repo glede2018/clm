@@ -1,6 +1,6 @@
 import { callApi } from '../../services/cloud'
 import { formatShortDate } from '../../utils/date'
-import { mealName } from '../../utils/nutrition'
+import { mealName, portionsForDisplay } from '../../utils/nutrition'
 import { guardPageAccess } from '../../utils/storage'
 
 interface PartnerDetail {
@@ -19,7 +19,7 @@ Page({
     loading: true,
     error: '',
     detail: null as PartnerDetail | null,
-    meals: [] as Array<MealPlan & { name: string }>,
+    meals: [] as Array<MealPlan & { name: string; displayPortions: DisplayPortion[] }>,
     weights: [] as Array<WeightRecord & { label: string; barHeight: number }>,
   },
 
@@ -43,7 +43,7 @@ Page({
       label: formatShortDate(item.date).replace('月', '/').replace('日', ''),
       barHeight: max === min ? 60 : 24 + (item.weightKg - min) / (max - min) * 76,
     }))
-    const meals = detail.meals.map(item => ({ ...item, name: mealName(item.mealType) }))
+    const meals = detail.meals.map(item => ({ ...item, name: mealName(item.mealType), displayPortions: portionsForDisplay(item.portions) }))
     this.setData({ loading: false, detail, meals, weights })
   },
 })

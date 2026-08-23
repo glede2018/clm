@@ -11,7 +11,7 @@
     <view wx:if="{{meals.length}}" class="meal-records">
       <view wx:for="{{meals}}" wx:key="mealType" class="surface meal-record">
         <view class="record-heading"><text>{{item.name}}</text><text>匹配度 {{item.accuracy}}%</text></view>
-        <view class="portion-tags"><text wx:for="{{item.portions}}" wx:for-item="portion" wx:key="id">{{portion.name}} {{portion.grams}}g</text></view>
+        <view class="portion-tags"><text wx:for="{{item.displayPortions}}" wx:for-item="portion" wx:key="id">{{portion.detail || portion.name}} {{portion.grams}}g</text></view>
         <view class="record-macros"><text>碳水 {{item.actual.carbs}}g</text><text>蛋白质 {{item.actual.protein}}g</text><text>脂肪 {{item.actual.fat}}g</text></view>
       </view>
     </view>

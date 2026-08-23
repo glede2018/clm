@@ -1,5 +1,5 @@
 import { formatDate } from '../../utils/date'
-import { activeMealTypes, calculateDailyTarget, mealName } from '../../utils/nutrition'
+import { activeMealTypes, calculateDailyTarget, mealName, portionsForDisplay } from '../../utils/nutrition'
 import { consumeCelebration, getMealsByDate, getProfile, guardPageAccess } from '../../utils/storage'
 
 interface MealCard {
@@ -52,7 +52,7 @@ Page({
         done,
         disabled,
         foods: record
-          ? record.portions.map(portion => `${portion.name} ${portion.grams}g`)
+          ? portionsForDisplay(record.portions).map(portion => `${portion.detail || portion.name} ${portion.grams}g`)
           : [],
         caption: disabled
           ? '两餐模式不安排'

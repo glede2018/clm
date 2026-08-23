@@ -57,6 +57,32 @@ export function calculatePortionMacros(portions: FoodPortion[]): MacroTarget {
   return withCalories(macro.carbs, macro.protein, macro.fat)
 }
 
+function isVegetableCategory(category: string): boolean {
+  return category === 'vegetable' || category === 'rawVegetable'
+}
+
+export function portionsForDisplay(portions: FoodPortion[]): DisplayPortion[] {
+  const vegetables = portions.filter(portion => isVegetableCategory(portion.category))
+  let vegetablesAdded = false
+
+  return portions.reduce<DisplayPortion[]>((result, portion) => {
+    if (!isVegetableCategory(portion.category)) {
+      result.push({ id: portion.id, name: portion.name, detail: '', grams: portion.grams })
+      return result
+    }
+    if (!vegetablesAdded) {
+      result.push({
+        id: 'vegetables-total',
+        name: vegetables.length > 1 ? '蔬菜合计' : portion.name,
+        detail: vegetables.length > 1 ? `${vegetables.map(item => item.name).join('、')}自由搭配` : '',
+        grams: vegetables.reduce((sum, item) => sum + item.grams, 0),
+      })
+      vegetablesAdded = true
+    }
+    return result
+  }, [])
+}
+
 function scorePortions(portions: FoodPortion[], target: MacroTarget): number {
   const actual = calculatePortionMacros(portions)
   const macroError = (
@@ -66,7 +92,7 @@ function scorePortions(portions: FoodPortion[], target: MacroTarget): number {
   )
 
   const producePenalty = portions.reduce((penalty, portion) => {
-    if (portion.category !== 'vegetable' && portion.category !== 'rawVegetable' && portion.category !== 'fruit') return penalty
+    if (portion.category !== 'vegetable' && portion.category !== 'fruit') return penalty
     return penalty + Math.pow((portion.grams - portion.preferredGrams) / Math.max(portion.preferredGrams, 50), 2) * 0.12
   }, 0)
   return macroError + producePenalty
@@ -83,6 +109,20 @@ export function createMealPlan(profile: UserProfile, mealType: MealType, foodIds
   })
 
   if (!portions.length) throw new Error('请至少选择一种食材')
+
+  const vegetablePortions = portions.filter(portion => portion.category === 'vegetable')
+  if (vegetablePortions.length) {
+    const totalGrams = mealType === 'breakfast' ? 150 : 200
+    const baseGrams = Math.floor(totalGrams / vegetablePortions.length)
+    let remainder = totalGrams - baseGrams * vegetablePortions.length
+    vegetablePortions.forEach(portion => {
+      const grams = baseGrams + (remainder > 0 ? 1 : 0)
+      remainder = Math.max(0, remainder - 1)
+      portion.grams = grams
+      portion.minGrams = grams
+      portion.maxGrams = grams
+    })
+  }
 
   const steps = [40, 20, 10, 5, 1]
   steps.forEach(step => {

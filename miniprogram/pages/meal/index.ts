@@ -1,7 +1,7 @@
 import { allFoods } from '../../data/foods'
 import { callApi } from '../../services/cloud'
 import { formatDate } from '../../utils/date'
-import { createMealPlan, mealName } from '../../utils/nutrition'
+import { createMealPlan, mealName, portionsForDisplay } from '../../utils/nutrition'
 import { getProfile, guardPageAccess, saveMealRecord } from '../../utils/storage'
 
 interface FoodChoice extends FoodItem { selected: boolean }
@@ -10,8 +10,7 @@ interface FoodSection { category: FoodCategory; label: string; hint: string; foo
 const CATEGORY_META: Partial<Record<FoodCategory, { label: string; hint: string }>> = {
   staple: { label: '主食', hint: '选择 1 种' },
   protein: { label: '肉类 / 蛋白质', hint: '选择 1 种' },
-  vegetable: { label: '熟蔬菜', hint: '可选 1 种' },
-  rawVegetable: { label: '生蔬菜', hint: '可选 1 种' },
+  vegetable: { label: '蔬菜', hint: '可选 1–3 种' },
   fat: { label: '烹调油 / 坚果 / 种子', hint: '建议选 1 种' },
   fruit: { label: '水果', hint: '可选 1 种' },
 }
@@ -24,6 +23,7 @@ Page({
     foodCount: allFoods().length,
     selectedIds: [] as string[],
     plan: null as MealPlan | null,
+    displayPortions: [] as DisplayPortion[],
     resultVisible: false,
   },
 
@@ -52,20 +52,21 @@ Page({
   rebuildSections(foods?: FoodItem[], selectedIds?: string[]) {
     const mealFoods = foods || allFoods()
     const activeIds = selectedIds || this.data.selectedIds
-    const categoryOrder: FoodCategory[] = ['staple', 'protein', 'vegetable', 'rawVegetable', 'fat', 'fruit']
+    const categoryOrder: FoodCategory[] = ['staple', 'protein', 'vegetable', 'fat', 'fruit']
     const sections = categoryOrder
       .map(category => {
         const categoryFoods = mealFoods.filter(food => food.category === category)
         const meta = CATEGORY_META[category]
+        const selectedCount = categoryFoods.filter(food => activeIds.includes(food.id)).length
         return meta && categoryFoods.length ? {
           category,
           label: meta.label,
-          hint: meta.hint,
+          hint: category === 'vegetable' ? `${meta.hint} · 已选 ${selectedCount}/3` : meta.hint,
           foods: categoryFoods.map(food => ({ ...food, selected: activeIds.includes(food.id) })),
         } : null
       })
       .filter((section): section is FoodSection => section !== null)
-    this.setData({ sections, selectedIds: activeIds, resultVisible: false, plan: null })
+    this.setData({ sections, selectedIds: activeIds, resultVisible: false, plan: null, displayPortions: [] })
   },
 
   toggleFood(event: WechatMiniprogram.TouchEvent) {
@@ -74,8 +75,21 @@ Page({
     const food = allFoods().find(item => item.id === foodId)
     if (!food) return
 
-    const sameCategoryIds = allFoods().filter(item => item.category === category).map(item => item.id)
     const alreadySelected = this.data.selectedIds.includes(foodId)
+    if (category === 'vegetable') {
+      const selectedVegetableIds = this.data.selectedIds.filter(id => allFoods().find(item => item.id === id)?.category === 'vegetable')
+      if (!alreadySelected && selectedVegetableIds.length >= 3) {
+        wx.showToast({ title: '每餐最多选择 3 种蔬菜', icon: 'none' })
+        return
+      }
+      const selectedIds = alreadySelected
+        ? this.data.selectedIds.filter(id => id !== foodId)
+        : [...this.data.selectedIds, foodId]
+      this.rebuildSections(undefined, selectedIds)
+      return
+    }
+
+    const sameCategoryIds = allFoods().filter(item => item.category === category).map(item => item.id)
     let selectedIds = this.data.selectedIds.filter(id => !sameCategoryIds.includes(id))
     const canClear = !['staple', 'protein'].includes(category)
     if (!(alreadySelected && canClear)) selectedIds.push(foodId)
@@ -93,7 +107,7 @@ Page({
 
     try {
       const plan = createMealPlan(getProfile(), this.data.mealType, this.data.selectedIds, formatDate())
-      this.setData({ plan, resultVisible: true })
+      this.setData({ plan, displayPortions: portionsForDisplay(plan.portions), resultVisible: true })
     } catch (error) {
       wx.showToast({ title: error instanceof Error ? error.message : '暂时无法生成方案', icon: 'none' })
     }
