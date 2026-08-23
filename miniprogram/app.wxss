@@ -1,0 +1,59 @@
+page {
+  --page: #fff7ef;
+  --surface: #ffffff;
+  --surface-soft: #fff0e8;
+  --text: #352a27;
+  --muted: #8a7770;
+  --line: #f0ded5;
+  --green: #f47c5c;
+  --green-dark: #d95d44;
+  --coral: #ef6b78;
+  --yellow: #f5b94c;
+  min-height: 100%;
+  background: linear-gradient(180deg, #fff7ef 0%, #fffbf7 100%);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+}
+
+view, text, button, input, picker, scroll-view { box-sizing: border-box; }
+
+.page-shell { padding: 28rpx 28rpx calc(152rpx + env(safe-area-inset-bottom)); animation: page-enter .38s cubic-bezier(.2,.8,.2,1) both; }
+.surface {
+  background: var(--surface);
+  border: 1rpx solid var(--line);
+  border-radius: 28rpx;
+  box-shadow: 0 12rpx 34rpx rgba(176, 91, 65, .09);
+  animation: card-rise .45s cubic-bezier(.2,.8,.2,1) both;
+}
+.section-title { font-size: 32rpx; font-weight: 600; }
+.section-caption { color: var(--muted); font-size: 24rpx; }
+.primary-button {
+  background: linear-gradient(135deg, #f58a67, var(--green-dark));
+  color: #fff;
+  border-radius: 22rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 92rpx;
+}
+.primary-button:active, .ghost-button:active, button:active { transform: scale(.97); opacity: .9; }
+.primary-button::after, .ghost-button::after { border: 0; }
+.ghost-button {
+  background: var(--surface);
+  color: var(--green-dark);
+  border: 1rpx solid var(--line);
+  border-radius: 22rpx;
+  line-height: 82rpx;
+}
+.safe-note { color: var(--muted); font-size: 22rpx; line-height: 1.65; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  color: var(--green-dark);
+  background: var(--surface-soft);
+  font-size: 22rpx;
+}
+@keyframes page-enter { from { opacity: 0; transform: translateY(12rpx); } to { opacity: 1; transform: translateY(0); } }
+@keyframes card-rise { from { opacity: 0; transform: translateY(18rpx) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }

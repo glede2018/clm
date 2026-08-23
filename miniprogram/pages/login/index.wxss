@@ -1,0 +1,15 @@
+.login-page { min-height: 100vh; padding: 110rpx 42rpx 50rpx; text-align: center; background: radial-gradient(circle at 50% 18%, #ffe3d4 0, #fff7ef 43%, #fffaf5 100%); animation: login-fade .5s ease both; }
+.brand-mark { width: 180rpx; height: 150rpx; margin: 0 auto 26rpx; position: relative; }
+.rope { position: absolute; left: 0; right: 0; top: 88rpx; height: 8rpx; border-radius: 8rpx; background: #d09a52; transform: rotate(-7deg); }
+.brand-person { position: relative; z-index: 1; font-size: 94rpx; animation: pull 1.8s ease-in-out infinite; }
+.title { font-size: 52rpx; font-weight: 800; letter-spacing: 3rpx; }
+.subtitle { margin-top: 12rpx; color: var(--muted); }
+.login-card { margin-top: 60rpx; padding: 38rpx 32rpx 34rpx; }
+.wechat-icon { width: 116rpx; height: 116rpx; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 32rpx; background: linear-gradient(145deg, #f69a71, #d95d44); color: #fff; font-size: 27rpx; font-weight: 700; box-shadow: 0 16rpx 34rpx rgba(217,93,68,.25); animation: icon-breathe 2.4s ease-in-out infinite; }
+.login-title { margin-top: 28rpx; font-size: 33rpx; font-weight: 650; }
+.login-caption { margin: 12rpx auto 0; max-width: 500rpx; color: var(--muted); font-size: 23rpx; line-height: 1.6; }
+.login-button { margin-top: 34rpx; background: linear-gradient(135deg, #f58a67, #d95d44); }
+.privacy-note { margin: 28rpx auto 0; max-width: 600rpx; color: var(--muted); font-size: 21rpx; line-height: 1.6; }
+@keyframes pull { 0%, 100% { transform: translateX(-8rpx) rotate(-3deg); } 50% { transform: translateX(10rpx) rotate(2deg); } }
+@keyframes login-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes icon-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05) rotate(2deg); } }

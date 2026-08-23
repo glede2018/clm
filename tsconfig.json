@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "skipLibCheck": true,
+    "types": ["miniprogram-api-typings"],
+    "lib": ["ES2018"],
+    "esModuleInterop": true
+  },
+  "include": ["miniprogram/**/*.ts", "miniprogram/**/*.d.ts"],
+  "exclude": ["node_modules", "cloudfunctions"]
+}

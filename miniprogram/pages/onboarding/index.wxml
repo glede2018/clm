@@ -1,0 +1,59 @@
+<view class="setup-page">
+  <view class="progress-head">
+    <text>建立你的个人方案</text>
+    <text>{{step + 1}} / {{totalSteps}}</text>
+  </view>
+  <view class="progress-track"><view class="progress-fill" style="width: {{(step + 1) / totalSteps * 100}}%"></view></view>
+
+  <view class="step-content">
+    <view class="eyebrow">只需设置一次，以后可在“我的”中修改</view>
+    <view class="step-title">{{title}}</view>
+
+    <view wx:if="{{step === 0}}" class="body-form surface">
+      <view class="compact-field">
+        <text>年龄</text>
+        <view class="compact-value"><input class="number-editor" type="number" value="{{profile.age}}" data-field="age" bindblur="onNumberBlur" /><text>岁</text></view>
+        <view class="stepper"><view class="stepper-button" data-field="age" data-direction="-1" bindtap="adjustNumber">−</view><view class="stepper-button plus" data-field="age" data-direction="1" bindtap="adjustNumber">+</view></view>
+      </view>
+      <view class="compact-field">
+        <text>身高</text>
+        <view class="compact-value"><input class="number-editor" type="number" value="{{profile.heightCm}}" data-field="heightCm" bindblur="onNumberBlur" /><text>cm</text></view>
+        <view class="stepper"><view class="stepper-button" data-field="heightCm" data-direction="-1" bindtap="adjustNumber">−</view><view class="stepper-button plus" data-field="heightCm" data-direction="1" bindtap="adjustNumber">+</view></view>
+      </view>
+      <view class="compact-field">
+        <text>体重</text>
+        <view class="compact-value"><input class="number-editor" type="digit" value="{{profile.weightKg}}" data-field="weightKg" bindblur="onNumberBlur" /><text>kg</text></view>
+        <view class="stepper"><view class="stepper-button" data-field="weightKg" data-direction="-1" bindtap="adjustNumber">−</view><view class="stepper-button plus" data-field="weightKg" data-direction="1" bindtap="adjustNumber">+</view></view>
+      </view>
+      <view class="gender-field">
+        <text>性别</text>
+        <view class="gender-options">
+          <view class="gender-option {{genderChosen && profile.gender === 'female' ? 'active' : ''}}" data-value="female" bindtap="chooseGender">女生</view>
+          <view class="gender-option {{genderChosen && profile.gender === 'male' ? 'active' : ''}}" data-value="male" bindtap="chooseGender">男生</view>
+        </view>
+      </view>
+      <view class="form-hint">身体信息用于计算每日碳、蛋、脂目标和角色体型</view>
+    </view>
+
+    <view wx:if="{{step === 1}}" class="habit-form">
+      <view class="group-label">日常运动量</view>
+      <view class="large-options exercise-options">
+        <button wx:for="{{exerciseOptions}}" wx:key="tier" class="surface option exercise {{exerciseChosen && profile.exerciseTier === item.tier ? 'active' : ''}}" data-tier="{{item.tier}}" bindtap="chooseExercise">
+          <text>{{item.label}}</text><text class="option-caption">{{item.caption}}</text>
+        </button>
+      </view>
+      <view class="hint">按每周常态运动量选择，不需要每天记录</view>
+
+      <view class="group-label meals-label">每天吃几餐</view>
+      <view class="large-options meal-options">
+        <button class="surface option meal-option {{mealsChosen && profile.mealsPerDay === 2 ? 'active' : ''}}" data-value="2" bindtap="chooseMeals"><text>每天两餐</text><text class="option-caption">中餐 55% · 晚餐 45%</text></button>
+        <button class="surface option meal-option {{mealsChosen && profile.mealsPerDay === 3 ? 'active' : ''}}" data-value="3" bindtap="chooseMeals"><text>每天三餐</text><text class="option-caption">早 25% · 中 40% · 晚 35%</text></button>
+      </view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button wx:if="{{step > 0}}" class="ghost-button back" bindtap="previous">上一步</button>
+    <button class="primary-button next" loading="{{saving}}" disabled="{{saving}}" bindtap="next">{{step === totalSteps - 1 ? '生成我的方案' : '下一步'}}</button>
+  </view>
+</view>

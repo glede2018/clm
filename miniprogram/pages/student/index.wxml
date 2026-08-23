@@ -1,0 +1,29 @@
+<view class="page-shell student-page">
+  <view wx:if="{{loading}}" class="loading-state">正在读取伙伴数据…</view>
+  <view wx:elif="{{error}}" class="surface error-state">{{error}}</view>
+  <block wx:elif="{{detail}}">
+    <view class="student-header">
+      <view class="avatar">{{detail.profile.gender === 'female' ? '女' : '男'}}</view>
+      <view><view class="title">{{detail.profile.nickname}}</view><view class="section-caption">每日 {{detail.profile.mealsPerDay}} 餐</view></view>
+    </view>
+
+    <view class="today-heading"><text>今日餐食</text><text>{{meals.length}} / {{detail.profile.mealsPerDay}} 已完成</text></view>
+    <view wx:if="{{meals.length}}" class="meal-records">
+      <view wx:for="{{meals}}" wx:key="mealType" class="surface meal-record">
+        <view class="record-heading"><text>{{item.name}}</text><text>匹配度 {{item.accuracy}}%</text></view>
+        <view class="portion-tags"><text wx:for="{{item.portions}}" wx:for-item="portion" wx:key="id">{{portion.name}} {{portion.grams}}g</text></view>
+        <view class="record-macros"><text>碳水 {{item.actual.carbs}}g</text><text>蛋白质 {{item.actual.protein}}g</text><text>脂肪 {{item.actual.fat}}g</text></view>
+      </view>
+    </view>
+    <view wx:else class="surface empty-state">对方今天还没有确认餐食</view>
+
+    <view class="today-heading"><text>体重趋势</text><text>最近 {{weights.length}} 次</text></view>
+    <view class="surface weight-card">
+      <view wx:if="{{weights.length}}" class="weight-chart">
+        <view wx:for="{{weights}}" wx:key="date" class="weight-column"><text>{{item.weightKg}}</text><view style="height: {{item.barHeight}}rpx"></view><text>{{item.label}}</text></view>
+      </view>
+      <view wx:else class="empty-state">暂无体重记录</view>
+    </view>
+  </block>
+</view>
+<bottom-nav current="partners" />

@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/onboarding/index",
+    "pages/home/index",
+    "pages/profile/index",
+    "pages/meal/index",
+    "pages/report/index",
+    "pages/coach/index",
+    "pages/student/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "减脂拉锯战",
+    "navigationBarBackgroundColor": "#FFF7EF",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF7EF",
+    "backgroundTextStyle": "light"
+  },
+  "usingComponents": {
+    "bottom-nav": "/components/bottom-nav/index"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

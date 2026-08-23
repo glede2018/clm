@@ -1,0 +1,56 @@
+<view class="page-shell home-page">
+  <view class="home-header">
+    <view><view class="greeting">你好，{{profile.nickname}}</view><view class="section-caption">今天也只需要吃对每一顿</view></view>
+    <view class="today-badge">今日计划</view>
+  </view>
+
+  <view class="surface tug-card">
+    <view class="tug-heading"><text>今日拉锯</text><text>完成 {{completedCount}} / {{activeCount}} 餐</text></view>
+    <view class="rope-row">
+      <view class="rope-side"><text>🍔</text><text>脂肪方</text></view>
+      <view class="rope"><view class="rope-knot" style="left: {{ropePosition}}%"></view></view>
+      <view class="rope-side"><text>✊</text><text>我</text></view>
+    </view>
+  </view>
+
+  <view class="game-stage">
+    <view class="avatar-zone {{celebrationClass}}">
+      <view class="confetti"><text>✦</text><text>●</text><text>✦</text><text>●</text></view>
+      <view class="avatar-scale" style="transform: scale({{avatarScaleX}}, {{avatarScaleY}})">
+        <view class="avatar {{profile.gender}}">
+          <view class="hair-back"></view>
+          <view class="head"><view class="hair-front"></view><view class="eyes"><view></view><view></view></view><view class="smile"></view></view>
+          <view class="neck"></view>
+          <view class="avatar-body"><view class="arm left"></view><view class="shirt"></view><view class="arm right"></view></view>
+          <view class="legs"><view></view><view></view></view>
+          <view class="food-bowl">🥗</view>
+        </view>
+      </view>
+      <view class="ground-shadow"></view>
+      <view class="speech" wx:if="{{celebrationText}}">{{celebrationText}}</view>
+    </view>
+
+    <view class="meal-list">
+      <button wx:for="{{meals}}" wx:key="type" class="meal-button {{item.done ? 'done' : ''}} {{item.disabled ? 'disabled' : ''}}" data-type="{{item.type}}" bindtap="openMeal">
+        <text class="meal-icon">{{item.icon}}</text>
+        <view class="meal-content">
+          <text class="strong">{{item.name}}</text>
+          <view wx:if="{{item.done}}" class="meal-foods">
+            <text wx:for="{{item.foods}}" wx:for-item="food" wx:key="*this" class="meal-food">{{food}}</text>
+          </view>
+          <text wx:else class="meal-caption">{{item.caption}}</text>
+        </view>
+        <text class="meal-check">{{item.done ? '✓' : item.disabled ? '—' : '›'}}</text>
+      </button>
+    </view>
+  </view>
+
+  <view class="surface nutrition-strip">
+    <view><text>碳水</text><text class="strong">{{dailyTarget.carbs}}g</text></view>
+    <view><text>蛋白质</text><text class="strong">{{dailyTarget.protein}}g</text></view>
+    <view><text>脂肪</text><text class="strong">{{dailyTarget.fat}}g</text></view>
+    <view><text>约</text><text class="strong">{{dailyTarget.calories}} kcal</text></view>
+  </view>
+  <view class="raw-note">需烹饪食材按烹饪前可食部分生重，即食食品按实际食用重量</view>
+</view>
+<bottom-nav current="home" />

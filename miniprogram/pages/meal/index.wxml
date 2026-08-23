@@ -1,0 +1,38 @@
+<view class="page-shell meal-page">
+  <view class="meal-heading">
+    <view><view class="title">{{mealTitle}}吃什么？</view><view class="section-caption">全天通用食材库 · 共 {{foodCount}} 种</view></view>
+    <view class="raw-pill">生重</view>
+  </view>
+
+  <view wx:for="{{sections}}" wx:key="category" class="food-section">
+    <view class="section-heading"><text>{{item.label}}</text><text>{{item.hint}} · {{item.foods.length}} 种</text></view>
+    <view class="food-grid">
+      <view wx:for="{{item.foods}}" wx:for-item="food" wx:key="id" class="food-choice {{food.selected ? 'selected' : ''}}" data-id="{{food.id}}" data-category="{{food.category}}" bindtap="toggleFood">
+        <text wx:if="{{food.selected}}" class="selected-check">✓</text>
+        <text>{{food.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="primary-button generate-button" bindtap="generatePlan">生成本餐克重方案</button>
+  <view class="safe-note center-note">谷物、面类按烹饪前重量；肉类、鱼虾按去皮去骨后的生重；面包、牛奶、酸奶等即食食品按食用重量。</view>
+
+  <view wx:if="{{resultVisible}}" class="result-mask" bindtap="closeResult">
+    <view class="result-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="result-heading"><view><text>{{mealTitle}}推荐</text><text>全部为烹饪前生重</text></view><view class="accuracy">匹配度 {{plan.accuracy}}%</view></view>
+      <view class="portion-list">
+        <view wx:for="{{plan.portions}}" wx:key="id" class="portion-row"><text>{{item.name}}</text><view><text>{{item.grams}}</text><text>g</text></view></view>
+      </view>
+      <view class="macro-summary">
+        <view><text>碳水</text><text>{{plan.actual.carbs}}g</text></view>
+        <view><text>蛋白质</text><text>{{plan.actual.protein}}g</text></view>
+        <view><text>脂肪</text><text>{{plan.actual.fat}}g</text></view>
+        <view><text>热量</text><text>{{plan.actual.calories}} kcal</text></view>
+      </view>
+      <button class="primary-button confirm-button" bindtap="confirmPlan">确认按这份方案吃</button>
+      <button class="ghost-button revise-button" bindtap="closeResult">返回更换食材</button>
+    </view>
+  </view>
+</view>
+<bottom-nav current="home" />

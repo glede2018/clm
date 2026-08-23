@@ -1,0 +1,15 @@
+<view class="nav-shell">
+  <view class="nav-bar">
+    <view wx:for="{{items}}" wx:key="key" class="nav-item {{current === item.key ? 'active' : ''}}" data-key="{{item.key}}" data-url="{{item.url}}" bindtap="navigate">
+      <view wx:if="{{item.key === 'home'}}" class="nav-icon icon-home">
+        <view class="home-bowl"></view>
+        <view class="home-leaf home-leaf-left"></view>
+        <view class="home-leaf home-leaf-right"></view>
+      </view>
+      <view wx:elif="{{item.key === 'report'}}" class="nav-icon icon-report"><view class="report-bar bar-short"></view><view class="report-bar bar-medium"></view><view class="report-bar bar-tall"></view></view>
+      <view wx:elif="{{item.key === 'partners'}}" class="nav-icon icon-partners"><view class="partner-person partner-left"></view><view class="partner-person partner-right"></view></view>
+      <view wx:else class="nav-icon icon-profile"><view class="profile-head"></view><view class="profile-body"></view></view>
+      <text class="nav-label">{{item.label}}</text>
+    </view>
+  </view>
+</view>
