@@ -95,6 +95,6 @@ Page({
       celebrationClass: 'celebrating',
       celebrationText: completed ? '今日拉锯胜利！' : `${mealName(mealType)}完成，向胜利移动一步！`,
     })
-    setTimeout(() => this.setData({ celebrationClass: '' }), 1100)
+    setTimeout(() => this.setData({ celebrationClass: '', celebrationText: '' }), 1450)
   },
 })

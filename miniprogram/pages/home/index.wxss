@@ -11,32 +11,13 @@
 .rope-knot { position: absolute; top: 50%; width: 38rpx; height: 38rpx; border: 8rpx solid var(--green); border-radius: 50%; background: var(--surface); transform: translate(-50%, -50%); transition: left .65s cubic-bezier(.2,.8,.2,1); box-shadow: 0 4rpx 16rpx rgba(217,93,68,.28); animation: knot-pulse 1.8s ease-in-out infinite; }
 .game-stage { min-height: 540rpx; display: grid; grid-template-columns: 1.05fr .95fr; gap: 14rpx; align-items: center; }
 .avatar-zone { height: 500rpx; display: flex; align-items: flex-end; justify-content: center; position: relative; }
-.avatar-scale { width: 196rpx; height: 420rpx; transform-origin: 50% 100%; transition: transform .45s ease; z-index: 2; }
-.avatar { width: 196rpx; height: 420rpx; position: relative; transform-origin: 50% 90%; animation: avatar-idle 3.2s ease-in-out infinite; }
-.head { width: 116rpx; height: 132rpx; border-radius: 52% 48% 48% 52%; background: #efc4a4; position: absolute; left: 40rpx; top: 46rpx; z-index: 3; }
-.hair-back { position: absolute; left: 29rpx; top: 24rpx; width: 140rpx; height: 158rpx; border-radius: 50% 50% 44% 44%; background: #44382f; z-index: 1; }
-.hair-front { position: absolute; left: -2rpx; top: -5rpx; width: 120rpx; height: 57rpx; border-radius: 58rpx 58rpx 32rpx 18rpx; background: #44382f; transform: rotate(-5deg); }
-.male .hair-back { height: 80rpx; border-radius: 52% 52% 30% 30%; }
-.male .hair-front { height: 48rpx; transform: rotate(0); }
-.eyes { position: absolute; top: 66rpx; left: 28rpx; width: 62rpx; display: flex; justify-content: space-between; }
-.eyes view { width: 8rpx; height: 8rpx; border-radius: 50%; background: #2b2926; }
-.smile { position: absolute; left: 47rpx; top: 91rpx; width: 25rpx; height: 13rpx; border-bottom: 4rpx solid #2b2926; border-radius: 50%; }
-.neck { position: absolute; left: 82rpx; top: 168rpx; width: 33rpx; height: 35rpx; background: #efc4a4; z-index: 2; }
-.avatar-body { position: absolute; top: 193rpx; left: 12rpx; width: 172rpx; height: 146rpx; display: flex; justify-content: center; z-index: 2; }
-.shirt { width: 118rpx; height: 150rpx; border-radius: 42rpx 42rpx 20rpx 20rpx; background: #f08a68; }
-.male .shirt { background: #e29a57; }
-.arm { position: absolute; top: 13rpx; width: 34rpx; height: 142rpx; border-radius: 20rpx; background: #efc4a4; }
-.arm.left { left: 8rpx; transform: rotate(8deg); }
-.arm.right { right: 8rpx; transform: rotate(-8deg); }
-.legs { position: absolute; left: 53rpx; top: 328rpx; display: flex; gap: 24rpx; z-index: 1; }
-.legs view { width: 34rpx; height: 84rpx; border-radius: 0 0 17rpx 17rpx; background: #efc4a4; border-top: 25rpx solid #343833; }
-.food-bowl { position: absolute; z-index: 5; left: 57rpx; top: 245rpx; font-size: 70rpx; opacity: 0; transform: translateY(30rpx) scale(.7); }
-.ground-shadow { position: absolute; bottom: 1rpx; width: 184rpx; height: 28rpx; border-radius: 50%; background: rgba(65, 76, 61, .13); }
-.speech { position: absolute; top: 20rpx; left: 0; z-index: 8; width: 230rpx; padding: 14rpx 18rpx; border-radius: 18rpx 18rpx 18rpx 4rpx; background: var(--surface); box-shadow: 0 8rpx 24rpx rgba(45,59,42,.12); color: var(--green-dark); font-size: 22rpx; text-align: center; }
-.confetti { position: absolute; inset: 70rpx 0 auto; z-index: 7; opacity: 0; display: flex; justify-content: space-around; color: var(--coral); font-size: 28rpx; }
-.celebrating .avatar { animation: avatar-jump 1s cubic-bezier(.2,.8,.2,1); }
-.celebrating .food-bowl { animation: bowl-pop 1s ease; }
-.celebrating .confetti { animation: confetti-pop .9s ease; }
+.avatar-scale { width: 280rpx; height: 420rpx; transform-origin: 50% 100%; transition: transform .45s ease; z-index: 2; }
+.avatar-image { display: block; width: 100%; height: 100%; transform-origin: 50% 100%; animation: avatar-breathe 5.2s cubic-bezier(.4,0,.2,1) infinite; }
+.ground-shadow { position: absolute; bottom: 1rpx; width: 174rpx; height: 22rpx; border-radius: 50%; background: rgba(65,76,61,.12); animation: shadow-breathe 5.2s cubic-bezier(.4,0,.2,1) infinite; }
+.motion-halo { position: absolute; left: 50%; bottom: 48rpx; z-index: 1; width: 210rpx; height: 210rpx; border: 2rpx solid rgba(244,124,92,.26); border-radius: 50%; opacity: 0; transform: translateX(-50%) scale(.72); }
+.speech { position: absolute; top: 25rpx; left: 50%; z-index: 8; width: 220rpx; padding: 12rpx 18rpx; border: 1rpx solid rgba(244,124,92,.18); border-radius: 999rpx; background: rgba(255,250,246,.96); box-shadow: 0 8rpx 22rpx rgba(176,91,65,.09); color: var(--text); font-size: 21rpx; text-align: center; transform: translateX(-50%); animation: status-fade 1.45s ease both; }
+.celebrating .avatar-image { animation: avatar-acknowledge 1.35s cubic-bezier(.22,.75,.25,1) both; }
+.celebrating .motion-halo { animation: halo-expand 1.35s ease-out both; }
 .meal-list { display: flex; flex-direction: column; gap: 14rpx; }
 .meal-button { margin: 0; padding: 17rpx 14rpx; min-height: 116rpx; border-radius: 24rpx; border: 1rpx solid var(--line); background: var(--surface); color: var(--text); display: grid; grid-template-columns: 50rpx 1fr 28rpx; gap: 10rpx; align-items: center; text-align: left; box-shadow: 0 8rpx 22rpx rgba(176,91,65,.07); animation: meal-slide .42s cubic-bezier(.2,.8,.2,1) both; }
 .meal-button:nth-child(2) { animation-delay: .07s; }
@@ -58,10 +39,11 @@
 .nutrition-strip view:last-child { border-right: 0; }
 .nutrition-strip .strong { margin-top: 5rpx; color: var(--text); font-size: 25rpx; font-weight: 600; }
 .raw-note { margin-top: 18rpx; text-align: center; color: var(--muted); font-size: 21rpx; }
-@keyframes avatar-jump { 0%,100%{transform:translateY(0)} 28%{transform:translateY(-42rpx) rotate(-4deg)} 52%{transform:translateY(0) rotate(4deg)} 75%{transform:translateY(-14rpx)} }
-@keyframes bowl-pop { 0%{opacity:0;transform:translateY(30rpx) scale(.7)} 30%,75%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-8rpx) scale(.9)} }
-@keyframes confetti-pop { 0%{opacity:0;transform:translateY(20rpx) scale(.6)} 35%{opacity:1;transform:translateY(-25rpx) scale(1.1)} 100%{opacity:0;transform:translateY(-60rpx) scale(1)} }
-@keyframes avatar-idle { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7rpx) rotate(.8deg); } }
+@keyframes avatar-breathe { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3rpx); } }
+@keyframes shadow-breathe { 0%,100% { opacity: .8; transform: scaleX(1); } 50% { opacity: .58; transform: scaleX(.94); } }
+@keyframes avatar-acknowledge { 0%,100% { transform: translateY(0); } 42% { transform: translateY(-9rpx); } 68% { transform: translateY(-5rpx); } }
+@keyframes halo-expand { 0% { opacity: 0; transform: translateX(-50%) scale(.72); } 35% { opacity: .7; } 100% { opacity: 0; transform: translateX(-50%) scale(1.18); } }
+@keyframes status-fade { 0% { opacity: 0; transform: translate(-50%, 7rpx); } 18%,75% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -4rpx); } }
 @keyframes knot-pulse { 0%,100% { box-shadow: 0 4rpx 14rpx rgba(217,93,68,.2); } 50% { box-shadow: 0 4rpx 24rpx rgba(217,93,68,.42); } }
 @keyframes meal-done-pop { from { transform: scale(.96); } to { transform: scale(1); } }
 @keyframes meal-slide { from { opacity: 0; transform: translateX(25rpx); } to { opacity: 1; transform: translateX(0); } }

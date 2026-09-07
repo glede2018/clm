@@ -15,16 +15,9 @@
 
   <view class="game-stage">
     <view class="avatar-zone {{celebrationClass}}">
-      <view class="confetti"><text>✦</text><text>●</text><text>✦</text><text>●</text></view>
+      <view class="motion-halo"></view>
       <view class="avatar-scale" style="transform: scale({{avatarScaleX}}, {{avatarScaleY}})">
-        <view class="avatar {{profile.gender}}">
-          <view class="hair-back"></view>
-          <view class="head"><view class="hair-front"></view><view class="eyes"><view></view><view></view></view><view class="smile"></view></view>
-          <view class="neck"></view>
-          <view class="avatar-body"><view class="arm left"></view><view class="shirt"></view><view class="arm right"></view></view>
-          <view class="legs"><view></view><view></view></view>
-          <view class="food-bowl">🥗</view>
-        </view>
+        <image class="avatar-image" src="{{profile.gender === 'female' ? '/assets/characters/avatar-female-realistic.png' : '/assets/characters/avatar-male-realistic.png'}}" mode="aspectFit" />
       </view>
       <view class="ground-shadow"></view>
       <view class="speech" wx:if="{{celebrationText}}">{{celebrationText}}</view>
