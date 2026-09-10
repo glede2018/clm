@@ -71,6 +71,48 @@ interface WeightRecord {
   createdAt: number
 }
 
+type WorkoutEquipment = '自重' | '哑铃' | '杠铃' | '壶铃' | '弹力带' | '配重片' | '引体向上杆' | '长凳'
+type WorkoutMuscle = '肩部' | '胸部' | '肱二头肌' | '前臂' | '腹部' | '腹斜肌' | '斜方肌' | '肱三头肌' | '背部' | '臀部' | '大腿前侧' | '大腿后侧' | '小腿'
+type WorkoutLevel = '入门' | '基础' | '进阶'
+
+interface ExerciseItem {
+  id: string
+  name: string
+  muscles: WorkoutMuscle[]
+  equipment: WorkoutEquipment[]
+  level: WorkoutLevel
+  instructions: string[]
+  thumbnailPath: string
+  gifPath: string
+  attribution: string
+}
+
+interface WorkoutPlanItem extends ExerciseItem {
+  sets: number
+  reps: number
+  restSeconds: number
+  completed: boolean
+  equipmentMatch: 'exact' | 'combined' | 'single'
+}
+
+interface WorkoutPlan {
+  id: string
+  createdAt: number
+  durationMinutes: number
+  muscles: WorkoutMuscle[]
+  equipment: WorkoutEquipment[]
+  items: WorkoutPlanItem[]
+}
+
+interface WorkoutLog {
+  id: string
+  date: string
+  completedAt: number
+  durationMinutes: number
+  muscles: WorkoutMuscle[]
+  exerciseNames: string[]
+}
+
 interface IAppOption {
   globalData: {
     cloudReady: boolean

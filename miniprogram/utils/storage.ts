@@ -3,6 +3,9 @@ const AUTH_KEY = 'fat_tug_auth'
 const MEAL_RECORDS_KEY = 'fat_tug_meal_records'
 const WEIGHT_RECORDS_KEY = 'fat_tug_weight_records'
 const CELEBRATION_KEY = 'fat_tug_celebration'
+const WORKOUT_EQUIPMENT_KEY = 'fat_tug_workout_equipment'
+const CURRENT_WORKOUT_KEY = 'fat_tug_current_workout'
+const WORKOUT_LOGS_KEY = 'fat_tug_workout_logs'
 
 export function createProfileDraft(session?: Partial<AuthSession>): UserProfile {
   return {
@@ -52,6 +55,9 @@ export function clearUserData(): void {
   wx.removeStorageSync(MEAL_RECORDS_KEY)
   wx.removeStorageSync(WEIGHT_RECORDS_KEY)
   wx.removeStorageSync(CELEBRATION_KEY)
+  wx.removeStorageSync(WORKOUT_EQUIPMENT_KEY)
+  wx.removeStorageSync(CURRENT_WORKOUT_KEY)
+  wx.removeStorageSync(WORKOUT_LOGS_KEY)
 }
 
 export function guardPageAccess(): boolean {
@@ -106,4 +112,34 @@ export function saveWeightRecord(record: WeightRecord): void {
 export function replaceWeightRecords(records: WeightRecord[]): void {
   const sorted = [...records].sort((a, b) => a.date.localeCompare(b.date))
   wx.setStorageSync(WEIGHT_RECORDS_KEY, sorted)
+}
+
+export function getWorkoutEquipment(): WorkoutEquipment[] {
+  return wx.getStorageSync<WorkoutEquipment[]>(WORKOUT_EQUIPMENT_KEY) || ['自重']
+}
+
+export function saveWorkoutEquipment(equipment: WorkoutEquipment[]): void {
+  wx.setStorageSync(WORKOUT_EQUIPMENT_KEY, equipment)
+}
+
+export function getCurrentWorkout(): WorkoutPlan | null {
+  return wx.getStorageSync<WorkoutPlan>(CURRENT_WORKOUT_KEY) || null
+}
+
+export function saveCurrentWorkout(plan: WorkoutPlan): void {
+  wx.setStorageSync(CURRENT_WORKOUT_KEY, plan)
+}
+
+export function clearCurrentWorkout(): void {
+  wx.removeStorageSync(CURRENT_WORKOUT_KEY)
+}
+
+export function getWorkoutLogs(): WorkoutLog[] {
+  return wx.getStorageSync<WorkoutLog[]>(WORKOUT_LOGS_KEY) || []
+}
+
+export function saveWorkoutLog(log: WorkoutLog): void {
+  const logs = getWorkoutLogs()
+  logs.push(log)
+  wx.setStorageSync(WORKOUT_LOGS_KEY, logs)
 }

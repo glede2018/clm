@@ -10,7 +10,7 @@ interface FoodSection { category: FoodCategory; label: string; hint: string; foo
 const CATEGORY_META: Partial<Record<FoodCategory, { label: string; hint: string }>> = {
   staple: { label: '主食', hint: '选择 1 种' },
   protein: { label: '肉类 / 蛋白质', hint: '选择 1 种' },
-  vegetable: { label: '蔬菜', hint: '可选 1–3 种' },
+  vegetable: { label: '蔬菜', hint: '可选 1-3 种' },
   fat: { label: '烹调油 / 坚果 / 种子', hint: '建议选 1 种' },
   fruit: { label: '水果', hint: '可选 1 种' },
 }

@@ -1,18 +1,21 @@
-<view class="page-shell meal-page">
+<view class="page-shell screen-page meal-page">
   <view class="meal-heading">
     <view><view class="title">{{mealTitle}}吃什么？</view><view class="section-caption">全天通用食材库 · 共 {{foodCount}} 种</view></view>
     <view class="raw-pill">生重</view>
   </view>
 
-  <view wx:for="{{sections}}" wx:key="category" class="food-section">
-    <view class="section-heading"><text>{{item.label}}</text><text>{{item.hint}} · {{item.foods.length}} 种</text></view>
-    <view class="food-grid">
-      <view wx:for="{{item.foods}}" wx:for-item="food" wx:key="id" class="food-choice {{food.selected ? 'selected' : ''}}" data-id="{{food.id}}" data-category="{{food.category}}" bindtap="toggleFood">
-        <text wx:if="{{food.selected}}" class="selected-check">✓</text>
-        <text>{{food.name}}</text>
+  <scroll-view class="content-scroll food-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view wx:for="{{sections}}" wx:key="category" class="food-section">
+      <view class="section-heading"><text>{{item.label}}</text><text>{{item.hint}} · {{item.foods.length}} 种</text></view>
+      <view class="food-grid">
+        <view wx:for="{{item.foods}}" wx:for-item="food" wx:key="id" class="food-choice {{food.selected ? 'selected' : ''}}" data-id="{{food.id}}" data-category="{{food.category}}" bindtap="toggleFood">
+          <text wx:if="{{food.selected}}" class="selected-check">✓</text>
+          <text>{{food.name}}</text>
+        </view>
       </view>
     </view>
-  </view>
+
+  </scroll-view>
 
   <button class="primary-button generate-button" bindtap="generatePlan">生成本餐克重方案</button>
   <view class="safe-note center-note">谷物、面类按烹饪前重量；肉类、鱼虾按去皮去骨后的生重；面包、牛奶、酸奶等即食食品按食用重量。</view>

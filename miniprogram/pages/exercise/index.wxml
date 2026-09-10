@@ -1,0 +1,23 @@
+<view wx:if="{{exercise}}" class="page-shell screen-page exercise-page">
+  <view class="surface media-card">
+    <image class="exercise-gif" src="{{gifUrl}}" mode="aspectFit" />
+    <view class="gif-badge">GIF 动作示范</view>
+  </view>
+
+  <view class="exercise-title">{{exercise.name}}</view>
+  <view class="tag-row"><view class="tag muscle-tag">{{muscleText}}</view><view class="tag">{{equipmentText}}</view><view class="tag">{{exercise.level}}</view></view>
+
+  <view class="surface instruction-card">
+    <view class="section-title">动作步骤</view>
+    <scroll-view class="content-scroll instructions-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+      <view class="instruction-list">
+        <view wx:for="{{exercise.instructions}}" wx:key="*this" class="instruction-row"><view class="step-number">{{index + 1}}</view><text>{{item}}</text></view>
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <view class="safety-card"><text>动作提示</text><text>先用轻重量熟悉动作；如出现关节疼痛、眩晕或明显不适，请立即停止。</text></view>
+
+</view>
+<bottom-nav current="training" />

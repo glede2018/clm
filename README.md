@@ -21,6 +21,9 @@
 - 用户邀请码、双向绑定和任意一方解除授权
 - 绑定用户之间互相查看当日餐食克重和体重趋势
 - 云环境不可用时使用本地存储预览主流程
+- 正面、背面肌肉图多选，按用户器械与时长生成训练方案
+- 训练动作详情、GIF 示范、同肌群动作替换与本地训练打卡
+- 精选 56 个动作，仅保留中文说明和 8 类器械
 
 ## 本地开发
 
@@ -57,6 +60,28 @@
    - `coach_bindings`: 分别为 `userA`、`userB` 建立单字段索引
 
 未部署云函数时，资料、配餐、首页和报告仍可使用本地数据预览；跨账号绑定必须部署云函数后才能使用。
+
+## 训练动作媒体
+
+精选媒体保存在 `design-assets/workout-media/`，不会进入微信小程序主包。将其中的 `images/`、`videos/` 原样上传至微信云存储的 `workout-media/` 目录后，修改 `miniprogram/config/workout-media.ts`：
+
+- `mode` 改为 `cloud`
+- `cloudRoot` 填写云存储 `workout-media` 目录的 fileID 前缀
+
+当前开发模式使用 jsDelivr 地址；微信真机和正式发布应切换到云存储。媒体清单在 `design-assets/workout-media/manifest.json`，需要重新整理上游数据时可以运行：
+
+```bash
+npm run workout:catalog -- /path/to/exercises-dataset.json
+npm run workout:media
+```
+
+动作数据结构与中文说明来自 `hasaneyldrm/exercises-dataset`。动作图片和 GIF 媒体版权归 Gym visual 所有，应用内保留 `© Gym visual — https://gymvisual.com/` 署名；使用前仍应自行确认所需媒体授权。
+
+肌肉选择图适配自 MIT 开源项目 [Workout.cool](https://github.com/Snouzy/workout-cool)。正面与背面同时显示，点击肌肉本身进行多选；原作者和完整许可保存在 `miniprogram/assets/muscles/`。需要从新的 Workout.cool 源码重新生成 SVG 时运行：
+
+```bash
+npm run workout:muscles -- /path/to/workout-cool
+```
 
 ## 校验
 

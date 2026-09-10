@@ -1,4 +1,4 @@
-<view class="page-shell profile-page">
+<view class="page-shell screen-page profile-page">
   <view class="heading">
     <view>
       <view class="title">我的营养方案</view>
@@ -7,45 +7,48 @@
     <view class="pill">持续执行</view>
   </view>
 
-  <view class="surface form-card">
-    <view class="field-row">
-      <text class="field-label">用户名</text>
-      <input class="nickname-plain" type="nickname" value="{{nicknameDraft}}" bindinput="onNicknameInput" bindblur="finishNicknameEdit" bindconfirm="finishNicknameEdit" disabled="{{savingNickname}}" confirm-type="done" maxlength="20" />
+  <scroll-view class="content-scroll profile-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="surface form-card">
+      <view class="field-row">
+        <text class="field-label">用户名</text>
+        <input class="nickname-plain" type="nickname" value="{{nicknameDraft}}" bindinput="onNicknameInput" bindblur="finishNicknameEdit" bindconfirm="finishNicknameEdit" disabled="{{savingNickname}}" confirm-type="done" maxlength="20" />
+      </view>
+      <view class="field-row">
+        <text class="field-label">性别</text>
+        <view class="choice-row">
+          <view class="choice {{profile.gender === 'female' ? 'active' : ''}}" data-gender="female" bindtap="setGender">女生</view>
+          <view class="choice {{profile.gender === 'male' ? 'active' : ''}}" data-gender="male" bindtap="setGender">男生</view>
+        </view>
+      </view>
+      <view class="field-row"><text class="field-label">年龄</text><input class="number-input" type="number" value="{{profile.age}}" data-field="age" bindinput="onFieldInput" /><text>岁</text></view>
+      <view class="field-row"><text class="field-label">身高</text><input class="number-input" type="digit" value="{{profile.heightCm}}" data-field="heightCm" bindinput="onFieldInput" /><text>cm</text></view>
+      <view class="field-row"><text class="field-label">体重</text><input class="number-input" type="digit" value="{{profile.weightKg}}" data-field="weightKg" bindinput="onFieldInput" /><text>kg</text></view>
     </view>
-    <view class="field-row">
-      <text class="field-label">性别</text>
-      <view class="choice-row">
-        <view class="choice {{profile.gender === 'female' ? 'active' : ''}}" data-gender="female" bindtap="setGender">女生</view>
-        <view class="choice {{profile.gender === 'male' ? 'active' : ''}}" data-gender="male" bindtap="setGender">男生</view>
+
+    <view class="block-title">每周运动量</view>
+    <view class="section-caption block-caption">只用于确定营养系数，不需要每天记录运动</view>
+    <view class="exercise-grid">
+      <button wx:for="{{exerciseOptions}}" wx:key="tier" class="surface exercise-option {{profile.exerciseTier === item.tier ? 'active' : ''}}" data-tier="{{item.tier}}" bindtap="setExerciseTier">
+        <text>{{item.label}}</text><text>{{item.caption}}</text>
+      </button>
+    </view>
+
+    <view class="block-title">每天吃几餐</view>
+    <view class="meal-count-row">
+      <button class="surface meal-count {{profile.mealsPerDay === 2 ? 'active' : ''}}" data-count="2" bindtap="setMealCount"><text>两餐</text><text>中餐 55% · 晚餐 45%</text></button>
+      <button class="surface meal-count {{profile.mealsPerDay === 3 ? 'active' : ''}}" data-count="3" bindtap="setMealCount"><text>三餐</text><text>早 25% · 中 40% · 晚 35%</text></button>
+    </view>
+
+    <view class="surface target-card">
+      <view><text class="section-title">每日营养目标</text><text class="target-kcal">{{dailyTarget.calories}} 千卡</text></view>
+      <view class="macro-row">
+        <view><text>碳水</text><text class="strong">{{dailyTarget.carbs}}g</text></view>
+        <view><text>蛋白质</text><text class="strong">{{dailyTarget.protein}}g</text></view>
+        <view><text>脂肪</text><text class="strong">{{dailyTarget.fat}}g</text></view>
       </view>
     </view>
-    <view class="field-row"><text class="field-label">年龄</text><input class="number-input" type="number" value="{{profile.age}}" data-field="age" bindinput="onFieldInput" /><text>岁</text></view>
-    <view class="field-row"><text class="field-label">身高</text><input class="number-input" type="digit" value="{{profile.heightCm}}" data-field="heightCm" bindinput="onFieldInput" /><text>cm</text></view>
-    <view class="field-row"><text class="field-label">体重</text><input class="number-input" type="digit" value="{{profile.weightKg}}" data-field="weightKg" bindinput="onFieldInput" /><text>kg</text></view>
-  </view>
 
-  <view class="block-title">每周运动量</view>
-  <view class="section-caption block-caption">只用于确定营养系数，不需要每天记录运动</view>
-  <view class="exercise-grid">
-    <button wx:for="{{exerciseOptions}}" wx:key="tier" class="surface exercise-option {{profile.exerciseTier === item.tier ? 'active' : ''}}" data-tier="{{item.tier}}" bindtap="setExerciseTier">
-      <text>{{item.label}}</text><text>{{item.caption}}</text>
-    </button>
-  </view>
-
-  <view class="block-title">每天吃几餐</view>
-  <view class="meal-count-row">
-    <button class="surface meal-count {{profile.mealsPerDay === 2 ? 'active' : ''}}" data-count="2" bindtap="setMealCount"><text>两餐</text><text>中餐 55% · 晚餐 45%</text></button>
-    <button class="surface meal-count {{profile.mealsPerDay === 3 ? 'active' : ''}}" data-count="3" bindtap="setMealCount"><text>三餐</text><text>早 25% · 中 40% · 晚 35%</text></button>
-  </view>
-
-  <view class="surface target-card">
-    <view><text class="section-title">每日营养目标</text><text class="target-kcal">{{dailyTarget.calories}} 千卡</text></view>
-    <view class="macro-row">
-      <view><text>碳水</text><text class="strong">{{dailyTarget.carbs}}g</text></view>
-      <view><text>蛋白质</text><text class="strong">{{dailyTarget.protein}}g</text></view>
-      <view><text>脂肪</text><text class="strong">{{dailyTarget.fat}}g</text></view>
-    </view>
-  </view>
+  </scroll-view>
 
   <button class="primary-button save-button" bindtap="save">保存我的方案</button>
   <view class="safe-note">营养计算结果仅用于健康管理参考，不替代医生或注册营养师建议。孕期、哺乳期、慢性疾病或饮食障碍人群请先咨询专业人士。</view>

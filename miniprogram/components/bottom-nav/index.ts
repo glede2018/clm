@@ -5,7 +5,8 @@ Component({
 
   data: {
     items: [
-      { key: 'home', label: '首页', icon: '⌂', url: '/pages/home/index' },
+      { key: 'home', label: '吃饭', icon: '⌂', url: '/pages/home/index' },
+      { key: 'training', label: '训练', icon: '◇', url: '/pages/training/index' },
       { key: 'report', label: '报告', icon: '▥', url: '/pages/report/index' },
       { key: 'partners', label: '伙伴', icon: '⇄', url: '/pages/coach/index' },
       { key: 'profile', label: '我的', icon: '◎', url: '/pages/profile/index' },

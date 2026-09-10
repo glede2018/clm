@@ -6,8 +6,8 @@
   <view class="progress-track"><view class="progress-fill" style="width: {{(step + 1) / totalSteps * 100}}%"></view></view>
 
   <view class="step-content">
-    <view class="eyebrow">只需设置一次，以后可在“我的”中修改</view>
     <view class="step-title">{{title}}</view>
+    <view class="step-intro">只需设置一次，以后可在“我的”中修改</view>
 
     <view wx:if="{{step === 0}}" class="body-form surface">
       <view class="compact-field">
@@ -32,7 +32,7 @@
           <view class="gender-option {{genderChosen && profile.gender === 'male' ? 'active' : ''}}" data-value="male" bindtap="chooseGender">男生</view>
         </view>
       </view>
-      <view class="form-hint">身体信息用于计算每日碳、蛋、脂目标和角色体型</view>
+      <view class="form-hint">身体信息用于计算每日碳、蛋、脂目标</view>
     </view>
 
     <view wx:if="{{step === 1}}" class="habit-form">

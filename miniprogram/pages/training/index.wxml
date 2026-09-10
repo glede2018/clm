@@ -1,0 +1,56 @@
+<view class="page-shell training-page">
+  <view class="training-header">
+    <view><view class="title">{{step === 1 ? '今天练哪里？' : '准备怎么练？'}}</view><view class="section-caption">{{step === 1 ? '点击身体部位，可同时选择多个肌群' : '选择现有器械和参考训练时长'}}</view></view>
+    <view class="training-stat"><text>{{completedCount}}</text><text>次训练</text></view>
+  </view>
+
+  <view class="step-indicator">
+    <view class="step-node active"><view>1</view><text>选择部位</text></view>
+    <view class="step-line {{step === 2 ? 'active' : ''}}"></view>
+    <view class="step-node {{step === 2 ? 'active' : ''}}"><view>2</view><text>器械与时间</text></view>
+  </view>
+
+  <view wx:if="{{step === 1}}" class="step-panel step-one">
+    <view class="surface anatomy-card">
+      <view class="anatomy-card-heading"><text>选择目标肌群</text><text>可多选</text></view>
+      <view class="anatomy-stage">
+        <image class="anatomy-image anatomy-base" src="{{bodyBaseImage}}" mode="aspectFit" />
+        <image wx:for="{{selectedLayers}}" wx:key="muscle" class="anatomy-image muscle-layer" src="{{item.src}}" mode="aspectFit" />
+        <view wx:for="{{muscleSpots}}" wx:key="id" class="muscle-hitbox" style="top: {{item.top}}%; left: {{item.left}}%; width: {{item.width}}%; height: {{item.height}}%;" data-muscle="{{item.muscle}}" bindtap="toggleMuscle"></view>
+        <view class="figure-label front-label">正面</view><view class="figure-label back-label">背面</view>
+      </view>
+
+      <view class="selected-muscles">
+        <view wx:if="{{!selectedMuscles.length}}" class="empty-selection">尚未选择部位</view>
+        <view wx:for="{{selectedMuscles}}" wx:key="*this" class="selected-muscle" data-muscle="{{item}}" bindtap="removeMuscle">{{item}} <text>×</text></view>
+      </view>
+    </view>
+    <view class="next-action-wrap"><button class="primary-button next-button {{!selectedMuscles.length ? 'disabled' : ''}}" bindtap="nextStep">下一步：选择器械和时间</button></view>
+  </view>
+
+  <view wx:else class="step-panel step-two">
+    <view class="selected-summary"><text>训练部位</text><view><text wx:for="{{selectedMuscles}}" wx:key="*this">{{item}}</text></view></view>
+
+    <view class="section-block equipment-section">
+      <view class="section-heading"><text>我有这些器械</text><text>需要的都选上</text></view>
+      <view class="equipment-grid">
+        <view wx:for="{{equipment}}" wx:key="name" class="equipment-choice {{item.selected ? 'selected' : ''}}" data-name="{{item.name}}" bindtap="toggleEquipment">
+          <view class="equipment-image-wrap">
+            <image class="equipment-image" src="{{item.image}}" mode="aspectFit" />
+            <view wx:if="{{item.selected}}" class="equipment-check">✓</view>
+          </view>
+          <text class="equipment-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-block">
+      <view class="section-heading"><text>参考时长</text><text>仅用于计时参考</text></view>
+      <view class="duration-row"><view wx:for="{{durations}}" wx:key="*this" class="duration-choice {{durationMinutes === item ? 'selected' : ''}}" data-value="{{item}}" bindtap="selectDuration"><text>{{item}}</text><text>分钟</text></view></view>
+    </view>
+
+    <view class="match-preview">将展示全部 <text>{{matchingCount}}</text> 个匹配动作</view>
+    <view class="step-actions"><button class="ghost-button previous-button" bindtap="previousStep">上一步</button><button class="primary-button generate-workout" bindtap="generateWorkout">查看匹配动作</button></view>
+  </view>
+</view>
+<bottom-nav current="training" />

@@ -1,0 +1,19 @@
+.media-card { position: relative; overflow: hidden; padding: 8rpx; flex-shrink: 0; }
+.exercise-gif { display: block; width: 100%; height: 30vh; border-radius: 21rpx; background: #fefefe; max-height: 370rpx; min-height: 220rpx; }
+.gif-badge { position: static; left: 28rpx; bottom: 28rpx; padding: 6rpx 12rpx; border-radius: 999rpx; color: var(--muted); background: transparent; font-size: 20rpx; }
+.exercise-title { margin-top: 16rpx; font-size: 34rpx; font-weight: 700; line-height: 1.3; }
+.tag-row { margin-top: 10rpx; display: flex; flex-wrap: wrap; gap: 10rpx; }
+.tag { padding: 9rpx 14rpx; border-radius: 999rpx; color: var(--muted); background: var(--surface); border: 1rpx solid var(--surface-soft); font-size: 21rpx; }
+.muscle-tag { color: var(--green-dark); border-color: var(--green-dark); background: var(--surface-soft); }
+.instruction-card { margin-top: 16rpx; padding: 18rpx; flex: 1; min-height: 180rpx; display: flex; flex-direction: column; }
+.instruction-list { margin-top: 12rpx; display: flex; flex-direction: column; gap: 16rpx; }
+.instruction-row { display: flex; align-items: flex-start; gap: 16rpx; color: var(--text); line-height: 1.6; }
+.step-number { flex: 0 0 42rpx; width: 42rpx; height: 42rpx; border-radius: 50%; line-height: 42rpx; text-align: center; color: var(--green-dark); background: var(--surface-soft); font-size: 21rpx; font-weight: 700; }
+.instruction-row text { flex: 1; font-size: 25rpx; }
+.safety-card { margin-top: 12rpx; padding: 14rpx 18rpx; border-radius: 20rpx; background: var(--surface-soft); color: var(--text); }
+.safety-card text { display: block; }
+.safety-card text:first-child { margin-bottom: 7rpx; font-weight: 600; }
+.safety-card text:last-child { font-size: 21rpx; line-height: 1.6; color: var(--muted); }
+.attribution { padding: 23rpx 0 4rpx; text-align: center; color: var(--muted); font-size: 19rpx; }
+
+.screen-page.exercise-page > .instruction-card { flex-shrink: 1; }

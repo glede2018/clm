@@ -11,10 +11,10 @@ Page({
     nicknameDraft: getProfile().nickname,
     savingNickname: false,
     exerciseOptions: [
-      { tier: 1, label: '每周 2–3 小时', caption: '约 2 次' },
-      { tier: 2, label: '每周 4–5 小时', caption: '约 3 次' },
-      { tier: 3, label: '每周 6–7 小时', caption: '约 4 次' },
-      { tier: 4, label: '每周 8–10 小时', caption: '约 5 次' },
+      { tier: 1, label: '2-3 小时', caption: '约 2 次' },
+      { tier: 2, label: '4-5 小时', caption: '约 3 次' },
+      { tier: 3, label: '6-7 小时', caption: '约 4 次' },
+      { tier: 4, label: '8-10 小时', caption: '约 5 次' },
     ],
   },
 

@@ -6,6 +6,9 @@
         <view class="home-leaf home-leaf-left"></view>
         <view class="home-leaf home-leaf-right"></view>
       </view>
+      <view wx:elif="{{item.key === 'training'}}" class="nav-icon icon-training">
+        <view class="dumbbell-grip"></view><view class="dumbbell-plate plate-left-a"></view><view class="dumbbell-plate plate-left-b"></view><view class="dumbbell-plate plate-right-a"></view><view class="dumbbell-plate plate-right-b"></view>
+      </view>
       <view wx:elif="{{item.key === 'report'}}" class="nav-icon icon-report"><view class="report-bar bar-short"></view><view class="report-bar bar-medium"></view><view class="report-bar bar-tall"></view></view>
       <view wx:elif="{{item.key === 'partners'}}" class="nav-icon icon-partners"><view class="partner-person partner-left"></view><view class="partner-person partner-right"></view></view>
       <view wx:else class="nav-icon icon-profile"><view class="profile-head"></view><view class="profile-body"></view></view>

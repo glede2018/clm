@@ -1,7 +1,9 @@
 <view class="login-page">
   <view class="brand-mark">
-    <view class="rope"></view>
-    <view class="brand-person">🏃</view>
+    <view class="mark-stem"></view>
+    <view class="mark-leaf leaf-one"></view>
+    <view class="mark-leaf leaf-two"></view>
+    <view class="mark-leaf leaf-three"></view>
   </view>
   <view class="title">减脂拉锯战</view>
   <view class="subtitle">把每一餐，慢慢拉回自己这边</view>

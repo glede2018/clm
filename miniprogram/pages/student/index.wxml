@@ -1,4 +1,4 @@
-<view class="page-shell student-page">
+<view class="page-shell screen-page student-page">
   <view wx:if="{{loading}}" class="loading-state">正在读取伙伴数据…</view>
   <view wx:elif="{{error}}" class="surface error-state">{{error}}</view>
   <block wx:elif="{{detail}}">
@@ -8,14 +8,17 @@
     </view>
 
     <view class="today-heading"><text>今日餐食</text><text>{{meals.length}} / {{detail.profile.mealsPerDay}} 已完成</text></view>
-    <view wx:if="{{meals.length}}" class="meal-records">
-      <view wx:for="{{meals}}" wx:key="mealType" class="surface meal-record">
-        <view class="record-heading"><text>{{item.name}}</text><text>匹配度 {{item.accuracy}}%</text></view>
-        <view class="portion-tags"><text wx:for="{{item.displayPortions}}" wx:for-item="portion" wx:key="id">{{portion.detail || portion.name}} {{portion.grams}}g</text></view>
-        <view class="record-macros"><text>碳水 {{item.actual.carbs}}g</text><text>蛋白质 {{item.actual.protein}}g</text><text>脂肪 {{item.actual.fat}}g</text></view>
+    <scroll-view class="content-scroll records-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+      <view wx:if="{{meals.length}}" class="meal-records">
+        <view wx:for="{{meals}}" wx:key="mealType" class="surface meal-record">
+          <view class="record-heading"><text>{{item.name}}</text><text>匹配度 {{item.accuracy}}%</text></view>
+          <view class="portion-tags"><text wx:for="{{item.displayPortions}}" wx:for-item="portion" wx:key="id">{{portion.detail || portion.name}} {{portion.grams}}g</text></view>
+          <view class="record-macros"><text>碳水 {{item.actual.carbs}}g</text><text>蛋白质 {{item.actual.protein}}g</text><text>脂肪 {{item.actual.fat}}g</text></view>
+        </view>
       </view>
-    </view>
-    <view wx:else class="surface empty-state">对方今天还没有确认餐食</view>
+      <view wx:else class="surface empty-state">对方今天还没有确认餐食</view>
+
+    </scroll-view>
 
     <view class="today-heading"><text>体重趋势</text><text>最近 {{weights.length}} 次</text></view>
     <view class="surface weight-card">

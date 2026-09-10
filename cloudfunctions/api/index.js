@@ -11,6 +11,9 @@ const COLLECTIONS = {
   invites: 'coach_invites',
 }
 
+const WORKOUT_MEDIA_ROOT = 'cloud://cloud1-d1gpmlqv6da1fe64b.636c-cloud1-d1gpmlqv6da1fe64b-1417851962/workout-media'
+const WORKOUT_MEDIA_PATH = /^(images|videos|muscles|equipment)\/[A-Za-z0-9._-]+\.(jpg|gif|svg|png)$/
+
 function success(data = null) { return { ok: true, data } }
 function failure(message) { return { ok: false, message } }
 function isDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value || '') }
@@ -279,6 +282,19 @@ async function getPartnerDetail(openId, partnerIdValue) {
   }
 }
 
+async function getWorkoutMediaUrls(pathsValue) {
+  if (!Array.isArray(pathsValue) || !pathsValue.length || pathsValue.length > 20) throw new Error('媒体路径数量无效')
+  const paths = pathsValue.map(value => String(value || '').replace(/^\/+/, ''))
+  if (paths.some(path => !WORKOUT_MEDIA_PATH.test(path))) throw new Error('媒体路径无效')
+  const result = await cloud.getTempFileURL({ fileList: paths.map(path => `${WORKOUT_MEDIA_ROOT}/${path}`) })
+  return {
+    urls: paths.map((path, index) => ({
+      path,
+      url: result.fileList[index]?.status === 0 ? result.fileList[index].tempFileURL : '',
+    })),
+  }
+}
+
 exports.main = async event => {
   const { OPENID } = cloud.getWXContext()
   const action = event?.action
@@ -302,6 +318,7 @@ exports.main = async event => {
       case 'binding.unbind': return success(await unbindUser(OPENID, payload.partnerId))
       case 'binding.partners': return success(await listPartners(OPENID))
       case 'binding.partnerDetail': return success(await getPartnerDetail(OPENID, payload.partnerId))
+      case 'media.urls': return success(await getWorkoutMediaUrls(payload.paths))
       default: return failure('未知操作')
     }
   } catch (error) {

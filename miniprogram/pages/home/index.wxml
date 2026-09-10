@@ -1,49 +1,54 @@
 <view class="page-shell home-page">
   <view class="home-header">
-    <view><view class="greeting">你好，{{profile.nickname}}</view><view class="section-caption">今天也只需要吃对每一顿</view></view>
-    <view class="today-badge">今日计划</view>
+    <view><view class="greeting">今天吃什么</view><view class="section-caption">{{profile.nickname}}，吃对每一顿就很好</view></view>
+    <view class="today-badge">{{completedCount}} / {{activeCount}} 餐</view>
   </view>
 
-  <view class="surface tug-card">
-    <view class="tug-heading"><text>今日拉锯</text><text>完成 {{completedCount}} / {{activeCount}} 餐</text></view>
-    <view class="rope-row">
-      <view class="rope-side"><text>🍔</text><text>脂肪方</text></view>
-      <view class="rope"><view class="rope-knot" style="left: {{ropePosition}}%"></view></view>
-      <view class="rope-side"><text>✊</text><text>我</text></view>
-    </view>
+  <view class="surface intake-table">
+    <view class="intake-heading"><text>今日营养</text><text>已完成 {{intakeProgress}}%</text></view>
+    <view class="table-row table-header"><text></text><text class="macro-carbs">碳水</text><text class="macro-protein">蛋白质</text><text class="macro-fat">脂肪</text><text class="macro-calories">热量</text></view>
+    <view class="table-row target-row"><text>今日可摄入</text><view class="macro-carbs"><text>{{dailyTarget.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{dailyTarget.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{dailyTarget.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{dailyTarget.calories}}</text><text>kcal</text></view></view>
+    <view class="table-row consumed-row"><text>今日已摄入</text><view class="macro-carbs"><text>{{consumed.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{consumed.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{consumed.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{consumed.calories}}</text><text>kcal</text></view></view>
+    <view class="intake-progress"><view style="transform: scaleX({{intakeProgressScale}})"></view></view>
   </view>
 
-  <view class="game-stage">
-    <view class="avatar-zone {{celebrationClass}}">
-      <view class="motion-halo"></view>
-      <view class="avatar-scale" style="transform: scale({{avatarScaleX}}, {{avatarScaleY}})">
-        <image class="avatar-image" src="{{profile.gender === 'female' ? '/assets/characters/avatar-female-realistic.png' : '/assets/characters/avatar-male-realistic.png'}}" mode="aspectFit" />
+  <view wx:if="{{celebrationText}}" class="meal-feedback {{celebrationClass}}"><view class="feedback-check"></view><text>{{celebrationText}}</text></view>
+
+  <view class="meal-section-heading"><text class="section-title">今天的餐食</text><text>点击一餐开始搭配</text></view>
+  <view class="meal-list">
+    <view wx:for="{{meals}}" wx:key="type" class="meal-button meal-{{item.type}} {{item.done ? 'done' : ''}} {{item.disabled ? 'disabled' : ''}}" data-type="{{item.type}}" role="button" bindtap="openMeal">
+      <view class="meal-card-top">
+        <view class="meal-icon breakfast-icon" wx:if="{{item.type === 'breakfast'}}"><view class="breakfast-sun"><view></view></view><view class="breakfast-cup"></view></view>
+        <view class="meal-icon lunch-icon" wx:elif="{{item.type === 'lunch'}}"><view class="lunch-chopstick chopstick-left"></view><view class="lunch-chopstick chopstick-right"></view><view class="lunch-rice"></view><view class="lunch-bowl"></view></view>
+        <view class="meal-icon dinner-icon" wx:else><view class="dinner-moon"></view><view class="dinner-plate"></view><view class="dinner-fork"></view></view>
+        <view class="meal-title">{{item.name}}</view>
+        <view class="meal-status {{item.done ? 'completed' : ''}}">{{item.done ? '完成' : item.disabled ? '停用' : '待选'}}</view>
       </view>
-      <view class="ground-shadow"></view>
-      <view class="speech" wx:if="{{celebrationText}}">{{celebrationText}}</view>
-    </view>
-
-    <view class="meal-list">
-      <button wx:for="{{meals}}" wx:key="type" class="meal-button {{item.done ? 'done' : ''}} {{item.disabled ? 'disabled' : ''}}" data-type="{{item.type}}" bindtap="openMeal">
-        <text class="meal-icon">{{item.icon}}</text>
-        <view class="meal-content">
-          <text class="strong">{{item.name}}</text>
-          <view wx:if="{{item.done}}" class="meal-foods">
-            <text wx:for="{{item.foods}}" wx:for-item="food" wx:key="*this" class="meal-food">{{food}}</text>
-          </view>
-          <text wx:else class="meal-caption">{{item.caption}}</text>
-        </view>
-        <text class="meal-check">{{item.done ? '✓' : item.disabled ? '—' : '›'}}</text>
-      </button>
+      <view wx:if="{{item.done}}" class="meal-food-list">
+        <text class="meal-food-summary">{{item.foodSummary}}</text>
+      </view>
+      <view wx:else class="meal-caption {{!item.disabled ? 'meal-cta' : ''}}"><text>{{item.caption}}</text><view wx:if="{{!item.disabled}}" class="cta-arrow"></view></view>
+      <view wx:if="{{!item.disabled}}" class="meal-macros">
+        <view><text>碳</text><text>{{item.macro.carbs}}g</text></view>
+        <view><text>蛋</text><text>{{item.macro.protein}}g</text></view>
+        <view><text>脂</text><text>{{item.macro.fat}}g</text></view>
+      </view>
     </view>
   </view>
 
-  <view class="surface nutrition-strip">
-    <view><text>碳水</text><text class="strong">{{dailyTarget.carbs}}g</text></view>
-    <view><text>蛋白质</text><text class="strong">{{dailyTarget.protein}}g</text></view>
-    <view><text>脂肪</text><text class="strong">{{dailyTarget.fat}}g</text></view>
-    <view><text>约</text><text class="strong">{{dailyTarget.calories}} kcal</text></view>
-  </view>
+  <button class="weight-float" bindtap="openWeightModal"><text>记录今天体重</text></button>
   <view class="raw-note">需烹饪食材按烹饪前可食部分生重，即食食品按实际食用重量</view>
 </view>
+
+
+<view wx:if="{{weightModalVisible}}" class="weight-mask" bindtap="closeWeightModal">
+  <view class="weight-sheet" catchtap="noop">
+    <view class="sheet-handle"></view>
+    <view class="weight-sheet-heading"><view><text>记录今天体重</text><text>用于查看趋势和校准营养方案</text></view><view class="sheet-close" bindtap="closeWeightModal"></view></view>
+    <view class="weight-editor"><input type="digit" maxlength="5" focus="{{weightModalVisible}}" value="{{weightInput}}" bindinput="onWeightInput" /><text>kg</text></view>
+    <view class="weight-hint">与个人方案体重相差 2kg 或以上时，将自动更新方案并重新计算碳、蛋、脂。</view>
+    <button class="primary-button weight-save" loading="{{weightSaving}}" disabled="{{weightSaving}}" bindtap="saveWeight">确认记录</button>
+  </view>
+</view>
+
 <bottom-nav current="home" />

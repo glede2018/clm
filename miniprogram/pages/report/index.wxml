@@ -1,10 +1,11 @@
 <view class="page-shell report-page">
   <view class="report-header"><view><view class="title">我的报告</view><view class="section-caption">每一次认真执行都算数</view></view><view class="pill">近 7 天</view></view>
 
-  <view class="stat-grid">
-    <view class="surface stat"><text>最新体重</text><view><text>{{latestWeight}}</text><text>kg</text></view></view>
-    <view class="surface stat"><text>体重变化</text><view><text>{{weightChange}}</text><text>kg</text></view></view>
-    <view class="surface stat"><text>饮食执行率</text><view><text>{{executionRate}}</text><text>%</text></view></view>
+  <view class="surface summary-board">
+    <view class="summary-row featured"><text>饮食执行率</text><view><text>{{executionRate}}</text><text>%</text></view></view>
+    <view class="summary-row"><text>最新体重</text><view><text>{{latestWeight}}</text><text>kg</text></view></view>
+    <view class="summary-row"><text>近期体重变化</text><view><text>{{weightChange}}</text><text>kg</text></view></view>
+    <view class="summary-row"><text>近 7 天训练</text><view><text>{{workoutCount}}</text><text>次 · {{workoutMinutes}} 分钟</text></view></view>
   </view>
 
   <view class="surface chart-card">
@@ -27,9 +28,6 @@
     <view wx:else class="empty-chart">记录第一次体重后，这里会出现趋势</view>
   </view>
 
-  <view class="surface weight-entry">
-    <view><text class="section-title">记录今天体重</text><text class="section-caption">体重只用于趋势，不改变当天输赢</text></view>
-    <view class="weight-input-row"><input type="digit" placeholder="例如 61.8" value="{{weightInput}}" bindinput="onWeightInput" /><text>kg</text><button bindtap="saveWeight">保存</button></view>
-  </view>
+  <view class="report-note"><text>数据说明</text><text>饮食执行率按近 7 天计划餐数计算；体重与训练分别统计，不改变饮食克重方案。</text></view>
 </view>
 <bottom-nav current="report" />

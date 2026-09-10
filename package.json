@@ -5,7 +5,10 @@
   "description": "减脂拉锯战",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test:nutrition": "tsx tests/nutrition.test.ts"
+    "test:nutrition": "tsx tests/nutrition.test.ts",
+    "workout:catalog": "node scripts/build-exercise-catalog.mjs",
+    "workout:media": "node scripts/download-workout-media.mjs",
+    "workout:muscles": "node scripts/build-muscle-assets.mjs"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^4.0.0",

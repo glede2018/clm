@@ -74,7 +74,7 @@ export function portionsForDisplay(portions: FoodPortion[]): DisplayPortion[] {
       result.push({
         id: 'vegetables-total',
         name: vegetables.length > 1 ? '蔬菜合计' : portion.name,
-        detail: vegetables.length > 1 ? `${vegetables.map(item => item.name).join('、')}自由搭配` : '',
+        detail: vegetables.length > 1 ? vegetables.map(item => item.name).join('、') : '',
         grams: vegetables.reduce((sum, item) => sum + item.grams, 0),
       })
       vegetablesAdded = true

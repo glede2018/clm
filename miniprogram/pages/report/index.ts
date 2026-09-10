@@ -1,6 +1,5 @@
-import { callApi } from '../../services/cloud'
 import { formatDate, formatShortDate, recentDates } from '../../utils/date'
-import { getMealRecords, getProfile, getWeightRecords, guardPageAccess, saveWeightRecord } from '../../utils/storage'
+import { getMealRecords, getProfile, getWeightRecords, getWorkoutLogs, guardPageAccess } from '../../utils/storage'
 
 interface DayExecution {
   date: string
@@ -14,11 +13,12 @@ interface DayExecution {
 Page({
   data: {
     profile: getProfile(),
-    weightInput: '',
     latestWeight: '--',
     weightChange: '--',
     executionRate: 0,
     completedMeals: 0,
+    workoutCount: 0,
+    workoutMinutes: 0,
     days: [] as DayExecution[],
     weights: [] as Array<WeightRecord & { label: string; barHeight: number }>,
   },
@@ -40,6 +40,9 @@ Page({
     })
     const completedMeals = days.reduce((sum, day) => sum + day.completed, 0)
     const executionRate = Math.round(completedMeals / Math.max(1, days.length * target) * 100)
+    const workouts = getWorkoutLogs().filter(log => dates.includes(log.date))
+    const workoutCount = workouts.length
+    const workoutMinutes = workouts.reduce((sum, log) => sum + log.durationMinutes, 0)
     const records = getWeightRecords().slice(-7)
     const values = records.map(record => record.weightKg)
     const min = values.length ? Math.min(...values) : 0
@@ -51,24 +54,6 @@ Page({
     }))
     const latestWeight = records.length ? records[records.length - 1].weightKg.toFixed(1) : '--'
     const weightChange = records.length > 1 ? `${records[records.length - 1].weightKg - records[0].weightKg > 0 ? '+' : ''}${(records[records.length - 1].weightKg - records[0].weightKg).toFixed(1)}` : '--'
-    this.setData({ profile, days, completedMeals, executionRate, weights, latestWeight, weightChange })
-  },
-
-  onWeightInput(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
-    this.setData({ weightInput: event.detail.value })
-  },
-
-  async saveWeight() {
-    const weightKg = Number(this.data.weightInput)
-    if (weightKg < 30 || weightKg > 300) {
-      wx.showToast({ title: '请输入有效体重', icon: 'none' })
-      return
-    }
-    const record: WeightRecord = { date: formatDate(), weightKg, createdAt: Date.now() }
-    saveWeightRecord(record)
-    await callApi('weight.save', { record })
-    this.setData({ weightInput: '' })
-    this.refresh()
-    wx.showToast({ title: '体重已记录', icon: 'success' })
+    this.setData({ profile, days, completedMeals, executionRate, workoutCount, workoutMinutes, weights, latestWeight, weightChange })
   },
 })
