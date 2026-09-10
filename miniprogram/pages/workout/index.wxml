@@ -1,4 +1,4 @@
-<view wx:if="{{plan}}" class="page-shell screen-page workout-page">
+<view wx:if="{{plan}}" class="page-shell workout-page">
   <view class="workout-header">
     <view><view class="title">今日训练</view><view class="section-caption">{{planMuscleText}} · 任选动作打卡</view></view>
     <view class="action-count"><text>{{completedCount}}</text><text>/ {{totalCount}} 已完成</text></view>
@@ -7,29 +7,26 @@
   <view class="timer-board">
     <view class="timer-main"><text>已训练</text><text>{{elapsedText}}</text></view>
     <view class="timer-target"><text>参考 {{plan.durationMinutes}} 分钟</text><text>{{durationReady ? '已达到参考时长' : '参考剩余 ' + remainingText}}</text></view>
-    <view class="progress-track"><view class="progress-fill" style="transform: scaleX({{progressScale}});"></view></view>
+    <view class="progress-track"><view class="progress-fill" style="width: {{progress}}%"></view></view>
   </view>
 
   <view class="match-summary"><text>{{totalCount}} 个匹配动作</text><text>多器械匹配优先展示</text></view>
 
-  <scroll-view class="content-scroll workout-scroll" scroll-y enhanced show-scrollbar="{{false}}">
-    <view wx:for="{{groups}}" wx:key="key" class="workout-group">
-      <view class="group-heading"><text>{{item.title}}</text><text>{{item.caption}}</text></view>
-      <view class="workout-list">
-        <view wx:for="{{item.items}}" wx:for-item="exercise" wx:key="id" class="surface workout-item {{exercise.completed ? 'completed' : ''}}">
-          <image class="exercise-thumb" src="{{exercise.thumbnailUrl}}" mode="aspectFill" lazy-load data-id="{{exercise.id}}" bindtap="openExercise" />
-          <view class="exercise-main" data-id="{{exercise.id}}" bindtap="openExercise">
-            <view class="exercise-name">{{exercise.name}}</view>
-            <view class="exercise-tags"><text>{{exercise.matchLabel}}</text><text>{{exercise.muscleText}}</text></view>
-            <view class="exercise-prescription"><text>{{exercise.sets}} 组 × {{exercise.reps}} 次</text><text>休息 {{exercise.restSeconds}} 秒</text></view>
-            <view class="equipment-text">{{exercise.equipmentText}}</view>
-          </view>
-          <button class="complete-action {{exercise.completed ? 'checked' : ''}}" data-id="{{exercise.id}}" catchtap="toggleComplete">{{exercise.completed ? '已打卡' : '已完成'}}</button>
+  <view wx:for="{{groups}}" wx:key="key" class="workout-group">
+    <view class="group-heading"><text>{{item.title}}</text><text>{{item.caption}}</text></view>
+    <view class="workout-list">
+      <view wx:for="{{item.items}}" wx:for-item="exercise" wx:key="id" class="surface workout-item {{exercise.completed ? 'completed' : ''}}">
+        <image class="exercise-thumb" src="{{exercise.thumbnailUrl}}" mode="aspectFill" lazy-load data-id="{{exercise.id}}" bindtap="openExercise" />
+        <view class="exercise-main" data-id="{{exercise.id}}" bindtap="openExercise">
+          <view class="exercise-name">{{exercise.name}}</view>
+          <view class="exercise-tags"><text>{{exercise.matchLabel}}</text><text>{{exercise.muscleText}}</text></view>
+          <view class="exercise-prescription"><text>{{exercise.sets}} 组 × {{exercise.reps}} 次</text><text>休息 {{exercise.restSeconds}} 秒</text></view>
+          <view class="equipment-text">{{exercise.equipmentText}}</view>
         </view>
+        <button class="complete-action {{exercise.completed ? 'checked' : ''}}" data-id="{{exercise.id}}" catchtap="toggleComplete">{{exercise.completed ? '已打卡' : '已完成'}}</button>
       </view>
     </view>
-
-  </scroll-view>
+  </view>
 
   <view class="finish-spacer"></view>
 </view>

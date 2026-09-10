@@ -36,10 +36,10 @@
     </view>
   </view>
 
-  <button class="weight-float" bindtap="openWeightModal"><text>记录今天体重</text></button>
   <view class="raw-note">需烹饪食材按烹饪前可食部分生重，即食食品按实际食用重量</view>
 </view>
 
+<button class="weight-float" bindtap="openWeightModal"><text>记录今天体重</text></button>
 
 <view wx:if="{{weightModalVisible}}" class="weight-mask" bindtap="closeWeightModal">
   <view class="weight-sheet" catchtap="noop">

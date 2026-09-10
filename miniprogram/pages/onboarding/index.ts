@@ -14,10 +14,10 @@ Page({
     mealsChosen: true,
     saving: false,
     exerciseOptions: [
-      { tier: 1, label: '每周 2-3 小时', caption: '约 2 次', hours: 2.5, times: 2 },
-      { tier: 2, label: '每周 4-5 小时', caption: '约 3 次', hours: 4.5, times: 3 },
-      { tier: 3, label: '每周 6-7 小时', caption: '约 4 次', hours: 6.5, times: 4 },
-      { tier: 4, label: '每周 8-10 小时', caption: '约 5 次', hours: 9, times: 5 },
+      { tier: 1, label: '每周 2–3 小时', caption: '约 2 次', hours: 2.5, times: 2 },
+      { tier: 2, label: '每周 4–5 小时', caption: '约 3 次', hours: 4.5, times: 3 },
+      { tier: 3, label: '每周 6–7 小时', caption: '约 4 次', hours: 6.5, times: 4 },
+      { tier: 4, label: '每周 8–10 小时', caption: '约 5 次', hours: 9, times: 5 },
     ],
   },
 
@@ -95,9 +95,9 @@ Page({
     const { step, profile } = this.data
     let tip = ''
     if (step === 0) {
-      if (profile.age < 18 || profile.age > 100) tip = '请输入 18-100 岁的年龄'
-      else if (profile.heightCm < 130 || profile.heightCm > 230) tip = '请输入 130-230cm 的身高'
-      else if (profile.weightKg < 30 || profile.weightKg > 300) tip = '请输入 30-300kg 的体重'
+      if (profile.age < 18 || profile.age > 100) tip = '请输入 18–100 岁的年龄'
+      else if (profile.heightCm < 130 || profile.heightCm > 230) tip = '请输入 130–230cm 的身高'
+      else if (profile.weightKg < 30 || profile.weightKg > 300) tip = '请输入 30–300kg 的体重'
       else if (!this.data.genderChosen) tip = '请选择性别'
     } else if (!this.data.exerciseChosen) tip = '请选择日常运动量'
     else if (!this.data.mealsChosen) tip = '请选择每天用餐次数'

@@ -124,7 +124,7 @@ Page({
     if (this.data.weightSaving) return
     const weightKg = Number(this.data.weightInput)
     if (weightKg < 30 || weightKg > 300) {
-      wx.showToast({ title: '请输入 30-300 kg', icon: 'none' })
+      wx.showToast({ title: '请输入 30–300 kg', icon: 'none' })
       return
     }
 

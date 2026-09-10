@@ -1,17 +1,17 @@
 page {
-  --page: #f6f7f8;
-  --surface: #fefefe;
-  --surface-soft: #fff0eb;
-  --text: #24282b;
-  --muted: #666d73;
-  --line: #e2e5e7;
-  --green: #bd4b35;
-  --green-dark: #b5412c;
-  --coral: #b5412c;
+  --page: #fbf5ee;
+  --surface: #ffffff;
+  --surface-soft: #fceae0;
+  --text: #302522;
+  --muted: #77635c;
+  --line: #ead8cf;
+  --green: #df654b;
+  --green-dark: #b94733;
+  --coral: #c95762;
   --yellow: #e5a23f;
-  --shadow-soft: 0 4rpx 18rpx rgba(35, 42, 48, .035);
+  --shadow-soft: 0 14rpx 38rpx rgba(100, 61, 46, .09);
   min-height: 100%;
-  background: var(--page);
+  background: linear-gradient(180deg, #fbf5ee 0%, #fffdfa 55%, #faf2ea 100%);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 28rpx;
@@ -19,21 +19,21 @@ page {
 
 view, text, button, input, picker, scroll-view { box-sizing: border-box; }
 
-.page-shell { padding: 20rpx 28rpx calc(116rpx + env(safe-area-inset-bottom)); min-height: 100vh; }
+.page-shell { padding: 30rpx 28rpx calc(154rpx + env(safe-area-inset-bottom)); animation: page-enter .32s cubic-bezier(.16,1,.3,1) both; }
 .surface {
   background: var(--surface);
   border-radius: 24rpx;
   box-shadow: var(--shadow-soft);
 }
-.section-title { font-size: 28rpx; font-weight: 650; letter-spacing: -.4rpx; }
+.section-title { font-size: 32rpx; font-weight: 650; letter-spacing: -.4rpx; }
 .section-caption { color: var(--muted); font-size: 24rpx; }
 .primary-button {
   background: var(--green-dark);
-  color: var(--on-accent);
+  color: #fff;
   border-radius: 18rpx;
   font-size: 30rpx;
   font-weight: 600;
-  line-height: 84rpx;
+  line-height: 92rpx;
 }
 .primary-button:active, .ghost-button:active, button:active { transform: scale(.985); opacity: .88; }
 .primary-button::after, .ghost-button::after { border: 0; }
@@ -42,7 +42,7 @@ view, text, button, input, picker, scroll-view { box-sizing: border-box; }
   color: var(--green-dark);
   border: 1rpx solid var(--line);
   border-radius: 18rpx;
-  line-height: 84rpx;
+  line-height: 82rpx;
 }
 .safe-note { color: var(--muted); font-size: 22rpx; line-height: 1.65; }
 .pill {
@@ -55,24 +55,3 @@ view, text, button, input, picker, scroll-view { box-sizing: border-box; }
   font-size: 22rpx;
 }
 @keyframes page-enter { from { opacity: 0; transform: translateY(8rpx); } to { opacity: 1; transform: translateY(0); } }
-
-/* Native page viewport excludes the WeChat navigation bar. Nav: 96rpx + safe area.
-   Layers: action dock 900, navigation 1000, feedback 1100, modal 1300. */
-page { --on-accent: #fffaf7; --radius-card: 24rpx; --radius-control: 16rpx; --nav-height: 96rpx; }
-.surface { border: 1rpx solid var(--line); }
-.section-caption { line-height: 1.5; }
-.primary-button, .ghost-button { border-radius: var(--radius-control); font-size: 28rpx; }
-.primary-button { color: var(--on-accent); }
-.primary-button[disabled] { background: var(--line); color: var(--muted); }
-.screen-page { height: 100vh; display: flex; flex-direction: column; }
-.screen-page > view, .screen-page > button { flex-shrink: 0; }
-.content-scroll { display: block; flex: 1; height: 0; min-height: 140rpx; width: 100%; }
-.scroll-content { padding-bottom: 12rpx; }
-.page-shell .title { font-size: 36rpx; font-weight: 700; letter-spacing: -.6rpx; line-height: 1.25; }
-.page-shell .heading, .page-shell .home-header, .page-shell .training-header, .page-shell .workout-header, .page-shell .report-header, .page-shell .meal-heading, .page-shell .partner-header { margin: 0 0 20rpx; }
-@media (prefers-color-scheme: dark) {
-  page { --page: #191c1f; --surface: #24282c; --surface-soft: #3d2b27; --text: #f1f2f3; --muted: #b0b7bd; --line: #3b4146; --green: #f1a28c; --green-dark: #f1a28c; --coral: #f1a28c; --on-accent: #291b16; --shadow-soft: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  view, button, image { animation: none !important; transition: none !important; }
-}

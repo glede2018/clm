@@ -1,8 +1,8 @@
-.meal-page { padding-bottom: calc(116rpx + env(safe-area-inset-bottom)); }
+.meal-page { padding-bottom: calc(152rpx + env(safe-area-inset-bottom)); }
 .meal-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 18rpx; margin: 8rpx 2rpx 32rpx; }
 .title { font-size: 42rpx; font-weight: 700; margin-bottom: 8rpx; }
-.raw-pill { padding: 9rpx 17rpx; border-radius: 999rpx; background: var(--surface-soft); color: var(--muted); font-size: 22rpx; white-space: nowrap; }
-.food-section { margin-bottom: 22rpx; animation: none; }
+.raw-pill { padding: 9rpx 17rpx; border-radius: 999rpx; background: #fff0dc; color: #956425; font-size: 22rpx; white-space: nowrap; }
+.food-section { margin-bottom: 30rpx; animation: section-rise .4s ease both; }
 .food-section:nth-child(3) { animation-delay: .04s; }
 .food-section:nth-child(4) { animation-delay: .08s; }
 .food-section:nth-child(5) { animation-delay: .12s; }
@@ -10,14 +10,14 @@
 .section-heading { display: flex; justify-content: space-between; align-items: center; margin: 0 3rpx 14rpx; }
 .section-heading text:first-child { font-weight: 600; font-size: 30rpx; }
 .section-heading text:last-child { color: var(--muted); font-size: 22rpx; }
-.food-grid { display: flex; flex-wrap: wrap; gap: 10rpx; align-items: center; }
-.food-choice { flex: 0 0 auto; width: auto; max-width: 100%; min-height: 80rpx; padding: 0 20rpx; border: 2rpx solid var(--line); border-radius: 16rpx; background: var(--surface); color: var(--text); font-size: 25rpx; line-height: 76rpx; display: flex; align-items: center; justify-content: center; gap: 8rpx; white-space: nowrap; }
+.food-grid { display: flex; flex-wrap: wrap; gap: 14rpx 12rpx; align-items: center; }
+.food-choice { flex: 0 0 auto; width: auto; max-width: 100%; min-height: 72rpx; padding: 0 26rpx; border: 2rpx solid var(--line); border-radius: 999rpx; background: var(--surface); color: var(--text); font-size: 25rpx; line-height: 68rpx; display: flex; align-items: center; justify-content: center; gap: 8rpx; white-space: nowrap; }
 .food-choice.selected { border-color: var(--green); background: var(--surface-soft); animation: food-select .22s cubic-bezier(.16,1,.3,1) both; }
 .selected-check { color: var(--green-dark); font-weight: 700; }
-.generate-button { margin-top: 16rpx; width: 100%; }
-.center-note { text-align: center; margin: 12rpx 0 0; font-size: 20rpx; line-height: 1.5; }
-.result-mask { position: fixed; z-index: 1300; inset: 0; background: rgba(48,37,34,.5); display: flex; align-items: flex-end; }
-.result-sheet { width: 100%; max-height: 88vh; overflow-y: auto; background: var(--page); border-radius: 32rpx 32rpx 0 0; padding: 18rpx 30rpx calc(142rpx + env(safe-area-inset-bottom)); animation: sheet-up .35s cubic-bezier(.16,1,.3,1) both; padding-bottom: calc(24rpx + env(safe-area-inset-bottom)); }
+.generate-button { margin-top: 40rpx; }
+.center-note { text-align: center; margin: 20rpx 18rpx; }
+.result-mask { position: fixed; z-index: 99; inset: 0; background: rgba(48,37,34,.5); display: flex; align-items: flex-end; }
+.result-sheet { width: 100%; max-height: 88vh; overflow-y: auto; background: var(--page); border-radius: 32rpx 32rpx 0 0; padding: 18rpx 30rpx calc(142rpx + env(safe-area-inset-bottom)); animation: sheet-up .35s cubic-bezier(.16,1,.3,1) both; }
 .sheet-handle { width: 80rpx; height: 8rpx; border-radius: 99rpx; background: var(--line); margin: 0 auto 25rpx; }
 .result-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 20rpx; }
 .result-heading > view:first-child { display: flex; flex-direction: column; gap: 6rpx; }

@@ -54,7 +54,6 @@ Page({
     completedCount: 0,
     totalCount: 0,
     progress: 0,
-    progressScale: 0,
     planMuscleText: '',
     elapsedSeconds: 0,
     elapsedText: '00:00',
@@ -142,7 +141,6 @@ Page({
     const finishLabel = this.data.completedCount === 0
       ? '先完成一个动作'
       : '完成本次训练'
-    const progress = Math.min(100, Math.round(elapsedSeconds / Math.max(1, targetSeconds) * 100))
     this.setData({
       elapsedSeconds,
       elapsedText: formatDuration(elapsedSeconds),
@@ -150,8 +148,7 @@ Page({
       durationReady,
       canFinish,
       finishLabel,
-      progress,
-      progressScale: progress / 100,
+      progress: Math.min(100, Math.round(elapsedSeconds / Math.max(1, targetSeconds) * 100)),
     })
   },
 

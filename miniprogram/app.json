@@ -14,9 +14,9 @@
   ],
   "window": {
     "navigationBarTitleText": "减脂拉锯战",
-    "navigationBarBackgroundColor": "@navBackground",
-    "navigationBarTextStyle": "@navText",
-    "backgroundColor": "@pageBackground",
+    "navigationBarBackgroundColor": "#FFF7EF",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF7EF",
     "backgroundTextStyle": "light"
   },
   "usingComponents": {
@@ -24,7 +24,5 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "darkmode": true,
-  "themeLocation": "theme.json"
+  "lazyCodeLoading": "requiredComponents"
 }

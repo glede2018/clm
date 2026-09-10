@@ -1,4 +1,4 @@
-<view class="page-shell screen-page partner-page">
+<view class="page-shell partner-page">
   <view class="partner-header">
     <view class="title">我的伙伴</view>
     <view class="section-caption">与其他用户双向绑定，互相查看已授权的饮食和体重记录</view>
@@ -20,21 +20,18 @@
   <view class="privacy-note">绑定是双向授权。双方可以查看对方确认记录的餐食克重和体重趋势，但不能修改对方记录，任意一方都可解除。</view>
 
   <view class="partner-heading"><text>已绑定用户</text><text>{{partners.length}} 人</text></view>
-  <scroll-view class="content-scroll partner-scroll" scroll-y enhanced show-scrollbar="{{false}}">
-    <view wx:if="{{partners.length}}" class="partner-list">
-      <view wx:for="{{partners}}" wx:key="openId" class="surface partner-row" data-id="{{item.openId}}" bindtap="openPartner">
-        <view class="partner-avatar">{{item.initial}}</view>
-        <view class="partner-copy"><text>{{item.nickname}}</text><text>今日 {{item.todayMeals}}/{{item.targetMeals}} 餐</text></view>
-        <view class="partner-actions">
-          <view class="partner-weight">{{item.latestWeight || '--'}}<text>kg</text></view>
-          <button data-id="{{item.openId}}" catchtap="unbindPartner">解除</button>
-        </view>
+  <view wx:if="{{partners.length}}" class="partner-list">
+    <view wx:for="{{partners}}" wx:key="openId" class="surface partner-row" data-id="{{item.openId}}" bindtap="openPartner">
+      <view class="partner-avatar">{{item.initial}}</view>
+      <view class="partner-copy"><text>{{item.nickname}}</text><text>今日 {{item.todayMeals}}/{{item.targetMeals}} 餐</text></view>
+      <view class="partner-actions">
+        <view class="partner-weight">{{item.latestWeight || '--'}}<text>kg</text></view>
+        <button data-id="{{item.openId}}" catchtap="unbindPartner">解除</button>
       </view>
     </view>
-    <view wx:else class="surface empty-partners">还没有绑定用户，可以生成邀请码分享给朋友</view>
-</scroll-view>
-
   </view>
+  <view wx:else class="surface empty-partners">还没有绑定用户，可以生成邀请码分享给朋友</view>
+</view>
 
 <view wx:if="{{inviteVisible}}" class="invite-mask" bindtap="closeInvite">
   <view class="invite-dialog" catchtap="noop">
