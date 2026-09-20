@@ -4,7 +4,7 @@
     <view class="raw-pill">生重</view>
   </view>
 
-  <view wx:for="{{sections}}" wx:key="category" class="food-section">
+  <view wx:for="{{sections}}" wx:key="category" class="food-section food-section-{{item.category}}">
     <view class="section-heading"><text>{{item.label}}</text><text>{{item.hint}} · {{item.foods.length}} 种</text></view>
     <view class="food-grid">
       <view wx:for="{{item.foods}}" wx:for-item="food" wx:key="id" class="food-choice {{food.selected ? 'selected' : ''}}" data-id="{{food.id}}" data-category="{{food.category}}" bindtap="toggleFood">
@@ -39,3 +39,17 @@
   </view>
 </view>
 <bottom-nav current="home" />
+<intro-guide
+  visible="{{mealGuideReady}}"
+  step="{{mealGuideStep}}"
+  total="{{6}}"
+  title="{{mealGuideTitle}}"
+  description="{{mealGuideDescription}}"
+  target-hint="{{mealGuideStep === 6 ? '点击高亮按钮完成引导' : '选择完成后点击下一步'}}"
+  action-text="{{mealGuideStep >= 2 && mealGuideStep < 6 ? '下一步' : ''}}"
+  target-style="{{mealGuideTargetStyle}}"
+  tooltip-style="{{mealGuideTooltipStyle}}"
+  placement="{{mealGuidePlacement}}"
+  bind:next="nextMealGuide"
+  bind:skip="dismissMealGuide"
+/>

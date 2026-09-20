@@ -1,4 +1,4 @@
-# 减脂拉锯战
+# 食克有数
 
 原生微信小程序 + TypeScript + 微信云开发实现的减脂配餐工具。用户填写身体资料及每周运动量后，系统计算每日碳水、蛋白质和脂肪目标；用户选择当前拥有的食材，系统返回本餐各食材的生重克数。
 
@@ -46,6 +46,7 @@
    - `users`
    - `meal_records`
    - `weight_records`
+   - `workout_records`
    - `coach_bindings`
    - `coach_invites`
 
@@ -57,6 +58,7 @@
 
    - `meal_records`: `ownerId` 升序 + `date` 降序
    - `weight_records`: `ownerId` 升序 + `date` 降序
+   - `workout_records`: `ownerId` 升序 + `completedAt` 降序
    - `coach_bindings`: 分别为 `userA`、`userB` 建立单字段索引
 
 未部署云函数时，资料、配餐、首页和报告仍可使用本地数据预览；跨账号绑定必须部署云函数后才能使用。

@@ -50,4 +50,4 @@
   <button class="primary-button save-button" bindtap="save">保存我的方案</button>
   <view class="safe-note">营养计算结果仅用于健康管理参考，不替代医生或注册营养师建议。孕期、哺乳期、慢性疾病或饮食障碍人群请先咨询专业人士。</view>
 </view>
-<bottom-nav current="profile" />
+<bottom-nav current="profile" bind:weightsaved="onShow" />

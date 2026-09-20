@@ -1,9 +1,11 @@
+import { productShareHandlers } from '../../utils/share'
 import { callApi } from '../../services/cloud'
 import { createProfileDraft, getAuthSession, markInitialized, saveProfile } from '../../utils/storage'
 
 const STEP_TITLES = ['身体基础信息', '饮食与运动习惯']
 
 Page({
+  ...productShareHandlers,
   data: {
     step: 0,
     totalSteps: STEP_TITLES.length,

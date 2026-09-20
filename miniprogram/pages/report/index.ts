@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { formatDate, formatShortDate, recentDates } from '../../utils/date'
 import { getMealRecords, getProfile, getWeightRecords, getWorkoutLogs, guardPageAccess } from '../../utils/storage'
 
@@ -11,6 +12,7 @@ interface DayExecution {
 }
 
 Page({
+  ...productShareHandlers,
   data: {
     profile: getProfile(),
     latestWeight: '--',

@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { callApiRequired } from '../../services/cloud'
 import { getAuthSession, isInitialized, saveAuthSession, saveProfile } from '../../utils/storage'
 
@@ -8,6 +9,7 @@ interface LoginResult {
 }
 
 Page({
+  ...productShareHandlers,
   data: {
     loading: false,
   },

@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { callApi } from '../../services/cloud'
 import { formatShortDate } from '../../utils/date'
 import { mealName, portionsForDisplay } from '../../utils/nutrition'
@@ -12,15 +13,18 @@ interface PartnerDetail {
   date: string
   meals: MealPlan[]
   weights: WeightRecord[]
+  workouts: WorkoutLog[]
 }
 
 Page({
+  ...productShareHandlers,
   data: {
     loading: true,
     error: '',
     detail: null as PartnerDetail | null,
     meals: [] as Array<MealPlan & { name: string; displayPortions: DisplayPortion[] }>,
     weights: [] as Array<WeightRecord & { label: string; barHeight: number }>,
+    workouts: [] as Array<WorkoutLog & { dateLabel: string; muscleText: string; exerciseText: string }>,
   },
 
   async onLoad(query: Record<string, string | undefined>) {
@@ -44,6 +48,12 @@ Page({
       barHeight: max === min ? 60 : 24 + (item.weightKg - min) / (max - min) * 76,
     }))
     const meals = detail.meals.map(item => ({ ...item, name: mealName(item.mealType), displayPortions: portionsForDisplay(item.portions) }))
-    this.setData({ loading: false, detail, meals, weights })
+    const workouts = (detail.workouts || []).slice(0, 5).map(item => ({
+      ...item,
+      dateLabel: formatShortDate(item.date),
+      muscleText: item.muscles.join(' · '),
+      exerciseText: item.exerciseNames.join('、'),
+    }))
+    this.setData({ loading: false, detail, meals, weights, workouts })
   },
 })

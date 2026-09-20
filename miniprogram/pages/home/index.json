@@ -1,1 +1,6 @@
-{ "navigationBarTitleText": "吃饭" }
+{
+  "navigationBarTitleText": "吃饭",
+  "usingComponents": {
+    "intro-guide": "/components/intro-guide/index"
+  }
+}

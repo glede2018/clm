@@ -6,6 +6,7 @@ const CELEBRATION_KEY = 'fat_tug_celebration'
 const WORKOUT_EQUIPMENT_KEY = 'fat_tug_workout_equipment'
 const CURRENT_WORKOUT_KEY = 'fat_tug_current_workout'
 const WORKOUT_LOGS_KEY = 'fat_tug_workout_logs'
+const MEAL_GUIDE_KEY = 'fat_tug_meal_intro_v3_step'
 
 export function createProfileDraft(session?: Partial<AuthSession>): UserProfile {
   return {
@@ -58,6 +59,16 @@ export function clearUserData(): void {
   wx.removeStorageSync(WORKOUT_EQUIPMENT_KEY)
   wx.removeStorageSync(CURRENT_WORKOUT_KEY)
   wx.removeStorageSync(WORKOUT_LOGS_KEY)
+  wx.removeStorageSync(MEAL_GUIDE_KEY)
+}
+
+export function getMealGuideStep(): number {
+  const stored = wx.getStorageSync<number>(MEAL_GUIDE_KEY)
+  return [0, 1, 2, 3, 4, 5, 6].includes(stored) ? stored : 1
+}
+
+export function saveMealGuideStep(step: number): void {
+  wx.setStorageSync(MEAL_GUIDE_KEY, Math.max(0, Math.min(6, step)))
 }
 
 export function guardPageAccess(): boolean {

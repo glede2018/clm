@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { callApi, callApiRequired } from '../../services/cloud'
 import { guardPageAccess } from '../../utils/storage'
 
@@ -11,6 +12,7 @@ interface PartnerSnapshot {
 }
 
 Page({
+  ...productShareHandlers,
   data: {
     inviteCode: '',
     bindCode: '',

@@ -30,4 +30,4 @@
 
   <view class="report-note"><text>数据说明</text><text>饮食执行率按近 7 天计划餐数计算；体重与训练分别统计，不改变饮食克重方案。</text></view>
 </view>
-<bottom-nav current="report" />
+<bottom-nav current="report" bind:weightsaved="refresh" />

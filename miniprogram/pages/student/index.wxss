@@ -13,6 +13,13 @@
 .portion-tags { display: flex; flex-wrap: wrap; gap: 10rpx; margin-top: 18rpx; }
 .portion-tags text { padding: 9rpx 13rpx; border-radius: 12rpx; background: var(--page); font-size: 22rpx; }
 .record-macros { display: flex; gap: 18rpx; margin-top: 17rpx; color: var(--muted); font-size: 20rpx; }
+.workout-records { display: flex; flex-direction: column; gap: 12rpx; }
+.workout-record { padding: 20rpx 22rpx; border: 1rpx solid var(--line); box-shadow: none; }
+.workout-record-heading { display: flex; align-items: center; justify-content: space-between; }
+.workout-record-heading text:first-child { font-weight: 600; }
+.workout-record-heading text:last-child { color: var(--green-dark); font-size: 22rpx; }
+.workout-muscles { margin-top: 10rpx; color: var(--coral); font-size: 22rpx; }
+.workout-exercises { margin-top: 8rpx; color: var(--muted); font-size: 21rpx; line-height: 1.5; }
 .empty-state { padding: 55rpx 20rpx; text-align: center; color: var(--muted); }
 .weight-card { padding: 24rpx 20rpx; }
 .weight-chart { height: 250rpx; display: flex; align-items: flex-end; justify-content: space-around; gap: 7rpx; }

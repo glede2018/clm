@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { calculateDailyTarget, resolveExerciseTier } from '../../utils/nutrition'
 import { getProfile, guardPageAccess, saveProfile } from '../../utils/storage'
 import { callApi, callApiRequired } from '../../services/cloud'
@@ -5,6 +6,7 @@ import { callApi, callApiRequired } from '../../services/cloud'
 let nicknameSaveTimer: number | undefined
 
 Page({
+  ...productShareHandlers,
   data: {
     profile: getProfile(),
     dailyTarget: calculateDailyTarget(getProfile()),

@@ -1,7 +1,10 @@
 <view class="nav-shell">
   <view class="nav-bar">
     <view wx:for="{{items}}" wx:key="key" class="nav-item {{current === item.key ? 'active' : ''}}" data-key="{{item.key}}" data-url="{{item.url}}" bindtap="navigate">
-      <view wx:if="{{item.key === 'home'}}" class="nav-icon icon-home">
+      <view wx:if="{{item.key === 'weight'}}" class="weight-nav-button">
+        <view class="weight-scale-icon"><view></view></view>
+      </view>
+      <view wx:elif="{{item.key === 'home'}}" class="nav-icon icon-home">
         <view class="home-bowl"></view>
         <view class="home-leaf home-leaf-left"></view>
         <view class="home-leaf home-leaf-right"></view>
@@ -14,5 +17,18 @@
       <view wx:else class="nav-icon icon-profile"><view class="profile-head"></view><view class="profile-body"></view></view>
       <text class="nav-label">{{item.label}}</text>
     </view>
+  </view>
+</view>
+
+<view wx:if="{{weightModalVisible}}" class="weight-mask" bindtap="closeWeightModal">
+  <view class="weight-sheet" catchtap="noop">
+    <view class="weight-sheet-heading"><view><text>记录今天体重</text><text>用于查看趋势和校准营养方案</text></view><view class="sheet-close" bindtap="closeWeightModal"></view></view>
+    <view class="weight-editor">
+      <button class="weight-step" data-delta="-0.1" disabled="{{weightSaving}}" catchtap="adjustWeight"><text>−</text></button>
+      <view class="weight-value"><input type="digit" maxlength="5" focus="{{weightModalVisible}}" value="{{weightInput}}" bindinput="onWeightInput" /><text>kg</text></view>
+      <button class="weight-step" data-delta="0.1" disabled="{{weightSaving}}" catchtap="adjustWeight"><text>＋</text></button>
+    </view>
+    <view class="weight-hint">与个人方案体重相差 2kg 或以上时，将自动更新方案并重新计算营养目标。</view>
+    <button class="weight-save" loading="{{weightSaving}}" disabled="{{weightSaving}}" bindtap="saveWeight">确认记录</button>
   </view>
 </view>

@@ -14,41 +14,73 @@
 
   <view wx:if="{{celebrationText}}" class="meal-feedback {{celebrationClass}}"><view class="feedback-check"></view><text>{{celebrationText}}</text></view>
 
-  <view class="meal-section-heading"><text class="section-title">今天的餐食</text><text>点击一餐开始搭配</text></view>
-  <view class="meal-list">
-    <view wx:for="{{meals}}" wx:key="type" class="meal-button meal-{{item.type}} {{item.done ? 'done' : ''}} {{item.disabled ? 'disabled' : ''}}" data-type="{{item.type}}" role="button" bindtap="openMeal">
-      <view class="meal-card-top">
-        <view class="meal-icon breakfast-icon" wx:if="{{item.type === 'breakfast'}}"><view class="breakfast-sun"><view></view></view><view class="breakfast-cup"></view></view>
-        <view class="meal-icon lunch-icon" wx:elif="{{item.type === 'lunch'}}"><view class="lunch-chopstick chopstick-left"></view><view class="lunch-chopstick chopstick-right"></view><view class="lunch-rice"></view><view class="lunch-bowl"></view></view>
-        <view class="meal-icon dinner-icon" wx:else><view class="dinner-moon"></view><view class="dinner-plate"></view><view class="dinner-fork"></view></view>
-        <view class="meal-title">{{item.name}}</view>
-        <view class="meal-status {{item.done ? 'completed' : ''}}">{{item.done ? '完成' : item.disabled ? '停用' : '待选'}}</view>
-      </view>
-      <view wx:if="{{item.done}}" class="meal-food-list">
-        <text class="meal-food-summary">{{item.foodSummary}}</text>
-      </view>
-      <view wx:else class="meal-caption {{!item.disabled ? 'meal-cta' : ''}}"><text>{{item.caption}}</text><view wx:if="{{!item.disabled}}" class="cta-arrow"></view></view>
-      <view wx:if="{{!item.disabled}}" class="meal-macros">
-        <view><text>碳</text><text>{{item.macro.carbs}}g</text></view>
-        <view><text>蛋</text><text>{{item.macro.protein}}g</text></view>
-        <view><text>脂</text><text>{{item.macro.fat}}g</text></view>
-      </view>
+  <view class="meal-section-heading">
+    <text class="section-title">今天的餐食</text>
+    <text>左右滑动选择餐次</text>
+  </view>
+  <view class="meal-carousel-shell">
+    <swiper
+      class="meal-carousel"
+      current="{{currentMealIndex}}"
+      previous-margin="112rpx"
+      next-margin="112rpx"
+      duration="520"
+      easing-function="easeOutCubic"
+      bindchange="onMealSlideChange"
+    >
+      <swiper-item wx:for="{{meals}}" wx:key="type" class="meal-slide">
+        <view
+          class="meal-button meal-{{item.type}} {{item.type === activeMealType ? 'is-active' : ''}} {{item.done ? 'done' : ''}} {{item.disabled ? 'disabled' : ''}}"
+          data-index="{{index}}"
+          data-type="{{item.type}}"
+          role="button"
+          bindtap="selectMealCard"
+        >
+          <view class="meal-orbit meal-orbit-one"></view>
+          <view class="meal-orbit meal-orbit-two"></view>
+          <view class="meal-card-top">
+            <view class="meal-icon breakfast-icon" wx:if="{{item.type === 'breakfast'}}"><view class="breakfast-sun"><view></view></view><view class="breakfast-cup"></view></view>
+            <view class="meal-icon lunch-icon" wx:elif="{{item.type === 'lunch'}}"><view class="lunch-chopstick chopstick-left"></view><view class="lunch-chopstick chopstick-right"></view><view class="lunch-rice"></view><view class="lunch-bowl"></view></view>
+            <view class="meal-icon dinner-icon" wx:else><view class="dinner-moon"></view><view class="dinner-plate"></view><view class="dinner-fork"></view></view>
+            <view class="meal-title-wrap">
+              <view class="meal-title">{{item.name}}</view>
+            </view>
+            <view class="meal-status {{item.done ? 'completed' : ''}}">{{item.done ? '完成' : item.disabled ? '停用' : '待选'}}</view>
+          </view>
+          <view wx:if="{{item.done}}" class="meal-food-list">
+            <text class="meal-food-summary">{{item.foodSummary}}</text>
+          </view>
+          <view wx:else class="meal-caption {{!item.disabled && item.type === activeMealType ? 'meal-cta' : ''}}" data-index="{{index}}" data-type="{{item.type}}" catchtap="selectMealAction">
+            <text>{{item.type === activeMealType ? item.caption : '滑到中间查看'}}</text>
+            <view wx:if="{{!item.disabled && item.type === activeMealType}}" class="cta-arrow"></view>
+          </view>
+          <view wx:if="{{!item.disabled}}" class="meal-macros">
+            <view><text>碳水</text><text>{{item.macro.carbs}}g</text></view>
+            <view><text>蛋白质</text><text>{{item.macro.protein}}g</text></view>
+            <view><text>脂肪</text><text>{{item.macro.fat}}g</text></view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="meal-pagination">
+      <view wx:for="{{meals}}" wx:key="type" class="meal-dot {{item.type === activeMealType ? 'active' : ''}}"></view>
     </view>
   </view>
 
   <view class="raw-note">需烹饪食材按烹饪前可食部分生重，即食食品按实际食用重量</view>
 </view>
 
-<button class="weight-float" bindtap="openWeightModal"><text>记录今天体重</text></button>
+<intro-guide
+  visible="{{mealGuideReady}}"
+  step="{{1}}"
+  total="{{6}}"
+  title="先选择一餐"
+  description="点击高亮的“选择食材”，进入这顿饭的食材搭配。"
+  target-hint="点击高亮区域继续"
+  target-style="{{mealGuideTargetStyle}}"
+  tooltip-style="{{mealGuideTooltipStyle}}"
+  placement="{{mealGuidePlacement}}"
+  bind:skip="dismissMealGuide"
+/>
 
-<view wx:if="{{weightModalVisible}}" class="weight-mask" bindtap="closeWeightModal">
-  <view class="weight-sheet" catchtap="noop">
-    <view class="sheet-handle"></view>
-    <view class="weight-sheet-heading"><view><text>记录今天体重</text><text>用于查看趋势和校准营养方案</text></view><view class="sheet-close" bindtap="closeWeightModal"></view></view>
-    <view class="weight-editor"><input type="digit" maxlength="5" focus="{{weightModalVisible}}" value="{{weightInput}}" bindinput="onWeightInput" /><text>kg</text></view>
-    <view class="weight-hint">与个人方案体重相差 2kg 或以上时，将自动更新方案并重新计算碳、蛋、脂。</view>
-    <button class="primary-button weight-save" loading="{{weightSaving}}" disabled="{{weightSaving}}" bindtap="saveWeight">确认记录</button>
-  </view>
-</view>
-
-<bottom-nav current="home" />
+<bottom-nav current="home" bind:weightsaved="refresh" />

@@ -1,4 +1,6 @@
+import { productShareHandlers } from '../../utils/share'
 import { resolveWorkoutMediaUrls, workoutMediaUrl } from '../../config/workout-media'
+import { callApi } from '../../services/cloud'
 import { formatDate } from '../../utils/date'
 import { clearCurrentWorkout, getCurrentWorkout, guardPageAccess, saveCurrentWorkout, saveWorkoutLog } from '../../utils/storage'
 
@@ -48,6 +50,7 @@ function buildGroups(items: DisplayWorkoutItem[], selectedEquipmentCount: number
 }
 
 Page({
+  ...productShareHandlers,
   data: {
     plan: null as WorkoutPlan | null,
     groups: [] as WorkoutGroup[],
@@ -168,7 +171,7 @@ Page({
     wx.showToast({ title: plan.items.find(item => item.id === id)?.completed ? '动作已打卡' : '已取消打卡', icon: 'none' })
   },
 
-  finishWorkout() {
+  async finishWorkout() {
     const plan = this.data.plan
     if (!plan) return
     this.updateTimer()
@@ -187,6 +190,7 @@ Page({
     }
     this.stopTimer()
     saveWorkoutLog(log)
+    await callApi('workout.save', { log })
     clearCurrentWorkout()
     wx.showToast({ title: '训练完成！', icon: 'success' })
     setTimeout(() => wx.reLaunch({ url: '/pages/training/index' }), 650)

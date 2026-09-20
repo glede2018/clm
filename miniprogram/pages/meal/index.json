@@ -1,1 +1,6 @@
-{ "navigationBarTitleText": "选择食材" }
+{
+  "navigationBarTitleText": "选择食材",
+  "usingComponents": {
+    "intro-guide": "/components/intro-guide/index"
+  }
+}

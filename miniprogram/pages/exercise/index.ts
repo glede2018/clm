@@ -1,8 +1,10 @@
+import { productShareHandlers } from '../../utils/share'
 import { resolveWorkoutMediaUrl, workoutMediaUrl } from '../../config/workout-media'
 import { findExercise } from '../../data/exercises'
 import { guardPageAccess } from '../../utils/storage'
 
 Page({
+  ...productShareHandlers,
   data: {
     exercise: null as ExerciseItem | null,
     gifUrl: '',

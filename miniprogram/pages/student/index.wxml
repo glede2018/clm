@@ -17,6 +17,16 @@
     </view>
     <view wx:else class="surface empty-state">对方今天还没有确认餐食</view>
 
+    <view class="today-heading"><text>训练记录</text><text>最近 {{workouts.length}} 次</text></view>
+    <view wx:if="{{workouts.length}}" class="workout-records">
+      <view wx:for="{{workouts}}" wx:key="id" class="surface workout-record">
+        <view class="workout-record-heading"><text>{{item.dateLabel}}</text><text>{{item.durationMinutes}} 分钟</text></view>
+        <view class="workout-muscles">{{item.muscleText}}</view>
+        <view class="workout-exercises">{{item.exerciseText}}</view>
+      </view>
+    </view>
+    <view wx:else class="surface empty-state">对方还没有训练记录</view>
+
     <view class="today-heading"><text>体重趋势</text><text>最近 {{weights.length}} 次</text></view>
     <view class="surface weight-card">
       <view wx:if="{{weights.length}}" class="weight-chart">

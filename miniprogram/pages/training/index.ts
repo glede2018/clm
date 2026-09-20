@@ -1,3 +1,4 @@
+import { productShareHandlers } from '../../utils/share'
 import { exercises } from '../../data/exercises'
 import { resolveWorkoutMediaUrls, workoutMediaUrl } from '../../config/workout-media'
 import { getWorkoutEquipment, getWorkoutLogs, guardPageAccess, saveCurrentWorkout, saveWorkoutEquipment } from '../../utils/storage'
@@ -71,6 +72,7 @@ const MUSCLE_SPOTS: MuscleSpot[] = [
 ]
 
 Page({
+  ...productShareHandlers,
   data: {
     step: 1 as 1 | 2,
     bodyBaseImage: workoutMediaUrl('muscles/body-base.svg'),

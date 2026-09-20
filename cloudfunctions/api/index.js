@@ -7,6 +7,7 @@ const COLLECTIONS = {
   users: 'users',
   meals: 'meal_records',
   weights: 'weight_records',
+  workouts: 'workout_records',
   bindings: 'coach_bindings',
   invites: 'coach_invites',
 }
@@ -167,6 +168,29 @@ async function listWeights(openId) {
   return result.data
 }
 
+function safeWorkoutLog(log, openId) {
+  if (!isDate(log?.date)) throw new Error('训练日期无效')
+  if (!Array.isArray(log.muscles) || !log.muscles.length || log.muscles.length > 13) throw new Error('训练部位无效')
+  if (!Array.isArray(log.exerciseNames) || !log.exerciseNames.length || log.exerciseNames.length > 100) throw new Error('训练动作无效')
+  return {
+    ownerId: openId,
+    workoutId: String(log.id || `workout_${Date.now()}`).slice(0, 60),
+    date: log.date,
+    completedAt: Number(log.completedAt) || Date.now(),
+    durationMinutes: Math.max(1, Math.min(600, Math.round(Number(log.durationMinutes) || 1))),
+    muscles: log.muscles.map(value => String(value).slice(0, 20)),
+    exerciseNames: log.exerciseNames.map(value => String(value).slice(0, 80)),
+    updatedAt: db.serverDate(),
+  }
+}
+
+async function saveWorkout(openId, log) {
+  await ensureCollection(COLLECTIONS.workouts)
+  const safe = safeWorkoutLog(log, openId)
+  await db.collection(COLLECTIONS.workouts).doc(`${openId}_${safe.workoutId}`).set({ data: safe })
+  return safe
+}
+
 function randomInviteCode() {
   const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let code = ''
@@ -263,11 +287,13 @@ async function getPartnerDetail(openId, partnerIdValue) {
   const binding = await db.collection(COLLECTIONS.bindings).doc(bindingId(openId, partnerId)).get()
   const members = [binding.data?.userA, binding.data?.userB]
   if (!binding.data?.active || !members.includes(openId) || !members.includes(partnerId)) throw new Error('没有查看该用户的权限')
+  await ensureCollection(COLLECTIONS.workouts)
   const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10)
-  const [profileResult, mealsResult, weightsResult] = await Promise.all([
+  const [profileResult, mealsResult, weightsResult, workoutsResult] = await Promise.all([
     db.collection(COLLECTIONS.users).doc(partnerId).get(),
     db.collection(COLLECTIONS.meals).where({ ownerId: partnerId, date: today }).orderBy('completedAt', 'asc').get(),
     db.collection(COLLECTIONS.weights).where({ ownerId: partnerId }).orderBy('date', 'desc').limit(30).get(),
+    db.collection(COLLECTIONS.workouts).where({ ownerId: partnerId }).orderBy('completedAt', 'desc').limit(20).get(),
   ])
   const profile = profileResult.data
   return {
@@ -279,6 +305,7 @@ async function getPartnerDetail(openId, partnerIdValue) {
     date: today,
     meals: mealsResult.data,
     weights: weightsResult.data.reverse(),
+    workouts: workoutsResult.data,
   }
 }
 
@@ -313,6 +340,7 @@ exports.main = async event => {
       case 'meal.list': return success(await listMeals(OPENID, payload))
       case 'weight.save': return success(await saveWeight(OPENID, payload.record))
       case 'weight.list': return success(await listWeights(OPENID))
+      case 'workout.save': return success(await saveWorkout(OPENID, payload.log))
       case 'binding.createInvite': return success(await createInvite(OPENID))
       case 'binding.bind': return success(await bindUser(OPENID, payload.code))
       case 'binding.unbind': return success(await unbindUser(OPENID, payload.partnerId))

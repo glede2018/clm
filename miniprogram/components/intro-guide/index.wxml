@@ -1,0 +1,11 @@
+<view wx:if="{{visible}}" class="intro-layer">
+  <view class="intro-focus" style="{{targetStyle}}"></view>
+  <view class="intro-tooltip intro-tooltip-{{placement}}" style="{{tooltipStyle}}">
+    <view class="intro-arrow"></view>
+    <view class="intro-meta"><text>{{step}} / {{total}}</text><text class="intro-skip" bindtap="skip">跳过</text></view>
+    <view class="intro-title">{{title}}</view>
+    <view class="intro-description">{{description}}</view>
+    <view wx:if="{{targetHint}}" class="intro-target-hint">{{targetHint}}</view>
+    <button wx:if="{{actionText}}" class="intro-next" bindtap="next">{{actionText}}</button>
+  </view>
+</view>
