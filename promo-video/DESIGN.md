@@ -9,7 +9,7 @@
 ## Typography
 PingFang SC: Chinese headings 86–104px, body 32–38px. Numeric data tabular.
 ## Motion
-0.5 second soft crossfade; staged entrances, gentle ambient orbit; 4 scenes across exactly 20 seconds.
+0.55 second soft blur crossfade; staged entrances, gentle ambient orbit; 6 scenes across exactly 20 seconds.
 ## What NOT to Do
 - No dark tech canvas or neon gradients.
 - No claims of guaranteed weight loss.

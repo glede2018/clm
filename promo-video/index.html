@@ -1,41 +1,342 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>食克有数 · 20秒产品宣传片</title><script src="assets/gsap.min.js"></script><style>@font-face{font-family:"PingFang SC";src:local("PingFang SC");font-weight:100 900;}*{box-sizing:border-box}body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#fbf5ee;color:#302522;font-family:"PingFang SC",sans-serif}#root{position:relative;width:1080px;height:1920px;overflow:hidden}.scene{position:absolute;inset:0;background:#fbf5ee;overflow:hidden}.scene:not(:first-child){opacity:0}.scene-content{position:relative;width:100%;height:100%;padding:100px 84px 88px;display:flex;flex-direction:column;gap:28px}.halo{position:absolute;width:850px;height:850px;border-radius:50%;background:radial-gradient(circle,#fce0cc 0%,#fbf5ee 70%);right:-300px;top:520px}.orbit{position:absolute;width:1100px;height:1100px;border:2px solid #ead8cf;border-radius:50%;left:-650px;top:800px}.brand{display:flex;align-items:center;gap:18px;font-size:30px;font-weight:650;margin-bottom:36px}.brand img{width:66px;height:66px;border-radius:18px}.brand-tag{margin-left:auto;font-size:23px;font-weight:400;color:#77635c}.kicker{font-size:26px;letter-spacing:3px;color:#b34430;font-weight:600}h1{font-size:100px;line-height:1.2;letter-spacing:-4px;margin:0;font-weight:800}em{display:block;font-style:normal;color:#b34430}.sub{font-size:32px;color:#77635c;margin:0;line-height:1.6}.phone{align-self:center;width:748px;border:10px solid #ead8cf;border-radius:64px;padding:30px 38px 36px;margin-top:18px;background:#fffdfa;box-shadow:0 30px 65px #30252216}.phone-top{display:flex;justify-content:space-between;font-size:20px;padding:0 5px 34px}.app-title{font-size:44px;font-weight:700}.app-title>span{display:block;font-size:25px;font-weight:400;color:#77635c;margin-top:8px}.nutrition{margin:28px 0;background:#fceae0;padding:27px;border-radius:25px}.small-title{display:flex;justify-content:space-between;align-items:center;font-size:30px;font-weight:650}.small-title>span{font-size:21px;color:#77635c;font-weight:400}.nutri-grid{display:flex;justify-content:space-between;margin:25px 0}.nutri-grid>div{display:flex;flex-direction:column;gap:7px}.nutri-grid b{font-size:22px;font-weight:400;color:#77635c}.nutri-grid span{font-size:42px;font-weight:700}small{font-size:23px;font-weight:400}.progress{height:9px;border-radius:10px;background:#ead8cf;overflow:hidden}.progress i{display:block;background:#b34430;width:35%;height:100%;transform-origin:left}.mealrow{display:flex;align-items:center;gap:20px;padding:24px 18px;margin-top:18px;border:2px solid #ead8cf;border-radius:24px}.mealicon{width:62px;height:62px;display:grid;place-items:center;background:#fceae0;color:#b34430;border-radius:18px;font-size:27px}.mealrow b{font-size:29px}.mealrow small{display:block;color:#77635c;font-size:20px;margin-top:6px}.mealrow strong{font-size:20px;font-weight:500;color:#b34430;margin-left:auto}.mealrow.active{border-color:#b34430;background:#fceae0}.appnav{margin-top:35px;font-size:22px;text-align:center;color:#77635c}.note{font-size:27px;color:#77635c;text-align:center;line-height:1.5;margin-top:9px}.footer{margin-top:auto;padding-top:24px;border-top:2px solid #ead8cf;display:flex;justify-content:space-between;font-size:23px;color:#77635c;letter-spacing:2px}.choices{display:flex;gap:16px;margin-top:35px}.choices span{padding:20px 30px;background:#fceae0;border:2px solid #b34430;border-radius:40px;font-size:29px;color:#b34430}.result{margin-top:14px;background:#fffdfa;border:2px solid #ead8cf;border-radius:44px;padding:26px 46px 35px;box-shadow:0 28px 60px #30252212}.sheet-handle{width:90px;height:7px;border-radius:10px;background:#ead8cf;margin:0 auto 28px}.resulttitle{font-size:40px;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.resulttitle span{font-size:23px;color:#b34430;border-radius:25px;background:#fceae0;padding:10px 20px}.portion{display:flex;align-items:center;justify-content:space-between;border-top:2px solid #ead8cf;padding:22px 0;font-size:34px}.portion strong{font-size:63px;color:#b34430;font-variant-numeric:tabular-nums}.portion small{font-size:28px}.button{background:#b34430;color:#fffdfa;border-radius:24px;text-align:center;padding:27px 25px;font-size:31px;font-weight:600;margin-top:24px}.fine{font-size:19px;text-align:center;color:#77635c;margin-top:25px}.training,.report{background:#fffdfa;border:2px solid #ead8cf;border-radius:38px;padding:37px;margin-top:25px}.train-tags{display:flex;gap:15px;margin:30px 0}.train-tags span{background:#fceae0;padding:15px 21px;border-radius:18px;color:#b34430;font-size:25px}.workoutline{display:flex;gap:25px;align-items:center;padding:25px 0 8px}.check{background:#b34430;border-radius:50%;color:#fffdfa;width:73px;height:73px;display:grid;place-items:center;font-size:36px}.workoutline b{font-size:32px}.workoutline small{display:block;color:#77635c;margin-top:8px}.report{margin-top:0}.bars{display:flex;gap:27px;align-items:flex-end;height:288px;padding-top:30px}.barcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;font-size:22px;color:#77635c}.bar{width:100%;background:#df654b;border-radius:14px 14px 4px 4px;transform-origin:bottom}.reportfoot{margin-top:28px;font-size:27px;color:#b34430}.endhero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;padding-bottom:100px}.endlogo{width:275px;height:275px;border-radius:65px;box-shadow:0 20px 55px #3025220d}.endhero h1{font-size:103px;margin-top:12px}.ending{font-size:59px;text-align:center;line-height:1.6;margin:8px 0 0}.endfeatures{display:flex;gap:20px;align-items:center;font-size:27px;color:#77635c}.endfeatures i{font-style:normal;color:#b34430}.cta{width:100%;margin-top:30px}.endnote{font-size:27px;color:#77635c;margin:0}.train-scene h1{font-size:88px}.train-scene .brand{margin-bottom:20px}.workflow{display:flex;gap:16px;margin:8px 0}.workflow span{flex:1;background:#ead8cf;color:#77635c;border-radius:40px;padding:18px 15px;text-align:center;font-size:27px}.workflow .on{background:#b34430;color:#fffdfa}.train-panel{padding:36px;background:#fffdfa;border:2px solid #ead8cf;border-radius:40px;box-shadow:0 24px 50px #30252210}.body-map{display:grid;grid-template-rows:minmax(0,1fr);grid-template-columns:minmax(0,1fr);width:100%;height:625px;position:relative;margin-top:18px}.body-map img{min-height:0;min-width:0;width:100%;height:100%;object-fit:contain;grid-area:1/1}.body-labels{display:flex;justify-content:space-around;font-size:24px;color:#77635c;margin:0 0 22px}.muscle-picked{font-size:29px;color:#b34430;background:#fceae0;border-radius:24px;padding:17px 25px;width:fit-content}.tap-ring{position:absolute;left:21%;top:17.5%;width:63px;height:63px;border:5px solid #b34430;border-radius:50%;background:#b3443010}.equipment-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}.equipment-item{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;border:3px solid #ead8cf;border-radius:25px;padding:15px;background:#fffdfa}.equipment-item img{width:205px;height:155px;object-fit:contain}.equipment-item b{font-size:29px;font-weight:600}.equipment-tick{position:absolute;right:15px;top:14px;background:#b34430;color:#fffdfa;border-radius:50%;width:35px;height:35px;text-align:center;font-size:25px}.equipment-item:not(.chosen) .equipment-tick{opacity:0}.chosen{border-color:#b34430;background:#fceae0}.duration-title{margin-top:29px}.duration-options{display:flex;gap:18px;margin-top:20px}.duration-options span{flex:1;text-align:center;padding:19px 7px;border:2px solid #ead8cf;border-radius:20px;font-size:26px}.duration-options .selected-duration{border-color:#b34430;color:#b34430;background:#fceae0}.match-tag{font-size:27px;color:#b34430;background:#fceae0;padding:18px 23px;border-radius:20px;margin-top:28px}.exercise-focus{display:flex;gap:24px;align-items:center;padding:45px 0 25px}.exercise-number{font-size:59px;font-weight:700;color:#b34430;background:#fceae0;border-radius:25px;padding:15px 23px}.exercise-text h2{font-size:52px;margin:0}.exercise-text p{font-size:25px;color:#77635c;margin:10px 0}.exercise-prescription{display:flex;align-items:center;justify-content:center;gap:75px;padding:36px 0 42px;border-bottom:2px solid #ead8cf}.exercise-prescription>div{display:flex;align-items:baseline;gap:15px}.exercise-prescription strong{font-size:112px;color:#b34430;font-variant-numeric:tabular-nums}.exercise-prescription span{font-size:30px;color:#77635c}.exercise-prescription i{font-size:55px;font-style:normal;color:#77635c}.exercise-details{display:flex;justify-content:space-between;font-size:30px;margin-top:25px}.exercise-details span{color:#77635c}.workout-check{margin-top:38px}.action-panel{padding-bottom:40px}.train-scene .note{font-size:26px}/* The requested cover is fully visible at t=0; the dissolve reveals scene 1. */
-.opening-cover{position:absolute;inset:0;z-index:20;background:#fbf5ee;pointer-events:none}.cover-content{width:100%;height:100%;padding:240px 90px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:42px}.cover-art{width:790px;height:790px;object-fit:contain;border-radius:64px}.cover-title{font-size:112px;font-weight:800;letter-spacing:4px;margin:0;color:#302522}.cover-tagline{font-size:43px;color:#b34430;margin:0}.cover-features{font-size:30px;letter-spacing:3px;color:#77635c;margin:8px 0 0}</style></head><body><div data-hf-id="hf-wtrm" id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920"><section data-hf-id="hf-mcnq" class="scene" id="s1"><div data-hf-id="hf-3uhr" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-zcoh" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-cn5c" class="scene-content"><div data-hf-id="hf-dgpn" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-5yjh" src="assets/logo-0.png"><span data-hf-id="hf-o3ec">食克有数</span><span data-hf-id="hf-umli" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-z990" class="kicker">01 / 每天都会遇到的小问题</div><h1 data-hf-id="hf-gsqt">今天吃什么？<em data-hf-id="hf-bfv6">吃多少？</em></h1><p data-hf-id="hf-lfsx" class="sub">把纠结，变成一份清楚的计划。</p><div data-hf-id="hf-kda4" class="phone"><div data-hf-id="hf-mf3a" class="phone-top"><span data-hf-id="hf-zwmt">9:41</span><span data-hf-id="hf-8arm">● ● ●</span></div><div data-hf-id="hf-azty" class="app-title">今天吃什么<span data-hf-id="hf-s5zd">吃对每一顿就很好</span></div><div data-hf-id="hf-p4r4" class="nutrition"><div data-hf-id="hf-heg5" class="small-title">今日营养 <span data-hf-id="hf-ebm2">每日目标</span></div><div data-hf-id="hf-lr3j" class="nutri-grid"><div data-hf-id="hf-yeow"><b data-hf-id="hf-srqa">碳水</b><span data-hf-id="hf-wt81">154<small data-hf-id="hf-3j4p"> g</small></span></div><div data-hf-id="hf-y7yw"><b data-hf-id="hf-yzs7">蛋白质</b><span data-hf-id="hf-cb80">98<small data-hf-id="hf-p9il"> g</small></span></div><div data-hf-id="hf-x11t"><b data-hf-id="hf-i6xp">脂肪</b><span data-hf-id="hf-nvcu">56<small data-hf-id="hf-qgfo"> g</small></span></div></div><div data-hf-id="hf-31j5" class="progress"><i data-hf-id="hf-wt6k"></i></div></div><div data-hf-id="hf-nvlf" class="mealrow"><span data-hf-id="hf-rq4a" class="mealicon">早</span><div data-hf-id="hf-xfcu"><b data-hf-id="hf-75zw">早餐</b><small data-hf-id="hf-fbw6">开启活力的一天</small></div><strong data-hf-id="hf-7c59">已完成 ✓</strong></div><div data-hf-id="hf-6xtr" class="mealrow active"><span data-hf-id="hf-up9p" class="mealicon">午</span><div data-hf-id="hf-w8fr"><b data-hf-id="hf-z6c8">中餐</b><small data-hf-id="hf-tl8u">搭配适合自己的这一餐</small></div><strong data-hf-id="hf-u1j9">选择食材 →</strong></div><div data-hf-id="hf-a9lf" class="mealrow"><span data-hf-id="hf-93x3" class="mealicon">晚</span><div data-hf-id="hf-wmqs"><b data-hf-id="hf-tifb">晚餐</b><small data-hf-id="hf-wa0f">认真吃好每一顿</small></div><strong data-hf-id="hf-xo5r">待选择</strong></div><div data-hf-id="hf-f0w0" class="appnav">今日饮食　　训练　　报告　　我的</div></div><div data-hf-id="hf-dqg0" class="note">依据身体资料与运动量，计算每日营养目标</div><div data-hf-id="hf-yh7l" class="footer"><span data-hf-id="hf-gm1f">饮食 · 训练 · 记录</span><span data-hf-id="hf-zipv">微信小程序</span></div></div></section><section data-hf-id="hf-iejp" class="scene" id="s2"><div data-hf-id="hf-15lr" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-f9wl" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-o0eg" class="scene-content"><div data-hf-id="hf-j57f" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-bgac" src="assets/logo-1.png"><span data-hf-id="hf-lvf0">食克有数</span><span data-hf-id="hf-9pbe" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-zwj8" class="kicker">02 / 用手边的食材，搭一餐</div><h1 data-hf-id="hf-6ckg">你选食材。<em data-hf-id="hf-zlul">克重交给它。</em></h1><p data-hf-id="hf-u1a5" class="sub">碳水、蛋白质、脂肪，搭配更清楚。</p><div data-hf-id="hf-f6g0" class="choices"><span data-hf-id="hf-zohw">✓ 大米</span><span data-hf-id="hf-odny">✓ 鸡胸肉</span><span data-hf-id="hf-ms3w">✓ 西兰花</span></div><div data-hf-id="hf-ycrv" class="result"><div data-hf-id="hf-rohw" class="sheet-handle"></div><div data-hf-id="hf-wn6i" class="resulttitle">中餐推荐<span data-hf-id="hf-cz5x">烹饪前生重</span></div><div data-hf-id="hf-mcnh" class="portion"><span data-hf-id="hf-3mvn">大米</span><strong data-hf-id="hf-afw2">80<small data-hf-id="hf-q24n"> g</small></strong></div><div data-hf-id="hf-5br5" class="portion"><span data-hf-id="hf-w6k3">鸡胸肉</span><strong data-hf-id="hf-96qs">150<small data-hf-id="hf-r91q"> g</small></strong></div><div data-hf-id="hf-6io8" class="portion"><span data-hf-id="hf-iw4d">西兰花</span><strong data-hf-id="hf-eag8">200<small data-hf-id="hf-quqp"> g</small></strong></div><div data-hf-id="hf-64d7" class="portion"><span data-hf-id="hf-bs54">烹调油</span><strong data-hf-id="hf-q2v7">10<small data-hf-id="hf-s1ns"> g</small></strong></div><div data-hf-id="hf-lbfy" class="button">确认按这份方案吃　✓</div><div data-hf-id="hf-oebw" class="fine">界面与数值为功能演示，实际方案因人而异</div></div><div data-hf-id="hf-gqne" class="note">选食材 → 生成方案 → 按克重准备</div><div data-hf-id="hf-ll85" class="footer"><span data-hf-id="hf-06b7">饮食 · 训练 · 记录</span><span data-hf-id="hf-026b">微信小程序</span></div></div></section><section data-hf-id="hf-6j0h" class="scene train-scene" id="s3"><div data-hf-id="hf-0raq" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-ggto" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-mthd" class="scene-content"><div data-hf-id="hf-iqwe" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-6bf1" src="assets/train-logo-3.png"><span data-hf-id="hf-5gqy">食克有数</span><span data-hf-id="hf-a3mf" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-9hzs" class="kicker">03 / 今天，练哪里？</div><h1 data-hf-id="hf-v1tq">点选肌群。<em data-hf-id="hf-rd2f">找到训练方向。</em></h1><p data-hf-id="hf-6461" class="sub">在人体图上，选中想练的部位。</p><div data-hf-id="hf-kfi7" class="workflow"><span data-hf-id="hf-3anm" class="on">1 选肌群</span><span data-hf-id="hf-qvqi">2 选器械</span><span data-hf-id="hf-czyt">3 生成动作</span></div><div data-hf-id="hf-j9lo" class="train-panel anatomy"><div data-hf-id="hf-vcpx" class="small-title">选择目标肌群<span data-hf-id="hf-6xob">可多选</span></div><div data-hf-id="hf-tzqx" class="body-map"><img data-hf-id="hf-8tml" class="base-map" src="assets/body-base.svg"><img data-hf-id="hf-zmzg" class="selected-map" src="assets/chest.svg"><div data-hf-id="hf-g2rn" class="tap-ring" data-layout-ignore=""></div></div><div data-hf-id="hf-3a9s" class="body-labels"><span data-hf-id="hf-ii8c">正面</span><span data-hf-id="hf-mq0f">背面</span></div><div data-hf-id="hf-o1qb" class="muscle-picked">✓ 已选择：胸部</div><div data-hf-id="hf-hi4c" class="button next-step">下一步：选择器械和时间 →</div></div><div data-hf-id="hf-u95e" class="note">想练哪里，自己选。</div><div data-hf-id="hf-ms58" class="footer"><span data-hf-id="hf-zs06">饮食 · 训练 · 记录</span><span data-hf-id="hf-znva">微信小程序</span></div></div></section><section data-hf-id="hf-vniu" class="scene train-scene" id="s4"><div data-hf-id="hf-354w" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-h9fq" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-m0vb" class="scene-content"><div data-hf-id="hf-dwb8" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-rbh6" src="assets/train-logo-4.png"><span data-hf-id="hf-7sge">食克有数</span><span data-hf-id="hf-aw8h" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-rbse" class="kicker">04 / 用你手边的器械</div><h1 data-hf-id="hf-v0yi">选好器械。<em data-hf-id="hf-tw24">安排训练时间。</em></h1><p data-hf-id="hf-3vdi" class="sub">训练部位：胸部</p><div data-hf-id="hf-b1bz" class="workflow"><span data-hf-id="hf-prw6" class="on">1 选肌群</span><span data-hf-id="hf-tuun" class="on">2 选器械</span><span data-hf-id="hf-iki1">3 生成动作</span></div><div data-hf-id="hf-q912" class="train-panel equipment-panel"><div data-hf-id="hf-okhu" class="small-title">我有这些器械<span data-hf-id="hf-4ihy">需要的都选上</span></div><div data-hf-id="hf-j3wh" class="equipment-grid"><div data-hf-id="hf-xb9y" class="equipment-item chosen"><img data-hf-id="hf-oriw" src="assets/dumbbell.png"><b data-hf-id="hf-i28d">哑铃</b><span data-hf-id="hf-avzs" class="equipment-tick">✓</span></div><div data-hf-id="hf-fgoq" class="equipment-item chosen"><img data-hf-id="hf-u709" src="assets/bench.png"><b data-hf-id="hf-g84n">长凳</b><span data-hf-id="hf-7hhs" class="equipment-tick">✓</span></div><div data-hf-id="hf-3w1k" class="equipment-item"><img data-hf-id="hf-znqj" src="assets/barbell.png"><b data-hf-id="hf-6wt0">杠铃</b><span data-hf-id="hf-6akp" class="equipment-tick">✓</span></div><div data-hf-id="hf-ljo0" class="equipment-item"><img data-hf-id="hf-o9k6" src="assets/band.png"><b data-hf-id="hf-dp9d">弹力带</b><span data-hf-id="hf-6ovq" class="equipment-tick">✓</span></div></div><div data-hf-id="hf-vfpd" class="small-title duration-title">参考时长<span data-hf-id="hf-dxuc">用于训练计时</span></div><div data-hf-id="hf-84i1" class="duration-options"><span data-hf-id="hf-74iy">15 分钟</span><span data-hf-id="hf-slkn" class="selected-duration">30 分钟</span><span data-hf-id="hf-5k8x">45 分钟</span></div><div data-hf-id="hf-z0yn" class="button generate-actions">查看匹配动作 →</div></div><div data-hf-id="hf-4ywa" class="note">哑铃 + 长凳 · 30 分钟</div><div data-hf-id="hf-nkra" class="footer"><span data-hf-id="hf-yze4">饮食 · 训练 · 记录</span><span data-hf-id="hf-uta4">微信小程序</span></div></div></section><section data-hf-id="hf-1t8n" class="scene train-scene" id="s5"><div data-hf-id="hf-2qtv" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-gv4p" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-mf6c" class="scene-content"><div data-hf-id="hf-di07" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-znu3" src="assets/train-logo-5.png"><span data-hf-id="hf-86rf">食克有数</span><span data-hf-id="hf-baji" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-issy" class="kicker">05 / 动作方案，准备就绪</div><h1 data-hf-id="hf-z207">生成匹配动作。<em data-hf-id="hf-leym">跟着计划练。</em></h1><p data-hf-id="hf-32fx" class="sub">按所选肌群与器械，优先匹配。</p><div data-hf-id="hf-an0y" class="workflow"><span data-hf-id="hf-q677" class="on">1 选肌群</span><span data-hf-id="hf-i2dr" class="on">2 选器械</span><span data-hf-id="hf-1fwe" class="on">3 生成动作</span></div><div data-hf-id="hf-xcgq" class="train-panel action-panel"><div data-hf-id="hf-so45" class="small-title">今日训练<span data-hf-id="hf-k2n1">胸部 · 参考 30 分钟</span></div><div data-hf-id="hf-jrz2" class="match-tag">✓ 优先匹配：哑铃 + 长凳</div><div data-hf-id="hf-waax" class="exercise-focus"><div data-hf-id="hf-ra9f" class="exercise-number">01</div><div data-hf-id="hf-8unu" class="exercise-text"><h2 data-hf-id="hf-x49w">哑铃卧推</h2><p data-hf-id="hf-0npv">dumbbell bench press</p></div></div><div data-hf-id="hf-p75b" class="exercise-prescription"><div data-hf-id="hf-vftp"><strong data-hf-id="hf-fem3">3</strong><span data-hf-id="hf-0jun">组</span></div><i data-hf-id="hf-mmi9">×</i><div data-hf-id="hf-vu4q"><strong data-hf-id="hf-pa95">12</strong><span data-hf-id="hf-hlhc">次</span></div></div><div data-hf-id="hf-tvan" class="exercise-details"><span data-hf-id="hf-n56u">目标肌群</span><b data-hf-id="hf-afz1">胸部</b></div><div data-hf-id="hf-pw3z" class="exercise-details"><span data-hf-id="hf-0g6x">所需器械</span><b data-hf-id="hf-zvw6">哑铃、长凳</b></div><div data-hf-id="hf-4lqg" class="button workout-check">完成动作，打卡记录 ✓</div><div data-hf-id="hf-jjr1" class="fine">功能流程演示 · 更多匹配动作在小程序内查看</div></div><div data-hf-id="hf-w8ne" class="note">选肌群 → 选器械 → 查看动作 → 打卡</div><div data-hf-id="hf-n6g9" class="footer"><span data-hf-id="hf-yl33">饮食 · 训练 · 记录</span><span data-hf-id="hf-uez3">微信小程序</span></div></div></section><section data-hf-id="hf-54df" class="scene" id="s6"><div data-hf-id="hf-0czp" class="halo" data-layout-ignore=""></div><div data-hf-id="hf-g2in" class="orbit" data-layout-ignore=""></div><div data-hf-id="hf-n7se" class="scene-content"><div data-hf-id="hf-eam9" class="brand" data-layout-allow-overlap=""><img data-hf-id="hf-890u" src="assets/logo-3.png"><span data-hf-id="hf-l2sy">食克有数</span><span data-hf-id="hf-ahxg" class="brand-tag">让每一餐，更有数</span></div><div data-hf-id="hf-1rrv" class="endhero"><img data-hf-id="hf-tah0" class="endlogo" src="assets/logo-4.png"><div data-hf-id="hf-utmh" class="kicker">把每一天，拉向更好的自己</div><h1 data-hf-id="hf-vpm5">食克有数</h1><p data-hf-id="hf-953n" class="ending">从下一餐，<em data-hf-id="hf-o04p">开始好好吃。</em></p><div data-hf-id="hf-bqkm" class="endfeatures"><span data-hf-id="hf-mnob">食材配餐</span><i data-hf-id="hf-orwx">·</i><span data-hf-id="hf-zxp5">训练打卡</span><i data-hf-id="hf-vd8l">·</i><span data-hf-id="hf-r0p0">趋势记录</span></div><div data-hf-id="hf-ixsv" class="button cta">开启你的饮食与训练计划　→</div><p data-hf-id="hf-v86c" class="endnote">微信小程序 · 食克有数</p></div><div data-hf-id="hf-mdu7" class="footer"><span data-hf-id="hf-zdp5">饮食 · 训练 · 记录</span><span data-hf-id="hf-z9k9">微信小程序</span></div></div></section><div data-hf-id="hf-9bgi" id="opening-cover" class="opening-cover"><div data-hf-id="hf-dhih" class="cover-content"><img data-hf-id="hf-papz" class="cover-art" src="assets/opening-cover.png"><h2 data-hf-id="hf-t12u" class="cover-title">食克有数</h2><p data-hf-id="hf-hxlc" class="cover-tagline">让每一餐，更有数</p><p data-hf-id="hf-uc8u" class="cover-features">食材配餐 · 训练计划 · 每日记录</p></div></div><audio data-hf-id="hf-zik9" id="music" src="assets/music.wav" data-start="0" data-duration="20" data-track-index="1" data-volume="0.65"></audio></div><script>window.__timelines=window.__timelines||{};const tl=gsap.timeline({paused:true});
-const starts=[0,3.5,8,11,14,17];
-starts.forEach((t,i)=>{const s='#s'+(i+1);if(i){tl.to('#s'+i,{opacity:0,duration:.4,ease:'sine.inOut'},t);tl.to(s,{opacity:1,duration:.4,ease:'sine.inOut'},t)}
-tl.from(s+' .brand',{y:-18,opacity:0,duration:.35,ease:'power2.out'},t+.1);
-tl.from(s+' .kicker',{x:-30,opacity:0,duration:.4,ease:'power3.out'},t+.12);
-tl.from(s+' h1',{y:35,opacity:0,duration:.55,ease:'expo.out'},t+.2);
-if(i<5)tl.from(s+' .sub',{opacity:0,duration:.55,ease:'sine.out'},t+.3);
-tl.from(s+' .footer',{opacity:0,duration:.45,ease:'sine.out'},t+.4);
-if(i<5)tl.from(s+' .note',{y:15,opacity:0,duration:.4,ease:'power1.out'},t+.6);
-tl.to(s+' .halo',{x:-35,y:35,duration:(starts[i+1]||20)-t,ease:'sine.inOut'},t);
-tl.to(s+' .orbit',{scale:1.07,duration:(starts[i+1]||20)-t,ease:'sine.inOut'},t);
-});
-tl.from('#s1 .phone',{y:90,rotation:-3,opacity:0,duration:.8,ease:'power3.out'},.4);
-tl.from('#s1 .mealrow',{x:22,opacity:0,stagger:.1,duration:.4,ease:'power2.out'},.8);
-tl.from('#s1 .progress i',{scaleX:0,duration:1.2,ease:'power2.out'},1.1);
-tl.from('#s2 .choices span',{scale:.85,y:12,opacity:0,stagger:.1,duration:.4,ease:'back.out(1.2)'},3.9);
-tl.from('#s2 .result',{y:65,opacity:0,duration:.6,ease:'power3.out'},4.05);
-tl.from('#s2 .portion',{x:24,opacity:0,stagger:.12,duration:.45,ease:'power2.out'},4.35);
-tl.from('#s2 .button',{scale:.96,opacity:0,duration:.45,ease:'sine.out'},4.9);
-[3,4,5].forEach((n,i)=>{const t=[8,11,14][i];tl.from('#s'+n+' .workflow span',{y:15,opacity:0,stagger:.08,duration:.35,ease:'power2.out'},t+.3);tl.from('#s'+n+' .train-panel',{y:35,opacity:0,duration:.55,ease:'power3.out'},t+.4)});
-tl.from('#s3 .selected-map',{opacity:0,duration:.35,ease:'sine.out'},8.95);
-tl.from('#s3 .tap-ring',{scale:1.6,opacity:0,duration:.45,ease:'power2.out'},8.8);
-tl.from('#s3 .muscle-picked',{scale:.9,opacity:0,duration:.35,ease:'back.out(1.2)'},9.1);
-tl.from('#s3 .next-step',{opacity:0,y:12,duration:.4,ease:'power1.out'},9.25);
-tl.from('#s4 .equipment-item',{scale:.93,opacity:0,stagger:.06,duration:.4,ease:'power2.out'},11.6);
-tl.from('#s4 .chosen',{borderColor:'#ead8cf',backgroundColor:'#fffdfa',duration:.3,ease:'sine.out'},12);
-tl.from('#s4 .chosen .equipment-tick',{scale:.1,opacity:0,stagger:.15,duration:.35,ease:'back.out(1.5)'},12.05);
-tl.from('#s4 .selected-duration',{backgroundColor:'#fffdfa',borderColor:'#ead8cf',duration:.3,ease:'sine.out'},12.35);
-tl.from('#s4 .generate-actions',{scale:.97,opacity:0,duration:.4,ease:'expo.out'},12.55);
-tl.from('#s5 .match-tag',{x:-20,opacity:0,duration:.4,ease:'power2.out'},14.65);
-tl.from('#s5 .exercise-focus',{y:20,opacity:0,duration:.5,ease:'expo.out'},14.8);
-tl.from('#s5 .exercise-prescription',{scale:.92,opacity:0,duration:.55,ease:'back.out(1.1)'},14.95);
-tl.from('#s5 .workout-check',{opacity:0,y:10,duration:.4,ease:'sine.out'},15.35);
-tl.from('#s6 .endlogo',{scale:.85,rotation:-5,opacity:0,duration:.6,ease:'power3.out'},17.15);
-tl.from('#s6 .ending',{y:25,opacity:0,duration:.55,ease:'sine.out'},17.4);
-tl.from('#s6 .endfeatures',{opacity:0,duration:.4,ease:'power1.out'},17.65);
-tl.from('#s6 .cta',{y:30,scale:.96,opacity:0,duration:.5,ease:'back.out(1.1)'},17.8);
-tl.from('#s6 .endnote',{opacity:0,duration:.5,ease:'sine.out'},18);
-tl.to('#opening-cover',{opacity:0,duration:.4,ease:'sine.inOut'},1);
-window.__timelines['main']=tl;</script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>食克有数 · 20秒产品介绍</title>
+  <script src="assets/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "PingFang SC"; src: local("PingFang SC"); font-weight: 100 900; }
+    * { box-sizing: border-box; }
+    body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #fbf5ee; color: #302522; font-family: "PingFang SC", sans-serif; }
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #fbf5ee; }
+    .scene { position: absolute; inset: 0; overflow: hidden; background-color: #fbf5ee; }
+    .scene:not(:first-child) { opacity: 0; }
+    .scene-content { position: relative; width: 100%; height: 100%; padding: 94px 78px 76px; display: flex; flex-direction: column; gap: 25px; }
+    .halo { position: absolute; width: 860px; height: 860px; right: -330px; top: 570px; border-radius: 50%; background: radial-gradient(circle, #f8dcc8 0%, rgba(248,220,200,0) 70%); }
+    .orbit { position: absolute; width: 1120px; height: 1120px; left: -690px; top: 850px; border: 2px solid #ead8cf; border-radius: 50%; }
+    .brand { display: flex; align-items: center; gap: 17px; margin-bottom: 14px; font-size: 29px; font-weight: 650; }
+    .brand img { width: 62px; height: 62px; border-radius: 17px; }
+    .brand-tag { margin-left: auto; color: #77635c; font-size: 22px; font-weight: 400; }
+    .kicker { color: #b34430; font-size: 25px; font-weight: 650; letter-spacing: 3px; }
+    h1 { margin: 0; font-size: 88px; font-weight: 800; line-height: 1.16; letter-spacing: -4px; }
+    h1 em { display: block; color: #b34430; font-style: normal; }
+    .sub { margin: 0; color: #66534c; font-size: 31px; line-height: 1.5; }
+    .footer { margin-top: auto; padding-top: 22px; display: flex; justify-content: space-between; border-top: 2px solid #ead8cf; color: #66534c; font-size: 22px; letter-spacing: 2px; }
+    .note { margin: 0; color: #66534c; font-size: 25px; line-height: 1.45; text-align: center; }
+    .phone { align-self: center; width: 750px; margin-top: 8px; padding: 26px 31px 24px; overflow: hidden; border: 9px solid #ead8cf; border-radius: 58px; background: #fffdfa; box-shadow: 0 28px 64px rgba(48,37,34,.09); }
+    .phone-top { display: flex; justify-content: space-between; padding: 0 4px 24px; font-size: 19px; }
+    .home-head { display: flex; justify-content: space-between; align-items: flex-start; }
+    .app-title { font-size: 40px; font-weight: 750; }
+    .app-title span { display: block; margin-top: 6px; color: #77635c; font-size: 21px; font-weight: 400; }
+    .meal-count { padding: 9px 15px; border-radius: 999px; background: #fff0cf; color: #805116; font-size: 19px; font-weight: 650; }
+    .nutrition { margin-top: 22px; overflow: hidden; border: 2px solid #e8d7ce; border-radius: 22px; background: #fff; }
+    .nutrition-head { display: flex; justify-content: space-between; padding: 18px 21px; background: #49352f; color: #fffaf7; font-size: 25px; font-weight: 650; }
+    .nutrition-head span { color: #ffd7c8; font-size: 18px; font-weight: 400; }
+    .nutri-table { padding: 9px 18px 16px; }
+    .nutri-row { min-height: 53px; display: grid; grid-template-columns: 125px repeat(4, 1fr); align-items: center; border-top: 1px solid #ead8cf; font-size: 18px; text-align: center; }
+    .nutri-row:first-child { border-top: 0; color: #77635c; font-size: 16px; }
+    .nutri-row .row-label { color: #77635c; text-align: left; }
+    .nutri-row b { font-size: 21px; font-variant-numeric: tabular-nums; }
+    .consumed { padding: 0 8px; border: 0; border-radius: 11px; background: #fff3ed; }
+    .progress { height: 7px; margin-top: 12px; overflow: hidden; border-radius: 9px; background: #efe2da; }
+    .progress i { display: block; width: 42%; height: 100%; background: #d85f48; transform-origin: left; }
+    .meal-heading { display: flex; justify-content: space-between; margin: 20px 3px 7px; font-size: 25px; font-weight: 650; }
+    .meal-heading span { color: #77635c; font-size: 17px; font-weight: 400; }
+    .carousel { position: relative; height: 312px; display: flex; align-items: center; justify-content: center; gap: 12px; overflow: hidden; }
+    .meal-card { flex: 0 0 92px; height: 236px; padding: 20px 12px; overflow: hidden; border: 2px solid #efdcae; border-radius: 25px; background: #fff9eb; color: #805116; opacity: .68; }
+    .meal-card.center { flex-basis: 460px; height: 288px; padding: 22px 24px; opacity: 1; box-shadow: 0 19px 42px rgba(92,60,49,.12); }
+    .meal-card-side { width: 62px; height: 62px; border-radius: 18px; background: #fff0cf; }
+    .meal-card-head { display: flex; align-items: center; gap: 14px; }
+    .meal-icon { width: 59px; height: 59px; display: grid; place-items: center; border-radius: 17px; background: #fff0cf; color: #9a651f; font-size: 24px; }
+    .meal-name { color: #805116; font-size: 38px; font-weight: 800; }
+    .meal-status { margin-left: auto; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.78); font-size: 17px; }
+    .food-summary { min-height: 96px; margin-top: 17px; padding: 11px 4px; overflow: hidden; border-top: 1px solid #efdcae; border-bottom: 1px solid #efdcae; color: #302522; font-size: 24px; font-weight: 400; line-height: 1.45; }
+    .macros { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 14px; text-align: center; }
+    .macros span { display: flex; flex-direction: column; gap: 4px; color: #805116; font-size: 16px; }
+    .macros b { color: #302522; font-size: 21px; font-variant-numeric: tabular-nums; }
+    .dots { display: flex; justify-content: center; gap: 8px; }
+    .dots i { width: 8px; height: 8px; border-radius: 10px; background: #ddcfc8; }
+    .dots i.on { width: 28px; background: #b94733; }
+    .appnav { height: 73px; margin: 20px -31px -24px; padding: 0 24px; display: grid; grid-template-columns: repeat(6,1fr); align-items: center; border-top: 1px solid #ead8cf; background: #fffdfa; color: #77635c; font-size: 15px; text-align: center; }
+    .appnav span { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .appnav b { font-size: 22px; font-weight: 500; }
+    .appnav .weight-entry b { width: 47px; height: 47px; margin-top: -24px; display: grid; place-items: center; border: 4px solid #fffdfa; border-radius: 50%; background: #b94733; color: #fff; box-shadow: 0 7px 17px rgba(185,71,51,.28); }
+    .choices { display: flex; gap: 15px; margin-top: 17px; }
+    .choices span { padding: 17px 25px; border: 2px solid #b34430; border-radius: 35px; background: #fceae0; color: #b34430; font-size: 26px; }
+    .result { margin-top: 10px; padding: 25px 42px 30px; border: 2px solid #ead8cf; border-radius: 39px; background: #fffdfa; box-shadow: 0 24px 54px rgba(48,37,34,.07); }
+    .sheet-handle { width: 85px; height: 7px; margin: 0 auto 24px; border-radius: 8px; background: #ead8cf; }
+    .result-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 17px; font-size: 36px; font-weight: 750; }
+    .result-title span { padding: 9px 16px; border-radius: 22px; background: #fceae0; color: #b34430; font-size: 20px; font-weight: 500; }
+    .portion { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-top: 2px solid #ead8cf; font-size: 30px; }
+    .portion strong { color: #b34430; font-size: 57px; font-variant-numeric: tabular-nums; }
+    .portion small { font-size: 25px; font-weight: 400; }
+    .button { margin-top: 19px; padding: 23px; border-radius: 22px; background: #b34430; color: #fffdfa; font-size: 28px; font-weight: 650; text-align: center; }
+    .fine { margin-top: 19px; color: #77635c; font-size: 18px; text-align: center; }
+    .workflow { display: flex; gap: 14px; margin-top: 3px; }
+    .workflow span { flex: 1; padding: 16px 10px; border-radius: 35px; background: #ead8cf; color: #66534c; font-size: 24px; text-align: center; }
+    .workflow span.on { background: #b34430; color: #fffdfa; }
+    .train-panel { margin-top: 5px; padding: 31px 34px 34px; border: 2px solid #ead8cf; border-radius: 36px; background: #fffdfa; box-shadow: 0 22px 48px rgba(48,37,34,.06); }
+    .small-title { display: flex; justify-content: space-between; align-items: center; font-size: 28px; font-weight: 700; }
+    .small-title span { color: #77635c; font-size: 19px; font-weight: 400; }
+    .body-map { position: relative; width: 100%; height: 575px; margin-top: 14px; }
+    .body-map img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+    .tap-ring { position: absolute; left: 21%; top: 17.5%; width: 60px; height: 60px; border: 5px solid #b34430; border-radius: 50%; background: rgba(179,68,48,.08); }
+    .body-labels { display: flex; justify-content: space-around; margin: -8px 0 18px; color: #77635c; font-size: 22px; }
+    .selected-tag, .match-tag { width: fit-content; padding: 15px 21px; border-radius: 20px; background: #fceae0; color: #b34430; font-size: 25px; }
+    .equipment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; margin-top: 23px; }
+    .equipment-item { position: relative; padding: 13px; display: flex; flex-direction: column; align-items: center; border: 3px solid #ead8cf; border-radius: 23px; background: #fffdfa; font-size: 26px; }
+    .equipment-item.chosen { border-color: #b34430; background: #fceae0; }
+    .equipment-item img { width: 190px; height: 140px; object-fit: contain; }
+    .tick { position: absolute; right: 13px; top: 12px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #b34430; color: #fff; font-size: 21px; }
+    .duration-title { margin-top: 25px; }
+    .duration-options { display: flex; gap: 15px; margin-top: 17px; }
+    .duration-options span { flex: 1; padding: 16px 5px; border: 2px solid #ead8cf; border-radius: 18px; font-size: 23px; text-align: center; }
+    .duration-options .selected { border-color: #b34430; background: #fceae0; color: #b34430; }
+    .action-panel { padding-bottom: 34px; }
+    .exercise-focus { display: flex; align-items: center; gap: 22px; padding: 37px 0 22px; }
+    .exercise-number { padding: 13px 20px; border-radius: 23px; background: #fceae0; color: #b34430; font-size: 53px; font-weight: 750; }
+    .exercise-text h2 { margin: 0; font-size: 48px; }
+    .exercise-text p { margin: 7px 0 0; color: #77635c; font-size: 22px; }
+    .prescription { padding: 30px 0 35px; display: flex; align-items: center; justify-content: center; gap: 62px; border-bottom: 2px solid #ead8cf; }
+    .prescription div { display: flex; align-items: baseline; gap: 11px; }
+    .prescription strong { color: #b34430; font-size: 102px; font-variant-numeric: tabular-nums; }
+    .prescription span { color: #77635c; font-size: 28px; }
+    .prescription i { color: #77635c; font-size: 49px; font-style: normal; }
+    .exercise-detail { display: flex; justify-content: space-between; margin-top: 22px; font-size: 27px; }
+    .exercise-detail span { color: #77635c; }
+    .opening-cover { position: absolute; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; background: #fbf5ee; }
+    .cover-content { width: 100%; height: 100%; padding: 210px 88px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; }
+    .cover-art { width: 760px; height: 760px; object-fit: contain; border-radius: 62px; }
+    .cover-title { margin: 0; color: #302522; font-size: 108px; font-weight: 800; letter-spacing: 4px; }
+    .cover-tagline { margin: 0; color: #b34430; font-size: 41px; }
+    .cover-features { margin: 3px 0 0; color: #66534c; font-size: 28px; letter-spacing: 3px; }
+    .endhero { flex: 1; padding-bottom: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 29px; }
+    .endlogo { width: 255px; height: 255px; border-radius: 61px; box-shadow: 0 20px 50px rgba(48,37,34,.08); }
+    .endhero h1 { font-size: 100px; }
+    .ending { margin: 4px 0 0; font-size: 54px; line-height: 1.55; text-align: center; }
+    .ending em { display: block; color: #b34430; font-style: normal; }
+    .endfeatures { display: flex; gap: 17px; color: #66534c; font-size: 25px; }
+    .endfeatures i { color: #b34430; font-style: normal; }
+    .cta { width: 100%; margin-top: 20px; }
+    .endnote { margin: 0; color: #66534c; font-size: 25px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+    <section class="scene" id="s1">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/logo-0.png"><span>食克有数</span><span class="brand-tag">让每一餐，更有数</span></div>
+        <div class="kicker">01 / 新版每日饮食主页</div>
+        <h1>今天吃什么？<em>每一餐都清楚。</em></h1>
+        <p class="sub">营养目标、餐食记录和体重入口，都在手边。</p>
+        <div class="phone">
+          <div class="phone-top"><span>9:41</span><span>● ● ●</span></div>
+          <div class="home-head"><div class="app-title">今天吃什么<span>吃对每一顿就很好</span></div><div class="meal-count">1 / 3 餐</div></div>
+          <div class="nutrition">
+            <div class="nutrition-head">今日营养 <span>已完成 42%</span></div>
+            <div class="nutri-table">
+              <div class="nutri-row"><span></span><span>碳水</span><span>蛋白质</span><span>脂肪</span><span>热量</span></div>
+              <div class="nutri-row"><span class="row-label">今日可摄入</span><b>154g</b><b>98g</b><b>56g</b><b>1510</b></div>
+              <div class="nutri-row consumed"><span class="row-label">今日已摄入</span><b>65g</b><b>41g</b><b>24g</b><b>634</b></div>
+              <div class="progress"><i></i></div>
+            </div>
+          </div>
+          <div class="meal-heading">今天的餐食 <span>左右滑动选择餐次</span></div>
+          <div class="carousel" data-layout-allow-overflow>
+            <div class="meal-card"><div class="meal-card-side"></div></div>
+            <div class="meal-card center">
+              <div class="meal-card-head"><div class="meal-icon">午</div><div class="meal-name">中餐</div><div class="meal-status">完成</div></div>
+              <div class="food-summary">大米 80g · 鸡胸肉 150g · 西兰花 200g</div>
+              <div class="macros"><span>碳水<b>65g</b></span><span>蛋白质<b>41g</b></span><span>脂肪<b>24g</b></span></div>
+            </div>
+            <div class="meal-card"><div class="meal-card-side"></div></div>
+          </div>
+          <div class="dots"><i></i><i class="on"></i><i></i></div>
+          <div class="appnav"><span><b>◡</b>吃饭</span><span><b>◆</b>训练</span><span class="weight-entry"><b>▣</b>体重</span><span><b>▥</b>报告</span><span><b>♧</b>伙伴</span><span><b>◎</b>我的</span></div>
+        </div>
+        <p class="note">横向切换早中晚餐 · 随时记录体重</p>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <section class="scene" id="s2">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/logo-1.png"><span>食克有数</span><span class="brand-tag">让每一餐，更有数</span></div>
+        <div class="kicker">02 / 用手边食材，搭一餐</div>
+        <h1>你选食材。<em>克重交给它。</em></h1>
+        <p class="sub">碳水、蛋白质、脂肪，搭配更清楚。</p>
+        <div class="choices"><span>✓ 大米</span><span>✓ 鸡胸肉</span><span>✓ 西兰花</span></div>
+        <div class="result">
+          <div class="sheet-handle"></div><div class="result-title">中餐推荐<span>烹饪前生重</span></div>
+          <div class="portion"><span>大米</span><strong>80<small> g</small></strong></div>
+          <div class="portion"><span>鸡胸肉</span><strong>150<small> g</small></strong></div>
+          <div class="portion"><span>西兰花</span><strong>200<small> g</small></strong></div>
+          <div class="portion"><span>烹调油</span><strong>10<small> g</small></strong></div>
+          <div class="button">确认按这份方案吃　✓</div>
+          <div class="fine">界面与数值为功能演示，实际方案因人而异</div>
+        </div>
+        <p class="note">选食材 → 生成方案 → 按克重准备</p>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <section class="scene" id="s3">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/train-logo-3.png"><span>食克有数</span><span class="brand-tag">让训练更适合你</span></div>
+        <div class="kicker">03 / 今天，练哪里？</div>
+        <h1>点选肌群。<em>找到训练方向。</em></h1>
+        <p class="sub">在人体图上，选中想练的部位。</p>
+        <div class="workflow"><span class="on">1 选肌群</span><span>2 选器械</span><span>3 生成动作</span></div>
+        <div class="train-panel anatomy">
+          <div class="small-title">选择目标肌群<span>可多选</span></div>
+          <div class="body-map"><img src="assets/body-base.svg"><img class="selected-map" src="assets/chest.svg"><div class="tap-ring" data-layout-ignore></div></div>
+          <div class="body-labels"><span>正面</span><span>背面</span></div>
+          <div class="selected-tag">✓ 已选择：胸部</div>
+          <div class="button">下一步：选择器械和时间 →</div>
+        </div>
+        <p class="note">想练哪里，自己选。</p>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <section class="scene" id="s4">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/train-logo-4.png"><span>食克有数</span><span class="brand-tag">让训练更适合你</span></div>
+        <div class="kicker">04 / 用你手边的器械</div>
+        <h1>选好器械。<em>安排训练时间。</em></h1>
+        <p class="sub">训练部位：胸部</p>
+        <div class="workflow"><span class="on">1 选肌群</span><span class="on">2 选器械</span><span>3 生成动作</span></div>
+        <div class="train-panel">
+          <div class="small-title">我有这些器械<span>需要的都选上</span></div>
+          <div class="equipment-grid">
+            <div class="equipment-item chosen"><img src="assets/dumbbell.png"><b>哑铃</b><span class="tick">✓</span></div>
+            <div class="equipment-item chosen"><img src="assets/bench.png"><b>长凳</b><span class="tick">✓</span></div>
+            <div class="equipment-item"><img src="assets/barbell.png"><b>杠铃</b></div>
+            <div class="equipment-item"><img src="assets/band.png"><b>弹力带</b></div>
+          </div>
+          <div class="small-title duration-title">参考时长<span>用于训练计时</span></div>
+          <div class="duration-options"><span>15 分钟</span><span class="selected">30 分钟</span><span>45 分钟</span></div>
+          <div class="button">查看匹配动作 →</div>
+        </div>
+        <p class="note">哑铃 + 长凳 · 30 分钟</p>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <section class="scene" id="s5">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/train-logo-5.png"><span>食克有数</span><span class="brand-tag">让训练更适合你</span></div>
+        <div class="kicker">05 / 动作方案，准备就绪</div>
+        <h1>生成匹配动作。<em>跟着计划练。</em></h1>
+        <p class="sub">按所选肌群与器械，优先匹配。</p>
+        <div class="workflow"><span class="on">1 选肌群</span><span class="on">2 选器械</span><span class="on">3 生成动作</span></div>
+        <div class="train-panel action-panel">
+          <div class="small-title">今日训练<span>胸部 · 参考 30 分钟</span></div>
+          <div class="match-tag">✓ 优先匹配：哑铃 + 长凳</div>
+          <div class="exercise-focus"><div class="exercise-number">01</div><div class="exercise-text"><h2>哑铃卧推</h2><p>dumbbell bench press</p></div></div>
+          <div class="prescription"><div><strong>3</strong><span>组</span></div><i>×</i><div><strong>12</strong><span>次</span></div></div>
+          <div class="exercise-detail"><span>目标肌群</span><b>胸部</b></div>
+          <div class="exercise-detail"><span>所需器械</span><b>哑铃、长凳</b></div>
+          <div class="button">完成动作，打卡记录 ✓</div>
+          <div class="fine">功能流程演示 · 更多匹配动作在小程序内查看</div>
+        </div>
+        <p class="note">选肌群 → 选器械 → 查看动作 → 打卡</p>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <section class="scene" id="s6">
+      <div class="halo" data-layout-ignore></div><div class="orbit" data-layout-ignore></div>
+      <div class="scene-content">
+        <div class="brand"><img src="assets/logo-3.png"><span>食克有数</span><span class="brand-tag">让每一天，更有数</span></div>
+        <div class="endhero">
+          <img class="endlogo" src="assets/logo-4.png">
+          <div class="kicker">把每一天，拉向更好的自己</div>
+          <h1>食克有数</h1>
+          <p class="ending">从下一餐，<em>开始好好吃。</em></p>
+          <div class="endfeatures"><span>食材配餐</span><i>·</i><span>训练计划</span><i>·</i><span>体重趋势</span></div>
+          <div class="button cta">开启你的饮食与训练计划　→</div>
+          <p class="endnote">微信小程序 · 食克有数</p>
+        </div>
+        <div class="footer"><span>饮食 · 训练 · 记录</span><span>微信小程序</span></div>
+      </div>
+    </section>
+
+    <div id="opening-cover" class="opening-cover" data-layout-ignore data-layout-allow-occlusion data-layout-allow-overlap>
+      <div class="cover-content">
+        <img class="cover-art" src="assets/opening-cover.png">
+        <h2 class="cover-title">食克有数</h2>
+        <p class="cover-tagline">让每一餐，更有数</p>
+        <p class="cover-features">食材配餐 · 训练计划 · 每日记录</p>
+      </div>
+    </div>
+    <audio id="music" src="assets/music.wav" data-start="0" data-duration="20" data-track-index="1" data-volume="0.65"></audio>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const starts = [0, 4.4, 7.6, 10.7, 13.7, 16.8];
+
+    starts.forEach((t, i) => {
+      const scene = "#s" + (i + 1);
+      if (i > 0) {
+        tl.to("#s" + i, { opacity: 0, filter: "blur(12px)", duration: .55, ease: "sine.inOut" }, t);
+        tl.fromTo(scene, { opacity: 0, filter: "blur(12px)" }, { opacity: 1, filter: "blur(0px)", duration: .55, ease: "sine.inOut" }, t);
+      }
+      tl.from(scene + " .brand", { y: -18, opacity: 0, duration: .38, ease: "power2.out" }, t + .12);
+      tl.from(scene + " .kicker", { x: -34, opacity: 0, duration: .42, ease: "power3.out" }, t + .17);
+      tl.from(scene + " h1", { y: 38, opacity: 0, duration: .58, ease: "expo.out" }, t + .24);
+      if (i < 5) tl.from(scene + " .sub", { y: 18, opacity: 0, duration: .48, ease: "sine.out" }, t + .36);
+      tl.from(scene + " .footer", { opacity: 0, duration: .45, ease: "sine.out" }, t + .5);
+      if (i < 5) tl.from(scene + " .note", { y: 15, opacity: 0, duration: .42, ease: "power1.out" }, t + .62);
+      tl.to(scene + " .halo", { x: -32, y: 30, duration: (starts[i + 1] || 20) - t, ease: "sine.inOut" }, t);
+      tl.to(scene + " .orbit", { scale: 1.06, duration: (starts[i + 1] || 20) - t, ease: "sine.inOut" }, t);
+    });
+
+    tl.from("#s1 .phone", { y: 90, rotation: -2.5, opacity: 0, duration: .82, ease: "power3.out" }, .78);
+    tl.from("#s1 .nutrition", { y: 24, opacity: 0, duration: .48, ease: "power2.out" }, 1.7);
+    tl.from("#s1 .meal-card", { y: 30, opacity: 0, stagger: .11, duration: .48, ease: "back.out(1.35)" }, 2.05);
+    tl.from("#s1 .weight-entry", { y: 18, scale: .8, opacity: 0, duration: .5, ease: "back.out(1.7)" }, 2.55);
+    tl.to("#s1 .weight-entry b", { y: -4, scale: 1.04, duration: .62, repeat: 1, yoyo: true, ease: "sine.inOut" }, 3.0);
+
+    tl.from("#s2 .choices span", { y: 24, opacity: 0, stagger: .1, duration: .42, ease: "back.out(1.4)" }, 4.95);
+    tl.from("#s2 .result", { y: 78, opacity: 0, duration: .72, ease: "power3.out" }, 5.1);
+    tl.from("#s2 .portion", { x: 30, opacity: 0, stagger: .09, duration: .36, ease: "power2.out" }, 5.55);
+    tl.from("#s2 .result .button", { scale: .94, opacity: 0, duration: .4, ease: "back.out(1.5)" }, 6.18);
+
+    tl.from("#s3 .workflow span", { y: 18, opacity: 0, stagger: .09, duration: .38, ease: "back.out(1.35)" }, 8.15);
+    tl.from("#s3 .train-panel", { y: 65, opacity: 0, duration: .68, ease: "power3.out" }, 8.28);
+    tl.from("#s3 .selected-map", { opacity: 0, duration: .45, ease: "sine.out" }, 9.0);
+    tl.from("#s3 .tap-ring", { scale: .45, opacity: 0, duration: .5, ease: "back.out(1.8)" }, 9.02);
+    tl.from("#s3 .selected-tag", { x: -24, opacity: 0, duration: .42, ease: "power2.out" }, 9.45);
+
+    tl.from("#s4 .workflow span", { y: 18, opacity: 0, stagger: .08, duration: .36, ease: "back.out(1.3)" }, 11.2);
+    tl.from("#s4 .train-panel", { y: 64, opacity: 0, duration: .67, ease: "power3.out" }, 11.3);
+    tl.from("#s4 .equipment-item", { scale: .9, opacity: 0, stagger: .1, duration: .42, ease: "back.out(1.45)" }, 11.85);
+    tl.from("#s4 .duration-options span", { y: 17, opacity: 0, stagger: .08, duration: .36, ease: "power2.out" }, 12.52);
+
+    tl.from("#s5 .workflow span", { y: 18, opacity: 0, stagger: .08, duration: .36, ease: "back.out(1.3)" }, 14.2);
+    tl.from("#s5 .train-panel", { y: 63, duration: .66, ease: "power3.out" }, 14.3);
+    tl.from("#s5 .match-tag", { x: -25, opacity: 0, duration: .42, ease: "power2.out" }, 14.78);
+    tl.from("#s5 .exercise-focus", { y: 27, opacity: 0, duration: .48, ease: "expo.out" }, 15.0);
+    tl.from("#s5 .prescription strong", { scale: .65, opacity: 0, stagger: .14, duration: .46, ease: "back.out(1.7)" }, 15.28);
+    tl.from("#s5 .exercise-detail", { x: 25, opacity: 0, stagger: .1, duration: .36, ease: "power2.out" }, 15.68);
+
+    tl.from("#s6 .endlogo", { scale: .72, opacity: 0, rotation: -5, duration: .7, ease: "back.out(1.45)" }, 17.05);
+    tl.from("#s6 .endhero .kicker", { y: 22, opacity: 0, duration: .48, ease: "power2.out" }, 17.35);
+    tl.from("#s6 .ending", { y: 30, opacity: 0, duration: .55, ease: "expo.out" }, 17.55);
+    tl.from("#s6 .endfeatures span, #s6 .endfeatures i", { opacity: 0, y: 15, stagger: .08, duration: .36, ease: "sine.out" }, 18.0);
+    tl.from("#s6 .cta", { scale: .94, opacity: 0, duration: .48, ease: "back.out(1.45)" }, 18.38);
+    tl.from("#s6 .endnote", { opacity: 0, duration: .4, ease: "sine.out" }, 18.72);
+
+    tl.to("#opening-cover", { opacity: 0, duration: .55, ease: "sine.inOut" }, 1.2);
+    tl.to("#s6", { opacity: 0, duration: .45, ease: "sine.inOut" }, 19.55);
+    window.__timelines.main = tl;
+  </script>
+</body>
+</html>
