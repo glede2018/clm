@@ -1,4 +1,10 @@
-import { getAuthSession, replaceMealRecords, replaceWeightRecords, saveAuthSession, saveProfile } from './utils/storage'
+import { replaceMealRecords, replaceWeightRecords, replaceWorkoutLogs, saveAccountState, saveProfile } from './utils/storage'
+
+interface AccountBootstrap {
+  initialized: boolean
+  nickname: string
+  profile?: UserProfile | null
+}
 
 async function fetchCloudData<T>(action: string): Promise<T | null> {
   try {
@@ -11,15 +17,51 @@ async function fetchCloudData<T>(action: string): Promise<T | null> {
   }
 }
 
+function refreshCurrentPage(): void {
+  const pages = getCurrentPages()
+  const current = pages[pages.length - 1] as unknown as { onShow?: () => void; refresh?: () => void }
+  if (typeof current?.onShow === 'function') current.onShow()
+  else if (typeof current?.refresh === 'function') current.refresh()
+}
+
+async function bootstrapAccount(app: WechatMiniprogram.App.Instance<IAppOption>): Promise<void> {
+  try {
+    const account = await fetchCloudData<AccountBootstrap>('account.bootstrap')
+    if (!account) return
+
+    saveAccountState({
+      nickname: account.profile?.nickname || account.nickname,
+      avatarUrl: account.profile?.avatarUrl,
+      initialized: account.initialized,
+    })
+    if (account.profile?.initialized) saveProfile(account.profile)
+
+    if (account.initialized) {
+      const [meals, weights, workouts] = await Promise.all([
+        fetchCloudData<MealPlan[]>('meal.list'),
+        fetchCloudData<WeightRecord[]>('weight.list'),
+        fetchCloudData<WorkoutLog[]>('workout.list'),
+      ])
+      if (meals) replaceMealRecords(meals)
+      if (weights) replaceWeightRecords(weights)
+      if (workouts) replaceWorkoutLogs(workouts)
+    }
+  } finally {
+    app.globalData.accountReady = true
+    refreshCurrentPage()
+  }
+}
+
 App<IAppOption>({
   globalData: {
     cloudReady: false,
-    authReady: false,
+    accountReady: false,
   },
 
   onLaunch() {
     if (!wx.cloud) {
-      console.warn('当前基础库不支持云开发，无法使用微信登录。')
+      console.warn('当前基础库不支持云开发，无法同步个人数据。')
+      this.globalData.accountReady = true
       return
     }
 
@@ -29,26 +71,10 @@ App<IAppOption>({
         traceUser: true 
       })
       this.globalData.cloudReady = true
-      const session = getAuthSession()
-      if (session?.loggedIn) {
-        void Promise.all([
-          fetchCloudData<UserProfile>('profile.get'),
-          fetchCloudData<MealPlan[]>('meal.list'),
-          fetchCloudData<WeightRecord[]>('weight.list'),
-        ]).then(([profile, meals, weights]) => {
-          if (profile?.initialized) {
-            saveProfile(profile)
-            saveAuthSession({ ...session, nickname: profile.nickname, avatarUrl: profile.avatarUrl, initialized: true })
-          }
-          if (meals) replaceMealRecords(meals)
-          if (weights) replaceWeightRecords(weights)
-          this.globalData.authReady = true
-        })
-      } else {
-        this.globalData.authReady = true
-      }
+      void bootstrapAccount(this)
     } catch (error) {
-      console.warn('云开发初始化失败，微信登录暂不可用。', error)
+      this.globalData.accountReady = true
+      console.warn('云开发初始化失败，个人数据暂时无法同步。', error)
     }
   },
 })

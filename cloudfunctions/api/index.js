@@ -46,7 +46,7 @@ function randomNickname() {
 function safeProfile(profile) {
   const gender = profile.gender === 'male' ? 'male' : 'female'
   return {
-    nickname: String(profile.nickname || '微信用户').slice(0, 20),
+    nickname: String(profile.nickname || randomNickname()).slice(0, 20),
     avatarUrl: String(profile.avatarUrl || '').slice(0, 500),
     gender,
     age: Math.max(18, Math.min(100, Number(profile.age))),
@@ -61,24 +61,24 @@ function safeProfile(profile) {
   }
 }
 
-async function login(openId, userInfo = {}) {
+async function ensureAccount(openId) {
   const ref = db.collection(COLLECTIONS.users).doc(openId)
   const existing = await getProfile(openId)
   const existingNickname = String(existing?.nickname || '').trim()
   const nickname = String(
-    userInfo.nickname || (existingNickname && existingNickname !== '微信用户' && !/^\d{8}$/.test(existingNickname) ? existingNickname : randomNickname()),
+    existingNickname && existingNickname !== '微信用户' ? existingNickname : randomNickname(),
   ).trim().slice(0, 20)
-  const avatarUrl = String(userInfo.avatarUrl || existing?.avatarUrl || '').slice(0, 500)
+  const avatarUrl = String(existing?.avatarUrl || '').slice(0, 500)
 
-  const authData = {
+  const accountData = {
     ownerId: openId,
-    nickname: nickname || '微信用户',
+    nickname: nickname || randomNickname(),
     avatarUrl,
-    authorizedAt: db.serverDate(),
+    lastActiveAt: db.serverDate(),
     updatedAt: db.serverDate(),
   }
-  if (existing) await ref.update({ data: authData })
-  else await ref.set({ data: { ...authData, initialized: false, createdAt: db.serverDate() } })
+  if (existing) await ref.update({ data: accountData })
+  else await ref.set({ data: { ...accountData, initialized: false, createdAt: db.serverDate() } })
 
   const profile = await getProfile(openId)
   return {
@@ -189,6 +189,19 @@ async function saveWorkout(openId, log) {
   const safe = safeWorkoutLog(log, openId)
   await db.collection(COLLECTIONS.workouts).doc(`${openId}_${safe.workoutId}`).set({ data: safe })
   return safe
+}
+
+async function listWorkouts(openId) {
+  await ensureCollection(COLLECTIONS.workouts)
+  const result = await db.collection(COLLECTIONS.workouts).where({ ownerId: openId }).orderBy('completedAt', 'desc').limit(100).get()
+  return result.data.map(item => ({
+    id: item.workoutId,
+    date: item.date,
+    completedAt: item.completedAt,
+    durationMinutes: item.durationMinutes,
+    muscles: item.muscles,
+    exerciseNames: item.exerciseNames,
+  }))
 }
 
 function randomInviteCode() {
@@ -328,12 +341,11 @@ exports.main = async event => {
   const payload = event?.payload || {}
 
   try {
-    if (action !== 'auth.login') {
-      const account = await getProfile(OPENID)
-      if (!account?.authorizedAt) return failure('请先完成微信登录')
+    if (action === 'account.bootstrap' || action === 'auth.login') {
+      return success(await ensureAccount(OPENID))
     }
+    await ensureAccount(OPENID)
     switch (action) {
-      case 'auth.login': return success(await login(OPENID, payload.userInfo))
       case 'profile.save': return success(await saveProfile(OPENID, payload.profile))
       case 'profile.get': return success(await getProfile(OPENID))
       case 'meal.save': return success(await saveMeal(OPENID, payload.plan))
@@ -341,6 +353,7 @@ exports.main = async event => {
       case 'weight.save': return success(await saveWeight(OPENID, payload.record))
       case 'weight.list': return success(await listWeights(OPENID))
       case 'workout.save': return success(await saveWorkout(OPENID, payload.log))
+      case 'workout.list': return success(await listWorkouts(OPENID))
       case 'binding.createInvite': return success(await createInvite(OPENID))
       case 'binding.bind': return success(await bindUser(OPENID, payload.code))
       case 'binding.unbind': return success(await unbindUser(OPENID, payload.partnerId))

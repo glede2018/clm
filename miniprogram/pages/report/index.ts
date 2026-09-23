@@ -1,4 +1,3 @@
-import { productShareHandlers } from '../../utils/share'
 import { formatDate, formatShortDate, recentDates } from '../../utils/date'
 import { getMealRecords, getProfile, getWeightRecords, getWorkoutLogs, guardPageAccess } from '../../utils/storage'
 
@@ -12,7 +11,13 @@ interface DayExecution {
 }
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     profile: getProfile(),
     latestWeight: '--',

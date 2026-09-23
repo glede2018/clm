@@ -1,6 +1,6 @@
 import { callApi } from '../../services/cloud'
 import { formatDate } from '../../utils/date'
-import { getProfile, getWeightRecords, saveProfile, saveWeightRecord } from '../../utils/storage'
+import { ensureUserAccess, getProfile, getWeightRecords, saveProfile, saveWeightRecord } from '../../utils/storage'
 
 Component({
   properties: {
@@ -29,10 +29,17 @@ Component({
         return
       }
       if (!url || key === this.data.current) return
+      const protectedCopy: Record<string, string> = {
+        report: '建立个人方案后，可查看饮食、体重和训练报告。',
+        partners: '建立个人方案后，可绑定伙伴并互相查看记录。',
+        profile: '请先建立你的个人营养方案。',
+      }
+      if (protectedCopy[key] && !ensureUserAccess(url, protectedCopy[key])) return
       wx.reLaunch({ url })
     },
 
     openWeightModal() {
+      if (!ensureUserAccess('/pages/home/index', '建立个人方案后，可记录体重并同步体重趋势。')) return
       const profile = getProfile()
       const records = getWeightRecords()
       const currentWeight = records.length ? records[records.length - 1].weightKg : profile.weightKg

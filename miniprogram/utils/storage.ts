@@ -1,5 +1,5 @@
 const PROFILE_KEY = 'fat_tug_profile'
-const AUTH_KEY = 'fat_tug_auth'
+const ACCOUNT_KEY = 'fat_tug_auth'
 const MEAL_RECORDS_KEY = 'fat_tug_meal_records'
 const WEIGHT_RECORDS_KEY = 'fat_tug_weight_records'
 const CELEBRATION_KEY = 'fat_tug_celebration'
@@ -7,11 +7,33 @@ const WORKOUT_EQUIPMENT_KEY = 'fat_tug_workout_equipment'
 const CURRENT_WORKOUT_KEY = 'fat_tug_current_workout'
 const WORKOUT_LOGS_KEY = 'fat_tug_workout_logs'
 const MEAL_GUIDE_KEY = 'fat_tug_meal_intro_v3_step'
+const PLAN_RETURN_KEY = 'fat_tug_login_return'
+let onboardingNavigationPending = false
 
-export function createProfileDraft(session?: Partial<AuthSession>): UserProfile {
+function randomNickname(): string {
+  const uppercase = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+  const lowercase = 'abcdefghijkmnopqrstuvwxyz'
+  const digits = '23456789'
+  const all = uppercase + lowercase + digits
+  const chars = [
+    uppercase[Math.floor(Math.random() * uppercase.length)],
+    lowercase[Math.floor(Math.random() * lowercase.length)],
+    digits[Math.floor(Math.random() * digits.length)],
+  ]
+  while (chars.length < 8) chars.push(all[Math.floor(Math.random() * all.length)])
+  for (let index = chars.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(Math.random() * (index + 1))
+    const value = chars[index]
+    chars[index] = chars[target]
+    chars[target] = value
+  }
+  return chars.join('')
+}
+
+export function createProfileDraft(account?: Partial<AccountState>): UserProfile {
   return {
-    nickname: session?.nickname || '微信用户',
-    avatarUrl: session?.avatarUrl,
+    nickname: account?.nickname || getAccountState().nickname,
+    avatarUrl: account?.avatarUrl,
     gender: 'female',
     age: 30,
     heightCm: 165,
@@ -25,33 +47,69 @@ export function createProfileDraft(session?: Partial<AuthSession>): UserProfile 
 }
 
 export function getProfile(): UserProfile {
-  return wx.getStorageSync<UserProfile>(PROFILE_KEY) || createProfileDraft(getAuthSession() || undefined)
+  const account = getAccountState()
+  const profile = wx.getStorageSync<UserProfile>(PROFILE_KEY)
+  if (!profile) return createProfileDraft(account)
+  if (!profile.nickname || profile.nickname === '微信用户') {
+    const migrated = { ...profile, nickname: account.nickname, updatedAt: Date.now() }
+    wx.setStorageSync(PROFILE_KEY, migrated)
+    return migrated
+  }
+  return profile
 }
-export function saveProfile(profile: UserProfile): void { wx.setStorageSync(PROFILE_KEY, profile) }
-
-export function getAuthSession(): AuthSession | null {
-  return wx.getStorageSync<AuthSession>(AUTH_KEY) || null
+export function saveProfile(profile: UserProfile): void {
+  wx.setStorageSync(PROFILE_KEY, profile)
+  const account = getAccountState()
+  if (profile.nickname && profile.nickname !== account.nickname) {
+    saveAccountState({ ...account, nickname: profile.nickname })
+  }
 }
 
-export function saveAuthSession(session: AuthSession): void {
-  wx.setStorageSync(AUTH_KEY, session)
+export function getAccountState(): AccountState {
+  const stored = wx.getStorageSync<AccountState>(ACCOUNT_KEY)
+  if (stored?.nickname && stored.nickname !== '微信用户') return stored
+  const account: AccountState = {
+    nickname: randomNickname(),
+    avatarUrl: stored?.avatarUrl,
+    initialized: stored?.initialized === true,
+  }
+  wx.setStorageSync(ACCOUNT_KEY, account)
+  return account
 }
 
-export function isAuthenticated(): boolean {
-  return Boolean(getAuthSession()?.loggedIn)
+export function saveAccountState(account: AccountState): void {
+  wx.setStorageSync(ACCOUNT_KEY, account)
 }
 
 export function isInitialized(): boolean {
-  return Boolean(getAuthSession()?.initialized && wx.getStorageSync<UserProfile>(PROFILE_KEY))
+  return Boolean(getAccountState()?.initialized && wx.getStorageSync<UserProfile>(PROFILE_KEY))
 }
 
 export function markInitialized(): void {
-  const session = getAuthSession()
-  if (session) saveAuthSession({ ...session, initialized: true })
+  const account = getAccountState()
+  const profile = getProfile()
+  saveAccountState({
+    nickname: account?.nickname || profile.nickname,
+    avatarUrl: account?.avatarUrl || profile.avatarUrl,
+    initialized: true,
+  })
+}
+
+export function getPlanReturnPath(): string {
+  const path = wx.getStorageSync<string>(PLAN_RETURN_KEY)
+  return typeof path === 'string' && path.startsWith('/pages/') ? path : ''
+}
+
+export function savePlanReturnPath(path: string): void {
+  if (path.startsWith('/pages/')) wx.setStorageSync(PLAN_RETURN_KEY, path)
+}
+
+export function clearPlanReturnPath(): void {
+  wx.removeStorageSync(PLAN_RETURN_KEY)
 }
 
 export function clearUserData(): void {
-  wx.removeStorageSync(AUTH_KEY)
+  wx.removeStorageSync(ACCOUNT_KEY)
   wx.removeStorageSync(PROFILE_KEY)
   wx.removeStorageSync(MEAL_RECORDS_KEY)
   wx.removeStorageSync(WEIGHT_RECORDS_KEY)
@@ -60,6 +118,7 @@ export function clearUserData(): void {
   wx.removeStorageSync(CURRENT_WORKOUT_KEY)
   wx.removeStorageSync(WORKOUT_LOGS_KEY)
   wx.removeStorageSync(MEAL_GUIDE_KEY)
+  wx.removeStorageSync(PLAN_RETURN_KEY)
 }
 
 export function getMealGuideStep(): number {
@@ -71,16 +130,37 @@ export function saveMealGuideStep(step: number): void {
   wx.setStorageSync(MEAL_GUIDE_KEY, Math.max(0, Math.min(6, step)))
 }
 
+export function ensureUserAccess(
+  returnPath: string,
+  _content = '建立个人方案后，才能使用这项功能。',
+  _leaveOnCancel = false,
+): boolean {
+  if (isInitialized()) return true
+  const app = getApp<IAppOption>()
+  if (app.globalData.cloudReady && !app.globalData.accountReady) {
+    wx.showToast({ title: '正在加载个人数据', icon: 'none' })
+    return false
+  }
+  savePlanReturnPath(returnPath)
+  if (onboardingNavigationPending) return false
+  onboardingNavigationPending = true
+  wx.navigateTo({
+    url: '/pages/onboarding/index',
+    complete: () => { onboardingNavigationPending = false },
+    fail: () => wx.reLaunch({ url: '/pages/onboarding/index' }),
+  })
+  return false
+}
+
 export function guardPageAccess(): boolean {
-  if (!isAuthenticated()) {
-    wx.reLaunch({ url: '/pages/login/index' })
-    return false
-  }
-  if (!isInitialized()) {
-    wx.reLaunch({ url: '/pages/onboarding/index' })
-    return false
-  }
-  return true
+  if (isInitialized()) return true
+  const pages = getCurrentPages()
+  const current = pages[pages.length - 1] as unknown as { route?: string; options?: Record<string, string> }
+  const query = Object.entries(current?.options || {})
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&')
+  const returnPath = current?.route ? `/${current.route}${query ? `?${query}` : ''}` : '/pages/home/index'
+  return ensureUserAccess(returnPath, '这个页面需要先建立个人方案。', true)
 }
 
 export function getMealRecords(): MealPlan[] {
@@ -153,4 +233,9 @@ export function saveWorkoutLog(log: WorkoutLog): void {
   const logs = getWorkoutLogs()
   logs.push(log)
   wx.setStorageSync(WORKOUT_LOGS_KEY, logs)
+}
+
+export function replaceWorkoutLogs(logs: WorkoutLog[]): void {
+  const sorted = [...logs].sort((a, b) => a.completedAt - b.completedAt)
+  wx.setStorageSync(WORKOUT_LOGS_KEY, sorted)
 }

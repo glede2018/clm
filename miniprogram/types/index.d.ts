@@ -24,8 +24,7 @@ interface UserProfile {
   updatedAt: number
 }
 
-interface AuthSession {
-  loggedIn: boolean
+interface AccountState {
   nickname: string
   avatarUrl?: string
   initialized: boolean
@@ -116,6 +115,6 @@ interface WorkoutLog {
 interface IAppOption {
   globalData: {
     cloudReady: boolean
-    authReady: boolean
+    accountReady: boolean
   }
 }

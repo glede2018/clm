@@ -1,7 +1,6 @@
-import { productShareHandlers } from '../../utils/share'
 import { exercises } from '../../data/exercises'
 import { resolveWorkoutMediaUrls, workoutMediaUrl } from '../../config/workout-media'
-import { getWorkoutEquipment, getWorkoutLogs, guardPageAccess, saveCurrentWorkout, saveWorkoutEquipment } from '../../utils/storage'
+import { getWorkoutEquipment, getWorkoutLogs, saveCurrentWorkout, saveWorkoutEquipment } from '../../utils/storage'
 import { createWorkoutPlan, matchingExercises } from '../../utils/workout'
 
 interface MuscleSpot {
@@ -72,7 +71,13 @@ const MUSCLE_SPOTS: MuscleSpot[] = [
 ]
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     step: 1 as 1 | 2,
     bodyBaseImage: workoutMediaUrl('muscles/body-base.svg'),
@@ -88,7 +93,6 @@ Page({
   },
 
   onShow() {
-    if (!guardPageAccess()) return
     const requestVersion = ++mediaRequestVersion
     const selected = getWorkoutEquipment()
     this.setData({

@@ -1,4 +1,3 @@
-import { productShareHandlers } from '../../utils/share'
 import { calculateDailyTarget, resolveExerciseTier } from '../../utils/nutrition'
 import { getProfile, guardPageAccess, saveProfile } from '../../utils/storage'
 import { callApi, callApiRequired } from '../../services/cloud'
@@ -6,7 +5,13 @@ import { callApi, callApiRequired } from '../../services/cloud'
 let nicknameSaveTimer: number | undefined
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     profile: getProfile(),
     dailyTarget: calculateDailyTarget(getProfile()),
@@ -48,7 +53,7 @@ Page({
     }
     const nickname = this.data.nicknameDraft.trim()
     if (!nickname) {
-      wx.showToast({ title: '请选择或输入微信昵称', icon: 'none' })
+      wx.showToast({ title: '请输入用户名', icon: 'none' })
       this.setData({ nicknameDraft: this.data.profile.nickname })
       return
     }

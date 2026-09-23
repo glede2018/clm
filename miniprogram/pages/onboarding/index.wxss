@@ -34,6 +34,9 @@
 .meal-option { min-height: 150rpx; align-items: flex-start; }
 .meals-label { margin-top: 34rpx; }
 .meal-options { grid-template-columns: 1fr 1fr; }
+.source-note { display: flex; align-items: flex-start; gap: 10rpx; color: var(--muted); font-size: 21rpx; line-height: 1.55; }
+.compact-source-note { margin: 22rpx 4rpx 0; }
+.source-note-icon { flex: 0 0 28rpx; width: 28rpx; height: 28rpx; margin-top: 2rpx; display: flex; align-items: center; justify-content: center; border: 1rpx solid var(--line); border-radius: 50%; color: var(--green-dark); font-size: 18rpx; font-weight: 700; line-height: 1; }
 .actions { display: flex; gap: 18rpx; }
 .actions button { margin: 0; }
 .back { width: 190rpx; }

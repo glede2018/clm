@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/login/index",
-    "pages/onboarding/index",
     "pages/home/index",
     "pages/training/index",
+    "pages/onboarding/index",
     "pages/workout/index",
     "pages/exercise/index",
     "pages/profile/index",

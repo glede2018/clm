@@ -49,6 +49,10 @@
         <button class="surface option meal-option {{mealsChosen && profile.mealsPerDay === 2 ? 'active' : ''}}" data-value="2" bindtap="chooseMeals"><text>每天两餐</text><text class="option-caption">中餐 55% · 晚餐 45%</text></button>
         <button class="surface option meal-option {{mealsChosen && profile.mealsPerDay === 3 ? 'active' : ''}}" data-value="3" bindtap="chooseMeals"><text>每天三餐</text><text class="option-caption">早 25% · 中 40% · 晚 35%</text></button>
       </view>
+      <view class="source-note compact-source-note">
+        <text class="source-note-icon">i</text>
+        <text>营养参数参考「谭成义三个月减脂计划」相关数据</text>
+      </view>
     </view>
   </view>
 

@@ -10,7 +10,7 @@
   <view class="surface form-card">
     <view class="field-row">
       <text class="field-label">用户名</text>
-      <input class="nickname-plain" type="nickname" value="{{nicknameDraft}}" bindinput="onNicknameInput" bindblur="finishNicknameEdit" bindconfirm="finishNicknameEdit" disabled="{{savingNickname}}" confirm-type="done" maxlength="20" />
+      <input class="nickname-plain" type="text" value="{{nicknameDraft}}" placeholder="输入用户名" bindinput="onNicknameInput" bindblur="finishNicknameEdit" bindconfirm="finishNicknameEdit" disabled="{{savingNickname}}" confirm-type="done" maxlength="20" />
     </view>
     <view class="field-row">
       <text class="field-label">性别</text>
@@ -44,6 +44,10 @@
       <view><text>碳水</text><text class="strong">{{dailyTarget.carbs}}g</text></view>
       <view><text>蛋白质</text><text class="strong">{{dailyTarget.protein}}g</text></view>
       <view><text>脂肪</text><text class="strong">{{dailyTarget.fat}}g</text></view>
+    </view>
+    <view class="source-note">
+      <text class="source-note-icon">i</text>
+      <text class="source-note-text">本方案部分营养参数参考「谭成义三个月减脂计划」相关数据，并结合你的身体信息与运动量计算。</text>
     </view>
   </view>
 

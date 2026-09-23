@@ -1,10 +1,14 @@
-import { productShareHandlers } from '../../utils/share'
 import { resolveWorkoutMediaUrl, workoutMediaUrl } from '../../config/workout-media'
 import { findExercise } from '../../data/exercises'
-import { guardPageAccess } from '../../utils/storage'
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     exercise: null as ExerciseItem | null,
     gifUrl: '',
@@ -13,7 +17,6 @@ Page({
   },
 
   onLoad(query: Record<string, string | undefined>) {
-    if (!guardPageAccess()) return
     const exercise = findExercise(query.id || '')
     if (!exercise) {
       wx.showToast({ title: '没有找到这个动作', icon: 'none' })

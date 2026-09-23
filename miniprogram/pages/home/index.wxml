@@ -1,15 +1,21 @@
 <view class="page-shell home-page">
   <view class="home-header">
-    <view><view class="greeting">今天吃什么</view><view class="section-caption">{{profile.nickname}}，吃对每一顿就很好</view></view>
-    <view class="today-badge">{{completedCount}} / {{activeCount}} 餐</view>
+    <view><view class="greeting">今天吃什么</view><view class="section-caption">{{guestMode ? '先看看搭配方式，需要记录时再建立方案' : profile.nickname + '，吃对每一顿就很好'}}</view></view>
+    <view class="today-badge">{{guestMode ? '方案预览' : completedCount + ' / ' + activeCount + ' 餐'}}</view>
+  </view>
+
+  <view wx:if="{{guestMode}}" class="guest-entry">
+    <view><text>先体验，再建立方案</text><text>建立后即可按你的数据计算并保存记录</text></view>
+    <button bindtap="startPersonalPlan">建立方案</button>
   </view>
 
   <view class="surface intake-table">
-    <view class="intake-heading"><text>今日营养</text><text>已完成 {{intakeProgress}}%</text></view>
+    <view class="intake-heading"><text>{{guestMode ? '营养示例' : '今日营养'}}</text><text>{{guestMode ? '建立方案后按身体数据计算' : '已完成 ' + intakeProgress + '%'}}</text></view>
     <view class="table-row table-header"><text></text><text class="macro-carbs">碳水</text><text class="macro-protein">蛋白质</text><text class="macro-fat">脂肪</text><text class="macro-calories">热量</text></view>
-    <view class="table-row target-row"><text>今日可摄入</text><view class="macro-carbs"><text>{{dailyTarget.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{dailyTarget.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{dailyTarget.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{dailyTarget.calories}}</text><text>kcal</text></view></view>
-    <view class="table-row consumed-row"><text>今日已摄入</text><view class="macro-carbs"><text>{{consumed.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{consumed.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{consumed.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{consumed.calories}}</text><text>kcal</text></view></view>
-    <view class="intake-progress"><view style="transform: scaleX({{intakeProgressScale}})"></view></view>
+    <view class="table-row target-row"><text>{{guestMode ? '参考数值' : '今日可摄入'}}</text><view class="macro-carbs"><text>{{dailyTarget.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{dailyTarget.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{dailyTarget.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{dailyTarget.calories}}</text><text>kcal</text></view></view>
+    <view wx:if="{{!guestMode}}" class="table-row consumed-row"><text>今日已摄入</text><view class="macro-carbs"><text>{{consumed.carbs}}</text><text>g</text></view><view class="macro-protein"><text>{{consumed.protein}}</text><text>g</text></view><view class="macro-fat"><text>{{consumed.fat}}</text><text>g</text></view><view class="macro-calories"><text>{{consumed.calories}}</text><text>kcal</text></view></view>
+    <view wx:if="{{!guestMode}}" class="intake-progress"><view style="transform: scaleX({{intakeProgressScale}})"></view></view>
+    <view wx:else class="guest-table-note">示例按默认身体数据计算，仅用于预览功能</view>
   </view>
 
   <view wx:if="{{celebrationText}}" class="meal-feedback {{celebrationClass}}"><view class="feedback-check"></view><text>{{celebrationText}}</text></view>

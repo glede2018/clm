@@ -1,8 +1,7 @@
-import { productShareHandlers } from '../../utils/share'
 import { resolveWorkoutMediaUrls, workoutMediaUrl } from '../../config/workout-media'
 import { callApi } from '../../services/cloud'
 import { formatDate } from '../../utils/date'
-import { clearCurrentWorkout, getCurrentWorkout, guardPageAccess, saveCurrentWorkout, saveWorkoutLog } from '../../utils/storage'
+import { clearCurrentWorkout, ensureUserAccess, getCurrentWorkout, saveCurrentWorkout, saveWorkoutLog } from '../../utils/storage'
 
 interface DisplayWorkoutItem extends WorkoutPlanItem {
   thumbnailUrl: string
@@ -50,7 +49,13 @@ function buildGroups(items: DisplayWorkoutItem[], selectedEquipmentCount: number
 }
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     plan: null as WorkoutPlan | null,
     groups: [] as WorkoutGroup[],
@@ -67,7 +72,6 @@ Page({
   },
 
   onShow() {
-    if (!guardPageAccess()) return
     const plan = getCurrentWorkout()
     if (!plan) {
       wx.showToast({ title: '训练方案已失效，请重新生成', icon: 'none' })
@@ -160,6 +164,7 @@ Page({
   },
 
   toggleComplete(event: WechatMiniprogram.TouchEvent) {
+    if (!ensureUserAccess('/pages/workout/index', '建立个人方案后，可记录动作完成状态和保存训练记录。')) return
     if (!this.data.plan) return
     const id = event.currentTarget.dataset.id as string
     const plan: WorkoutPlan = {
@@ -172,6 +177,7 @@ Page({
   },
 
   async finishWorkout() {
+    if (!ensureUserAccess('/pages/workout/index', '建立个人方案后，可完成打卡并保存本次训练。')) return
     const plan = this.data.plan
     if (!plan) return
     this.updateTimer()

@@ -1,16 +1,21 @@
-import { productShareHandlers } from '../../utils/share'
 import { callApi } from '../../services/cloud'
-import { createProfileDraft, getAuthSession, markInitialized, saveProfile } from '../../utils/storage'
+import { clearPlanReturnPath, createProfileDraft, getAccountState, getPlanReturnPath, markInitialized, saveProfile } from '../../utils/storage'
 
 const STEP_TITLES = ['身体基础信息', '饮食与运动习惯']
 
 Page({
-  ...productShareHandlers,
+  onReady() { wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] }) },
+  onShareAppMessage() {
+    return { title: '食克有数｜食材配餐、训练计划，让每一天更有数', path: '/pages/home/index', imageUrl: '/assets/share-logo.png' }
+  },
+  onShareTimeline() {
+    return { title: '食克有数｜选食材、算克重、记饮食和训练', query: 'from=timeline', imageUrl: '/assets/share-logo.png' }
+  },
   data: {
     step: 0,
     totalSteps: STEP_TITLES.length,
     title: STEP_TITLES[0],
-    profile: createProfileDraft(getAuthSession() || undefined),
+    profile: createProfileDraft(getAccountState() || undefined),
     genderChosen: true,
     exerciseChosen: true,
     mealsChosen: true,
@@ -21,10 +26,6 @@ Page({
       { tier: 3, label: '每周 6–7 小时', caption: '约 4 次', hours: 6.5, times: 4 },
       { tier: 4, label: '每周 8–10 小时', caption: '约 5 次', hours: 9, times: 5 },
     ],
-  },
-
-  onLoad() {
-    if (!getAuthSession()?.loggedIn) wx.reLaunch({ url: '/pages/login/index' })
   },
 
   adjustNumber(event: WechatMiniprogram.TouchEvent) {
@@ -122,6 +123,8 @@ Page({
     }
     saveProfile(profile)
     markInitialized()
-    wx.reLaunch({ url: '/pages/home/index' })
+    const returnPath = getPlanReturnPath() || '/pages/home/index'
+    clearPlanReturnPath()
+    wx.reLaunch({ url: returnPath })
   },
 })

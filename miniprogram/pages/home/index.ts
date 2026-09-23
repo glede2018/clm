@@ -1,7 +1,6 @@
-import { productShareHandlers } from '../../utils/share'
 import { formatDate } from '../../utils/date'
 import { activeMealTypes, calculateDailyTarget, calculateMealTarget, mealName, portionsForDisplay } from '../../utils/nutrition'
-import { consumeCelebration, getMealGuideStep, getMealsByDate, getProfile, guardPageAccess, saveMealGuideStep } from '../../utils/storage'
+import { consumeCelebration, ensureUserAccess, getMealGuideStep, getMealsByDate, getProfile, isInitialized, saveMealGuideStep } from '../../utils/storage'
 
 interface MealCard {
   type: MealType
@@ -52,7 +51,29 @@ function currentTimeState() {
 const INITIAL_TIME_STATE = currentTimeState()
 
 Page({
-  ...productShareHandlers,
+  onReady() {
+    wx.showShareMenu({
+      menus: ['shareAppMessage', 'shareTimeline'],
+      success: () => console.info('[share] menu enabled: pages/home/index'),
+      fail: error => console.error('[share] menu failed: pages/home/index', error),
+    })
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '食克有数｜食材配餐、训练计划，让每一天更有数',
+      path: '/pages/home/index',
+      imageUrl: '/assets/share-logo.png',
+    }
+  },
+
+  onShareTimeline() {
+    return {
+      title: '食克有数｜选食材、算克重、记饮食和训练',
+      query: 'from=timeline',
+      imageUrl: '/assets/share-logo.png',
+    }
+  },
   data: {
     profile: getProfile(),
     dailyTarget: calculateDailyTarget(getProfile()),
@@ -71,16 +92,17 @@ Page({
     mealGuideTargetStyle: '',
     mealGuideTooltipStyle: '',
     mealGuidePlacement: 'below',
+    guestMode: !isInitialized(),
   },
 
   onShow() {
-    if (!guardPageAccess()) return
     this.refresh()
   },
 
   refresh() {
     const profile = getProfile()
-    const records = getMealsByDate(formatDate())
+    const guestMode = !isInitialized()
+    const records = guestMode ? [] : getMealsByDate(formatDate())
     const active = activeMealTypes(profile.mealsPerDay)
     const dailyTarget = calculateDailyTarget(profile)
     const consumed = sumConsumed(records)
@@ -101,7 +123,7 @@ Page({
     })
     const completedCount = meals.filter(meal => meal.done).length
     const timeState = currentTimeState()
-    const storedMealGuideStep = getMealGuideStep()
+    const storedMealGuideStep = guestMode ? 0 : getMealGuideStep()
     const mealGuideStep = storedMealGuideStep > 0 ? 1 : 0
     const fallbackGuideIndex = meals.findIndex(meal => !meal.disabled)
     const focusIndex = mealGuideStep === 1 && meals[timeState.index]?.disabled && fallbackGuideIndex >= 0
@@ -122,6 +144,7 @@ Page({
       activeCount: active.length,
       mealGuideStep,
       mealGuideReady: false,
+      guestMode,
     }, () => {
       if (mealGuideStep === 1) this.positionMealGuide('.meal-cta')
     })
@@ -166,11 +189,17 @@ Page({
       wx.showToast({ title: '当前为两餐模式', icon: 'none' })
       return
     }
+    const returnPath = `/pages/meal/index?type=${type}`
+    if (!ensureUserAccess(returnPath, '建立个人方案后，才能根据你的身体数据计算每餐食材克重。')) return
     if (this.data.mealGuideStep > 0) {
       saveMealGuideStep(2)
       this.setData({ mealGuideReady: false })
     }
     wx.navigateTo({ url: `/pages/meal/index?type=${type}` })
+  },
+
+  startPersonalPlan() {
+    ensureUserAccess('/pages/home/index', '建立个人方案后，可保存餐食、体重和训练记录。')
   },
 
   positionMealGuide(selector: string, adjusted = false) {

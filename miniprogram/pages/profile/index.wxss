@@ -30,5 +30,8 @@
 .macro-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12rpx; margin-top: 24rpx; }
 .macro-row view { padding: 18rpx 12rpx; border-radius: 18rpx; background: var(--page); display: flex; flex-direction: column; gap: 6rpx; color: var(--muted); font-size: 22rpx; }
 .macro-row .strong { color: var(--text); font-size: 31rpx; font-weight: 600; }
+.source-note { margin-top: 22rpx; padding-top: 20rpx; display: flex; align-items: flex-start; gap: 12rpx; border-top: 1rpx solid var(--line); color: var(--muted); font-size: 21rpx; line-height: 1.55; }
+.source-note-icon { flex: 0 0 30rpx; width: 30rpx; height: 30rpx; margin-top: 1rpx; display: flex; align-items: center; justify-content: center; border: 1rpx solid var(--line); border-radius: 50%; color: var(--green-dark); font-size: 18rpx; font-weight: 700; line-height: 1; }
+.source-note-text { flex: 1; min-width: 0; }
 .save-button { margin-top: 30rpx; }
 .safe-note { margin: 22rpx 8rpx 0; }
